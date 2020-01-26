@@ -27,7 +27,7 @@ It does not have a built-in view library, instead it is possible to integrate wi
 
 ## Example
 
-This is the usual counter app example using the react runtime:
+This is the usual counter app example using the react runtime. It is also available in [this repo](https://github.com/typescript-tea/simple-counter-example).
 
 ```ts
 import React from "react";
