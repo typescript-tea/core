@@ -23,9 +23,11 @@ There are some naming differences from Elm:
 
 It is possible to write your own effect manager which is not possible in Elm. Since Elm is a pure language with strict guarantees the effect managers are part of kernel there. However typescript is not pure so writing your own effect manager to integrate already existing effectful packages may make more sense.
 
+It does not have a view library, instead it is possible to integrate with existing view libraries like React.
+
 ## Example
 
-This is the usual counter app example:
+This is the usual counter app example using the react runtime:
 
 ```ts
 import React from "react";
