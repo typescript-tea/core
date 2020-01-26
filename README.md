@@ -8,6 +8,83 @@
 
 The Elm Architecture for typescript
 
+## Introduction
+
+This is an implementation of The Elm Architecture for typescript.
+
+It has "managed effects" in the same way Elm does and it has "Effect Managers" to handle those effects.
+
+## Differences from Elm
+
+There are some naming differences from Elm:
+
+- `Msg` was renamed to `Action`
+- `Model` was renamed to `State`
+
+It is possible to write your own effect manager which is not possible in Elm. Since Elm is a pure language with strict guarantees the effect managers are part of kernel there. However typescript is not pure so writing your own effect manager to integrate an already existing effectful packages may make more sense.
+
+## Example
+
+This is the usual counter app example:
+
+```ts
+import React from "react";
+import ReactDOM from "react-dom";
+import { exhaustiveCheck } from "ts-exhaustive-check";
+import { Dispatch, Program } from "@typescript-tea/core";
+import { reactRuntime } from "@typescript-tea/react-runtime";
+
+// -- STATE
+
+type State = number;
+const init = (): readonly [State] => [0];
+
+// -- UPDATE
+
+type Action = { type: "Increment" } | { type: "Decrement" };
+
+function update(action: Action, state: State): readonly [State] {
+  switch (action.type) {
+    case "Increment":
+      return [state + 1];
+    case "Decrement":
+      return [state - 1];
+    default:
+      return exhaustiveCheck(action, true);
+  }
+}
+
+// -- VIEW
+
+const view = ({
+  dispatch,
+  state
+}: {
+  readonly dispatch: Dispatch<Action>;
+  readonly state: State;
+}) => (
+  <div>
+    <button onClick={() => dispatch({ type: "Decrement" })}>-</button>
+    <div>{state}</div>
+    <button onClick={() => dispatch({ type: "Increment" })}>+</button>
+  </div>
+);
+
+// -- PROGRAM
+
+const program: Program<State, Action, JSX.Element> = {
+  init,
+  update,
+  view
+};
+
+// -- RUNTIME
+
+const Root = reactRuntime(program, []);
+const app = document.getElementById("app");
+ReactDOM.render(<Root />, app);
+```
+
 ## How to develop
 
 Node version >=12.6.0 is needed for development.
