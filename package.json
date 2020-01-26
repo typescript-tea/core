@@ -6,6 +6,9 @@
   "types": "lib/index.d.ts",
   "author": "Jonas Kello <jonas.kello@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "/lib",
     "/dist",
