@@ -1,4 +1,4 @@
-## [0.1.0](https://github.com/dividab/graphql-norm/compare/v0.1.0...v0.1.0) - 2020-01-26
+## [0.1.0](https://github.com/typescript-tea/core/compare/v0.1.0...v0.1.0) - 2020-01-26
 
 ### Added
 
