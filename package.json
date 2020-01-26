@@ -19,6 +19,7 @@
     "@types/jest": "^24.9.1",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
+    "codecov": "^3.6.2",
     "confusing-browser-globals": "^1.0.9",
     "eslint": "^6.8.0",
     "eslint-config-divid": "^0.4.2",
@@ -44,6 +45,7 @@
     "lint": "eslint './src/**/*.ts{,x}' --ext .js,.ts,.tsx -f visualstudio",
     "dist": "yarn build && rimraf dist && rollup lib/index.js --file dist/umd.js --format umd --name TypescriptTeaCore",
     "verify": "yarn lint && yarn test-coverage && yarn dist",
+    "report-coverage": "codecov -f coverage/lcov.info",
     "preversion": "yarn verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push --follow-tags && echo \"Successfully released version $npm_package_version!\""
   },
