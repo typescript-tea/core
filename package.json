@@ -1,0 +1,19 @@
+{
+  "name": "@typescript-tea/core",
+  "version": "0.1.0",
+  "description": "The Elm Architecture for typescript core library",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": "Jonas Kello <jonas.kello@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "ts-exhaustive-check": "^1.0.0"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "tsc -b --clean && rm -rf lib"
+  }
+}

@@ -1,0 +1,26 @@
+# Dependency directory
+node_modules
+
+# Environment settings
+.env
+
+# Build cache
+tsconfig.tsbuildinfo
+
+# Build directory
+lib
+
+# Test coverage
+coverage/
+
+# Webpack stats
+stats.json
+
+# Other
+.DS_Store
+thumbs.db
+*.log
+tmp/
+
+# VS
+.vs
