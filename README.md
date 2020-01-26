@@ -21,7 +21,7 @@ There are some naming differences from Elm:
 - `Msg` was renamed to `Action`
 - `Model` was renamed to `State`
 
-It is possible to write your own effect manager which is not possible in Elm. Since Elm is a pure language with strict guarantees the effect managers are part of kernel there. However typescript is not pure so writing your own effect manager to integrate an already existing effectful packages may make more sense.
+It is possible to write your own effect manager which is not possible in Elm. Since Elm is a pure language with strict guarantees the effect managers are part of kernel there. However typescript is not pure so writing your own effect manager to integrate already existing effectful packages may make more sense.
 
 ## Example
 
