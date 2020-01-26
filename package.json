@@ -1,7 +1,7 @@
 {
   "name": "@typescript-tea/core",
   "version": "0.1.0",
-  "description": "The Elm Architecture for typescript core library",
+  "description": "The Elm Architecture for typescript",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "author": "Jonas Kello <jonas.kello@gmail.com>",
