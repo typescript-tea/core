@@ -9,6 +9,7 @@ tsconfig.tsbuildinfo
 
 # Build directory
 lib
+dist
 
 # Test coverage
 coverage/

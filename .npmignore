@@ -1,7 +1,0 @@
-# ignore everything
-*
-*/**
-
-# except lib and package.json
-!lib/**/*
-!package.json
