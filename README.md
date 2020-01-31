@@ -1,7 +1,5 @@
 # @typescript-tea/core
 
-![typescript-tea-logo](ts-tea.png?sanitize=true)
-
 [![npm version][version-image]][version-url]
 [![build][build-image]][build-url]
 [![Coverage Status][codecov-image]][codecov-url]
