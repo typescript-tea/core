@@ -10,20 +10,11 @@ The Elm Architecture for typescript
 
 ## Introduction
 
-This is an implementation of The Elm Architecture for typescript.
+This is an implementation of The Elm Architecture (TEA) for typescript.
 
-It has "managed effects" for commands and subscriptions in the same way Elm does and it has "Effect Managers" to handle those effects.
+Note: TEA has managed effects, meaning that things like HTTP requests or writing to disk are all treated as data in TEA. When this data is given to an Effect Manager, it can do some "query optimization" before actually performing the effect. Your application should consist of pure functions only and all effects should be handled in Effect Managers outside your application.
 
-## Differences from Elm
-
-There are some naming differences from Elm:
-
-- `Msg` was renamed to `Action`
-- `Model` was renamed to `State`
-
-It is possible to write your own effect manager which is not possible in Elm. Since Elm is a pure language with strict guarantees the effect managers are part of kernel in Elm. However typescript is not pure so writing your own effect manager to integrate already existing effectful packages may make more sense.
-
-It does not have a built-in view library, instead it is possible to integrate with existing view libraries like React.
+TEA has two kinds of managed effects: commands and subscriptions.
 
 ## Example
 
@@ -86,6 +77,17 @@ const Root = reactRuntime(program, []);
 const app = document.getElementById("app");
 ReactDOM.render(<Root />, app);
 ```
+
+## Differences from TEA in Elm
+
+There are some naming differences from TEA in Elm:
+
+- `Msg` was renamed to `Action`
+- `Model` was renamed to `State`
+
+Elm is a pure language with strict guarantees and the Effect Managers are part of kernel in Elm and you cannot (for good reasons) write your own Effect Managers in Elm. Typescript is an impure lanauge without any guarantees so it (probably) does not make sense to have this restriction. Therefore in typescript-tea it is possible to write your own Effect Manager to do whatever you want.
+
+It does not have a built-in view library, instead it is possible to integrate with existing view libraries like React.
 
 ## How to develop
 
