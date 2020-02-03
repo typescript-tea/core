@@ -102,7 +102,7 @@ function mapEffect<A1, A2>(
     : { home: InternalHome, type: "Mapped", actionMapper: mapper, original: c };
 }
 
-export type LeafEffectMapper<A1, A2> = (
+export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
   actionMapper: ActionMapper<A1, A2>,
   effect: Effect<A1>
 ) => LeafEffect<A2>;
@@ -114,8 +114,8 @@ export interface EffectManager<
   THome = unknown
 > {
   readonly home: THome;
-  readonly mapCmd: LeafEffectMapper<AppAction, SelfAction>;
-  readonly mapSub: LeafEffectMapper<AppAction, SelfAction>;
+  readonly mapCmd: LeafEffectMapper;
+  readonly mapSub: LeafEffectMapper;
   readonly onEffects: (
     dispatchApp: Dispatch<AppAction>,
     dispatchSelf: Dispatch<SelfAction>,
