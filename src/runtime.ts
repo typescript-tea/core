@@ -1,7 +1,3 @@
-/**
- * This is the runtime that provides the main loop to run a Program
- */
-
 import { Program } from "./program";
 import { Dispatch } from "./dispatch";
 import {
@@ -11,11 +7,16 @@ import {
   managersByHome,
   GatheredEffects,
   gatherEffects,
-  getEffectManager,
+  getEffectManager
 } from "./effect-manager";
 
 export type EndProgram = () => void;
 
+/**
+ * This is the runtime that provides the main loop to run a Program.
+ * Given a Program and an array of EffectManagers it will start the program
+ * and progress the state each time the program calls update().
+ */
 export function runtime<S, A, V>(
   program: Program<S, A, V>,
   effectManagers: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
@@ -26,7 +27,10 @@ export function runtime<S, A, V>(
   const managerStates: { [home: string]: unknown } = {};
   let isRunning = true;
   let isProcessing = false;
-  const actionQueue: Array<{ dispatch: Dispatch<unknown>; action: unknown }> = [];
+  const actionQueue: Array<{
+    dispatch: Dispatch<unknown>;
+    action: unknown;
+  }> = [];
 
   function processActions(): void {
     if (!isRunning || isProcessing) {
@@ -44,7 +48,12 @@ export function runtime<S, A, V>(
     if (isRunning) {
       const manager = getEffectManager(home, managers);
       const enqueueSelfAction = enqueueManagerAction(home);
-      managerStates[home] = manager.onSelfAction(enqueueAppAction, enqueueSelfAction, action, managerStates[home]);
+      managerStates[home] = manager.onSelfAction(
+        enqueueAppAction,
+        enqueueSelfAction,
+        action,
+        managerStates[home]
+      );
     }
   };
 
@@ -93,7 +102,8 @@ export function runtime<S, A, V>(
   function setup(): void {
     window.addEventListener("popstate", key);
     // eslint-disable-next-line no-unused-expressions
-    window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
+    window.navigator.userAgent.indexOf("Trident") < 0 ||
+      window.addEventListener("hashchange", key);
   }
 
   function teardown(): void {
