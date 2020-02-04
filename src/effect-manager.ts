@@ -107,6 +107,29 @@ export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
   effect: Effect<A1>
 ) => LeafEffect<A2>;
 
+/**
+ * A function that will be called by the runtime with the effects (commands and subscriptions)
+ * that was gathered for the effect manager.
+ */
+export type OnEffects<AppAction, SelfAction, State> = (
+  dispatchApp: Dispatch<AppAction>,
+  dispatchSelf: Dispatch<SelfAction>,
+  cmds: ReadonlyArray<LeafEffect<AppAction>>,
+  subs: ReadonlyArray<LeafEffect<AppAction>>,
+  state: State
+) => State;
+
+/**
+ * A function that will be called by the runtime with the actions that an effect manager
+ * dispatches to itself.
+ */
+export type OnSelfAction<AppAction, SelfAction, State> = (
+  dispatchApp: Dispatch<AppAction>,
+  dispatchSelf: Dispatch<SelfAction>,
+  action: SelfAction,
+  state: State
+) => State;
+
 export type EffectManager<
   AppAction = unknown,
   SelfAction = unknown,
@@ -116,19 +139,8 @@ export type EffectManager<
   readonly home: THome;
   readonly mapCmd: LeafEffectMapper;
   readonly mapSub: LeafEffectMapper;
-  readonly onEffects: (
-    dispatchApp: Dispatch<AppAction>,
-    dispatchSelf: Dispatch<SelfAction>,
-    cmds: ReadonlyArray<LeafEffect<AppAction>>,
-    subs: ReadonlyArray<LeafEffect<AppAction>>,
-    state: State
-  ) => State;
-  readonly onSelfAction: (
-    dispatchApp: Dispatch<AppAction>,
-    dispatchSelf: Dispatch<SelfAction>,
-    action: SelfAction,
-    state: State
-  ) => State;
+  readonly onEffects: OnEffects<AppAction, SelfAction, State>;
+  readonly onSelfAction: OnSelfAction<AppAction, SelfAction, State>;
 };
 
 /** @ignore */
