@@ -1,8 +1,8 @@
-export type ActionMapper<ChildAction, ParentAction> = (childAction: ChildAction) => ParentAction;
+export type ActionMapper<ChildAction, ParentAction> = (
+  childAction: ChildAction
+) => ParentAction;
 
-export interface Dispatch<A> {
-  (action: A): void;
-}
+export type Dispatch<A> = (action: A) => void;
 
 // eslint-disable-next-line functional/prefer-readonly-type
 type DispatchMemoizationMap<ChildAction, ParentAction> = Map<

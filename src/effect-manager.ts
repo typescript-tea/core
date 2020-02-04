@@ -65,23 +65,23 @@ export type Effect<A> =
 const InternalHome = "__internal";
 type InternalHome = typeof InternalHome;
 
-export interface LeafEffect<_A> {
+export type LeafEffect<_A> = {
   readonly home: string;
   readonly type: string;
-}
+};
 
-interface BatchedEffect<A> {
+type BatchedEffect<A> = {
   readonly home: InternalHome;
   readonly type: "Batched";
   readonly list: ReadonlyArray<Effect<A>>;
-}
+};
 
-interface MappedEffect<A1, A2> {
+type MappedEffect<A1, A2> = {
   readonly home: InternalHome;
   readonly type: "Mapped";
   readonly actionMapper: ActionMapper<A1, A2>;
   readonly original: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1>;
-}
+};
 
 function batchEffects<A>(
   effects: ReadonlyArray<Effect<A> | undefined>
@@ -107,12 +107,12 @@ export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
   effect: Effect<A1>
 ) => LeafEffect<A2>;
 
-export interface EffectManager<
+export type EffectManager<
   AppAction = unknown,
   SelfAction = unknown,
   State = unknown,
   THome = unknown
-> {
+> = {
   readonly home: THome;
   readonly mapCmd: LeafEffectMapper;
   readonly mapSub: LeafEffectMapper;
@@ -129,12 +129,12 @@ export interface EffectManager<
     action: SelfAction,
     state: State
   ) => State;
-}
+};
 
 /** @ignore */
-export interface ManagersByHome {
+export type ManagersByHome = {
   readonly [home: string]: EffectManager<unknown, unknown, unknown>;
-}
+};
 
 /** @ignore */
 export function managersByHome(
@@ -158,8 +158,8 @@ export function getEffectManager(
 }
 
 /** @ignore */
-export interface GatheredEffects<A> {
-  // This interface is mutable for efficency
+export type GatheredEffects<A> = {
+  // This type is mutable for efficency
   // eslint-disable-next-line functional/prefer-readonly-type
   [home: string]: {
     // eslint-disable-next-line functional/prefer-readonly-type
@@ -167,7 +167,7 @@ export interface GatheredEffects<A> {
     // eslint-disable-next-line functional/prefer-readonly-type
     readonly subs: Array<LeafEffect<A>>;
   };
-}
+};
 
 /** @ignore */
 export function gatherEffects<A>(
