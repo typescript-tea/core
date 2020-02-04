@@ -35,6 +35,7 @@
     "rimraf": "^3.0.0",
     "rollup": "^1.29.1",
     "ts-jest": "^25.0.0",
+    "typedoc": "^0.16.9",
     "typescript": "^3.7.5"
   },
   "dependencies": {
@@ -49,7 +50,8 @@
     "dist": "yarn build && rimraf dist && rollup lib/index.js --file dist/umd.js --format umd --name TypescriptTeaCore",
     "verify": "yarn lint && yarn test-coverage && yarn dist",
     "report-coverage": "codecov -f coverage/lcov.info",
-    "preversion": "yarn verify",
+    "docs": "typedoc && touch docs/.nojekyll",
+    "preversion": "yarn verify && yarn docs",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push --follow-tags && echo \"Successfully released version $npm_package_version!\""
   },
   "lint-staged": {
