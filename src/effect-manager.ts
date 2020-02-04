@@ -131,16 +131,19 @@ export interface EffectManager<
   ) => State;
 }
 
+/** @ignore */
 export interface ManagersByHome {
   readonly [home: string]: EffectManager<unknown, unknown, unknown>;
 }
 
+/** @ignore */
 export function managersByHome(
   effectManagers: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
 ): ManagersByHome {
   return Object.fromEntries(effectManagers.map(em => [em.home, em]));
 }
 
+/** @ignore */
 export function getEffectManager(
   home: string,
   managers: ManagersByHome
@@ -154,6 +157,7 @@ export function getEffectManager(
   return managerModule;
 }
 
+/** @ignore */
 export interface GatheredEffects<A> {
   // This interface is mutable for efficency
   // eslint-disable-next-line functional/prefer-readonly-type
@@ -165,6 +169,7 @@ export interface GatheredEffects<A> {
   };
 }
 
+/** @ignore */
 export function gatherEffects<A>(
   managers: ManagersByHome,
   gatheredEffects: GatheredEffects<A>,
