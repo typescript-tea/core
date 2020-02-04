@@ -34,7 +34,7 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "ts-jest": "^25.0.0",
-    "typedoc": "^0.16.9",
+    "typedoc": "^0.17.0-3",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
