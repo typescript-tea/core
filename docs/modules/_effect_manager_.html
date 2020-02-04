@@ -67,16 +67,11 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_effect_manager_.effectmanager.html" class="tsd-kind-icon">Effect<wbr>Manager</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-kind-icon">Leaf<wbr>Effect</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_effect_manager_.html#cmd" class="tsd-kind-icon">Cmd</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_effect_manager_.html#effectmanager" class="tsd-kind-icon">Effect<wbr>Manager</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_effect_manager_.html#leafeffect" class="tsd-kind-icon">Leaf<wbr>Effect</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_effect_manager_.html#leafeffectmapper" class="tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_effect_manager_.html#sub" class="tsd-kind-icon">Sub</a></li>
 							</ul>
@@ -86,8 +81,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#batchcmds" class="tsd-kind-icon">batch<wbr>Cmds</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#batchsubs" class="tsd-kind-icon">batch<wbr>Subs</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#mapcmd" class="tsd-kind-icon">map<wbr>Cmd</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#mapsub" class="tsd-kind-icon">map<wbr>Sub</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#mapcmd-1" class="tsd-kind-icon">map<wbr>Cmd</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_effect_manager_.html#mapsub-1" class="tsd-kind-icon">map<wbr>Sub</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,10 +93,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="cmd" class="tsd-anchor"></a>
 					<h3>Cmd</h3>
-					<div class="tsd-signature tsd-kind-icon">Cmd&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Cmd&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L14">effect-manager.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L14">effect-manager.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -122,12 +117,141 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-					<a name="leafeffectmapper" class="tsd-anchor"></a>
-					<h3>Leaf<wbr>Effect<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="effectmanager" class="tsd-anchor"></a>
+					<h3>Effect<wbr>Manager</h3>
+					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Manager&lt;AppAction, SelfAction, State, THome&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">THome</span><span class="tsd-signature-symbol">; </span>mapCmd<span class="tsd-signature-symbol">: </span><a href="_effect_manager_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">; </span>mapSub<span class="tsd-signature-symbol">: </span><a href="_effect_manager_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">; </span>onEffects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, subs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">; </span>onSelfAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfAction</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L105">effect-manager.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L110">effect-manager.ts:110</a></li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>AppAction</h4>
+						</li>
+						<li>
+							<h4>SelfAction</h4>
+						</li>
+						<li>
+							<h4>State</h4>
+						</li>
+						<li>
+							<h4>THome</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">THome</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>map<wbr>Cmd<span class="tsd-signature-symbol">: </span><a href="_effect_manager_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>map<wbr>Sub<span class="tsd-signature-symbol">: </span><a href="_effect_manager_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>on<wbr>Effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, subs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">State</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, subs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>dispatchApp: <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>dispatchSelf: <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>cmds: <span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>subs: <span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>state: <span class="tsd-signature-type">State</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">State</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5>on<wbr>Self<wbr>Action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfAction</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">State</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-siganture">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>dispatchApp<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfAction</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">State</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>dispatchApp: <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AppAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>dispatchSelf: <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
+													</li>
+													<li>
+														<h5>action: <span class="tsd-signature-type">SelfAction</span></h5>
+													</li>
+													<li>
+														<h5>state: <span class="tsd-signature-type">State</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">State</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="leafeffect" class="tsd-anchor"></a>
+					<h3>Leaf<wbr>Effect</h3>
+					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect&lt;_A&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L68">effect-manager.ts:68</a></li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>_A</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="leafeffectmapper" class="tsd-anchor"></a>
+					<h3>Leaf<wbr>Effect<wbr>Mapper</h3>
+					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L105">effect-manager.ts:105</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -144,7 +268,7 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -157,7 +281,7 @@
 												<h5>effect: <span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h4>
+										<h4 class="tsd-returns-title">Returns <a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -167,10 +291,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 					<a name="sub" class="tsd-anchor"></a>
 					<h3>Sub</h3>
-					<div class="tsd-signature tsd-kind-icon">Sub&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Sub&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="_effect_manager_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L44">effect-manager.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L44">effect-manager.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">batch<wbr>Cmds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">batchEffects</span><span class="tsd-signature-symbol"> = batchEffects</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L22">effect-manager.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L22">effect-manager.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +344,7 @@
 					<div class="tsd-signature tsd-kind-icon">batch<wbr>Subs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">batchEffects</span><span class="tsd-signature-symbol"> = batchEffects</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L50">effect-manager.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L50">effect-manager.ts:50</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -231,12 +355,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
-					<a name="mapcmd" class="tsd-anchor"></a>
+					<a name="mapcmd-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> map<wbr>Cmd</h3>
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Cmd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">mapEffect</span><span class="tsd-signature-symbol"> = mapEffect</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L29">effect-manager.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L29">effect-manager.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -248,12 +372,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
-					<a name="mapsub" class="tsd-anchor"></a>
+					<a name="mapsub-1" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> map<wbr>Sub</h3>
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Sub<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">mapEffect</span><span class="tsd-signature-symbol"> = mapEffect</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/647f438/src/effect-manager.ts#L57">effect-manager.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/e0c2eb3/src/effect-manager.ts#L57">effect-manager.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -288,14 +412,14 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_effect_manager_.effectmanager.html" class="tsd-kind-icon">Effect<wbr>Manager</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-kind-icon">Leaf<wbr>Effect</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_effect_manager_.html#cmd" class="tsd-kind-icon">Cmd</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_effect_manager_.html#effectmanager" class="tsd-kind-icon">Effect<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_effect_manager_.html#leafeffect" class="tsd-kind-icon">Leaf<wbr>Effect</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="_effect_manager_.html#leafeffectmapper" class="tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper</a>
@@ -310,10 +434,10 @@
 						<a href="_effect_manager_.html#batchsubs" class="tsd-kind-icon">batch<wbr>Subs</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="_effect_manager_.html#mapcmd" class="tsd-kind-icon">map<wbr>Cmd</a>
+						<a href="_effect_manager_.html#mapcmd-1" class="tsd-kind-icon">map<wbr>Cmd</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="_effect_manager_.html#mapsub" class="tsd-kind-icon">map<wbr>Sub</a>
+						<a href="_effect_manager_.html#mapsub-1" class="tsd-kind-icon">map<wbr>Sub</a>
 					</li>
 				</ul>
 			</nav>
