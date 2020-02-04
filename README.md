@@ -16,6 +16,16 @@ Note: TEA has managed effects, meaning that things like HTTP requests or writing
 
 TEA has two kinds of managed effects: commands and subscriptions.
 
+## How to use
+
+```
+yarn add @typescript-tea/core
+```
+
+## Documentation
+
+Please see the [documentation site](https://typescript-tea.github.io/core).
+
 ## Example
 
 This is the usual counter app example using the react runtime. It is also available in [this repo](https://github.com/typescript-tea/simple-counter-example).
