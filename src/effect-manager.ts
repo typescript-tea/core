@@ -4,9 +4,9 @@ import { Dispatch, ActionMapper } from "./dispatch";
 // -- COMMANDS
 
 /**
- * A command is a way of telling Elm, “Hey, I want you to do this thing!”
- * So if you want to send an HTTP request, you would need to command Elm to do it.
- * Or if you wanted to ask for geolocation, you would need to command Elm to go
+ * A command is a way of telling an EffectManager, “Hey, I want you to do this thing!”
+ * So if you want to send an HTTP request, you would need to command an EffectManager to do it.
+ * Or if you wanted to ask for geolocation, you would need to command an EffectManager to go
  * get it.
  * Every `Cmd` specifies (1) which effects you need access to and (2) the type of
  * messages that will come back into your application.
