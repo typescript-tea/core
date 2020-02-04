@@ -130,6 +130,9 @@ export type OnSelfAction<AppAction, SelfAction, State> = (
   state: State
 ) => State;
 
+/**
+ * A type that describes an effect manager that can be used by the runtime.
+ */
 export type EffectManager<
   AppAction = unknown,
   SelfAction = unknown,
