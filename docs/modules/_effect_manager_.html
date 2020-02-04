@@ -111,14 +111,14 @@
 					<div class="tsd-signature tsd-kind-icon">Cmd&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L14">effect-manager.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L14">effect-manager.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A command is a way of telling Elm, “Hey, I want you to do this thing!”
-								So if you want to send an HTTP request, you would need to command Elm to do it.
-								Or if you wanted to ask for geolocation, you would need to command Elm to go
+							<p>A command is a way of telling an EffectManager, “Hey, I want you to do this thing!”
+								So if you want to send an HTTP request, you would need to command an EffectManager to do it.
+								Or if you wanted to ask for geolocation, you would need to command an EffectManager to go
 								get it.
 								Every <code>Cmd</code> specifies (1) which effects you need access to and (2) the type of
 							messages that will come back into your application.</p>
@@ -137,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Effect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L105">effect-manager.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L105">effect-manager.ts:105</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -180,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">Sub&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_effect_manager_.leafeffect.html" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L44">effect-manager.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L44">effect-manager.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -212,7 +212,7 @@
 					<div class="tsd-signature tsd-kind-icon">batch<wbr>Cmds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">batchEffects</span><span class="tsd-signature-symbol"> = batchEffects</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L22">effect-manager.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L22">effect-manager.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -230,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">batch<wbr>Subs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">batchEffects</span><span class="tsd-signature-symbol"> = batchEffects</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L50">effect-manager.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L50">effect-manager.ts:50</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +246,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Cmd<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">mapEffect</span><span class="tsd-signature-symbol"> = mapEffect</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L29">effect-manager.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L29">effect-manager.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -263,7 +263,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<wbr>Sub<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">mapEffect</span><span class="tsd-signature-symbol"> = mapEffect</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L57">effect-manager.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L57">effect-manager.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -287,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L168">effect-manager.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L168">effect-manager.ts:168</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -328,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L144">effect-manager.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L144">effect-manager.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -354,7 +354,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/32aabfb/src/effect-manager.ts#L138">effect-manager.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9873bf2/src/effect-manager.ts#L138">effect-manager.ts:138</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
