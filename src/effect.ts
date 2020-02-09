@@ -53,7 +53,6 @@ export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
   effect: Effect<A1>
 ) => LeafEffect<A2>;
 
-/** @ignore */
 export type GatheredEffects<A> = {
   // This type is mutable for efficency
   // eslint-disable-next-line functional/prefer-readonly-type
