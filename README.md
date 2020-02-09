@@ -95,7 +95,7 @@ There are some naming differences from TEA in Elm:
 - `Msg` was renamed to `Action`
 - `Model` was renamed to `State`
 
-Elm is a pure language with strict guarantees and the Effect Managers are part of kernel in Elm and you cannot (for good reasons) write your own Effect Managers in Elm. Typescript is an impure lanauge without any guarantees so it (probably) does not make sense to have this restriction. Therefore in typescript-tea it is possible to write your own Effect Manager to do whatever you want.
+Elm is a pure language with strict guarantees and the Effect Managers are part of kernel in Elm and you cannot (for good [reasons](https://groups.google.com/forum/#!msg/elm-dev/1JW6wknkDIo/H9ZnS71BCAAJ)) write your own Effect Managers in Elm. Typescript is an impure lanauge without any guarantees so it (probably) does not make sense to have this restriction. Therefore in typescript-tea it is possible to write your own Effect Manager to do whatever you want.
 
 It does not have a built-in view library, instead it is possible to integrate with existing view libraries like React.
 
