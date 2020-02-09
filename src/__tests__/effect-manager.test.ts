@@ -1,4 +1,4 @@
-import { managersByHome, EffectManager, createGetEffectManager } from "../effect-manager";
+import { EffectManager, createGetEffectManager } from "../effect-manager";
 import { Effect, InternalHome, MappedEffect, gatherEffects, GatheredEffects } from "../effect";
 import { ActionMapper } from "../dispatch";
 
@@ -14,15 +14,10 @@ const manager1: EffectManager = {
   },
 };
 
-test("managersByHome build map", () => {
-  const map = managersByHome([manager1]);
-  expect(Object.keys(map).length).toBe(1);
-});
-
 test("gather effects - single command", () => {
   const gatheredEffects: GatheredEffects<unknown> = {};
   const effect: Effect<unknown> = { home: "manager1", type: "cmd1" };
-  gatherEffects(createGetEffectManager({ manager1 }), gatheredEffects, true, effect);
+  gatherEffects(createGetEffectManager([manager1]), gatheredEffects, true, effect);
   expect(gatheredEffects).toEqual({
     manager1: { cmds: [{ home: "manager1", type: "cmd1" }], subs: [] },
   });
@@ -57,7 +52,7 @@ test("gather effects - mapped command", () => {
       /* Not implemented */
     },
   };
-  const getEffectManager = createGetEffectManager({ MyManager: myManager });
+  const getEffectManager = createGetEffectManager([myManager]);
   const gatheredEffects: GatheredEffects<unknown> = {};
   const actionMapper = (action: ChildAction): ParentAction => ({ type: "ParentAction", action });
   const mappedEffect: MappedEffect<ChildAction, ParentAction> = {

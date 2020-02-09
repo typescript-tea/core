@@ -1,6 +1,6 @@
 import { Program } from "./program";
 import { Dispatch } from "./dispatch";
-import { EffectManager, managersByHome, createGetEffectManager } from "./effect-manager";
+import { EffectManager, createGetEffectManager } from "./effect-manager";
 import { Cmd } from "./cmd";
 import { GatheredEffects, gatherEffects } from "./effect";
 
@@ -15,7 +15,7 @@ export function runtime<S, A, V>(
   program: Program<S, A, V>,
   effectManagers: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
 ): EndProgram {
-  const getEffectManager = createGetEffectManager(managersByHome(effectManagers));
+  const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
   let state: S;
   const managerStates: { [home: string]: unknown } = {};
