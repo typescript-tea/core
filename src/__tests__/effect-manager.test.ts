@@ -1,5 +1,6 @@
 import { managersByHome, EffectManager, gatherEffects, GatheredEffects } from "../effect-manager";
 import { Effect, InternalHome, MappedEffect } from "../effect";
+import { ActionMapper } from "../dispatch";
 
 const manager1: EffectManager = {
   home: "manager1",
@@ -29,33 +30,25 @@ test("gather effects - single command", () => {
 });
 
 test("gather effects - mapped command", () => {
-  type Action1 = { type: "Action1"; result: string };
-  type Action2 = { type: "Action2"; result: string };
+  type ChildAction = { type: "ChildAction"; result: string };
+  type ParentAction = { type: "ParentAction"; action: ChildAction };
   type MyCmd<A> = {
     home: "MyManager";
     type: "MyCmd";
     gotResult: (result: string) => A;
   };
-  const myCmdUnmapped: MyCmd<Action1> = {
+  const myCmdUnmapped: MyCmd<ChildAction> = {
     home: "MyManager",
     type: "MyCmd",
-    gotResult: (result) => ({ type: "Action1", result }),
-  };
-  const mappedEffect: MappedEffect<Action1, Action2> = {
-    home: InternalHome,
-    type: "Mapped",
-    original: myCmdUnmapped,
-    actionMapper: (action1: Action1) => ({ type: "Action2", result: action1.result }),
+    gotResult: (result) => ({ type: "ChildAction", result }),
   };
   const myManager: EffectManager = {
     home: "MyManager",
-    mapCmd: (actionMapper, cmd: MyCmd<Action1>) => {
-      const mappedCmd: MyCmd<Action2> = {
-        home: cmd.home,
-        type: "MyCmd",
+    mapCmd: (actionMapper: ActionMapper<ChildAction, ParentAction>, cmd: MyCmd<ChildAction>): MyCmd<ParentAction> => {
+      return {
+        ...cmd,
         gotResult: (result) => actionMapper(cmd.gotResult(result)),
       };
-      return mappedCmd;
     },
     mapSub: (_actionMapper, effect) => effect,
     onEffects: () => {
@@ -65,10 +58,19 @@ test("gather effects - mapped command", () => {
       /* Not implemented */
     },
   };
-  const managersByHome = { mymanager: myManager };
+  const managersByHome = { MyManager: myManager };
   const gatheredEffects: GatheredEffects<unknown> = {};
+  const actionMapper = (action: ChildAction): ParentAction => ({ type: "ParentAction", action });
+  const mappedEffect: MappedEffect<ChildAction, ParentAction> = {
+    home: InternalHome,
+    type: "Mapped",
+    original: myCmdUnmapped,
+    actionMapper,
+  };
   gatherEffects(managersByHome, gatheredEffects, true, mappedEffect);
   expect(gatheredEffects).toEqual({
-    manager1: { cmds: [{ home: "manager1", type: "cmd1" }], subs: [] },
+    MyManager: { cmds: [{ home: "MyManager", type: "MyCmd", gotResult: expect.any(Function) }], subs: [] },
   });
+  const resultOfGotResult = (gatheredEffects["MyManager"].cmds[0] as MyCmd<unknown>).gotResult("Hello");
+  expect(resultOfGotResult).toEqual({ type: "ParentAction", action: { type: "ChildAction", result: "Hello" } });
 });
