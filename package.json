@@ -7,6 +7,8 @@
   "types": "lib/index.d.ts",
   "author": "Jonas Kello <jonas.kello@gmail.com>",
   "license": "MIT",
+  "repository": "github:typescript-tea/core",
+  "homepage": "https://typescript-tea.github.io/core",
   "publishConfig": {
     "access": "public"
   },
