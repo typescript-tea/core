@@ -1,13 +1,6 @@
 import { exhaustiveCheck } from "ts-exhaustive-check";
 import { Dispatch, ActionMapper } from "./dispatch";
-import {
-  LeafEffect,
-  LeafEffectMapper,
-  InternalHome,
-  Effect,
-  BatchedEffect,
-  MappedEffect
-} from "./effect";
+import { LeafEffect, LeafEffectMapper, InternalHome, Effect, BatchedEffect, MappedEffect } from "./effect";
 
 /**
  * A function that will be called by the runtime with the effects (commands and subscriptions)
@@ -35,12 +28,7 @@ export type OnSelfAction<AppAction, SelfAction, State> = (
 /**
  * A type that describes an effect manager that can be used by the runtime.
  */
-export type EffectManager<
-  AppAction = unknown,
-  SelfAction = unknown,
-  State = unknown,
-  THome = unknown
-> = {
+export type EffectManager<AppAction = unknown, SelfAction = unknown, State = unknown, THome = unknown> = {
   readonly home: THome;
   readonly mapCmd: LeafEffectMapper;
   readonly mapSub: LeafEffectMapper;
@@ -57,19 +45,14 @@ export type ManagersByHome = {
 export function managersByHome(
   effectManagers: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
 ): ManagersByHome {
-  return Object.fromEntries(effectManagers.map(em => [em.home, em]));
+  return Object.fromEntries(effectManagers.map((em) => [em.home, em]));
 }
 
 /** @ignore */
-export function getEffectManager(
-  home: string,
-  managers: ManagersByHome
-): EffectManager<unknown> {
+export function getEffectManager(home: string, managers: ManagersByHome): EffectManager<unknown> {
   const managerModule = managers[home];
   if (!managerModule) {
-    throw new Error(
-      `Could not find effect manager '${home}'. Make sure it was passed to the runtime.`
-    );
+    throw new Error(`Could not find effect manager '${home}'. Make sure it was passed to the runtime.`);
   }
   return managerModule;
 }
@@ -86,7 +69,11 @@ export type GatheredEffects<A> = {
   };
 };
 
-/** @ignore */
+/**
+ * This function is optimized for high performance and we don't wan to use
+ * callbacks etc since they are slower. Hence the ugly boolean
+ * and the mutable input params.
+ */
 export function gatherEffects<A>(
   managers: ManagersByHome,
   gatheredEffects: GatheredEffects<A>,
@@ -95,14 +82,10 @@ export function gatherEffects<A>(
   actionMapper: ActionMapper<unknown, unknown> | undefined = undefined
 ): void {
   if (effect.home === InternalHome) {
-    const internalEffect = effect as
-      | BatchedEffect<unknown>
-      | MappedEffect<unknown, unknown>;
+    const internalEffect = effect as BatchedEffect<unknown> | MappedEffect<unknown, unknown>;
     switch (internalEffect.type) {
       case "Batched": {
-        internalEffect.list.flatMap(c =>
-          gatherEffects(managers, gatheredEffects, isCmd, c, actionMapper)
-        );
+        internalEffect.list.flatMap((c) => gatherEffects(managers, gatheredEffects, isCmd, c, actionMapper));
         return;
       }
       case "Mapped":
@@ -111,9 +94,7 @@ export function gatherEffects<A>(
           gatheredEffects,
           isCmd,
           internalEffect.original,
-          actionMapper
-            ? a => actionMapper(internalEffect.actionMapper(a))
-            : internalEffect.actionMapper
+          actionMapper ? (a) => actionMapper(internalEffect.actionMapper(a)) : internalEffect.actionMapper
         );
         return;
       default:
@@ -124,9 +105,7 @@ export function gatherEffects<A>(
     if (!gatheredEffects[effect.home]) {
       gatheredEffects[effect.home] = { cmds: [], subs: [] };
     }
-    const list = isCmd
-      ? gatheredEffects[effect.home].cmds
-      : gatheredEffects[effect.home].subs;
+    const list = isCmd ? gatheredEffects[effect.home].cmds : gatheredEffects[effect.home].subs;
     const mapper = isCmd ? manager.mapCmd : manager.mapSub;
     list.push(actionMapper ? mapper(actionMapper, effect) : effect);
   }
