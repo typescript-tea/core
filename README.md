@@ -99,6 +99,79 @@ Elm is a pure language with strict guarantees and the Effect Managers are part o
 
 It does not have a built-in view library, instead it is possible to integrate with existing view libraries like React.
 
+## How to import
+
+### Whole module from the root
+
+This package (and others in `@typescript-tea` organization) exports only `function`s and `type`s grouped into modules. You can import a module from the root of the package in the following way:
+
+```ts
+import { ModuleName1, ModuleName2 } from "@typescript-tea/package-name";
+```
+
+For example:
+
+```ts
+import { Result } from "@typescript-tea/core";
+
+const result = Result.Ok("It is OK");
+```
+
+### Unprefixed named imports from the module file
+
+If you don't want to prefix with `ModuleName` you can also use named imports directly from the module file:
+
+```ts
+import { function1, function2 } from "@typescript-tea/package-name/module-name";
+```
+
+For example:
+
+```ts
+import { Ok } from "@typescript-tea/core/result";
+
+const result = Ok("It is OK");
+```
+
+### Modules that export a single type
+
+A common pattern is to have a module that exports a single type with the same name as the module. For example the `Result` module does this, it exports the `Result` type, some constructor functions that create a `Result` type, and some utility funcitons that operate on or return a `Result` type. In these cases it can become annoying to prefix the type with the module name, like `Result.Result`. Consider the following example. Note that this is **not** how it is done for moudles with single type exports in typescript-tea, it is just to illustrate how it would be done normally:
+
+```ts
+import { Result } from "@typescript-tea/core";
+
+function itsOk(): Result.Result<string, string> {
+  const ok: Result.Result<string, string> = Result.Ok("It is OK");
+  const err: Result.Result<string, string> = Result.Ok("It is not OK");
+  return ok;
+}
+```
+
+To avoid having to write `Result.Result` in these cases, the `Result` module uses a trick so that both the module name and the type can be named simply `Result`. So the code above will become this (notice use of `Result` for the type annotations instead of `Result.Result`):
+
+```ts
+import { Result } from "@typescript-tea/core";
+
+function itsOk(): Result<string, string> {
+  const ok: Result<string, string> = Result.Ok("It is OK");
+  const err: Result<string, string> = Result.Ok("It is not OK");
+  return ok;
+}
+```
+
+How can this work? Well, the index file in the package does this to make it work:
+
+```ts
+import * as ResultNs from "./result";
+
+export const Result = ResultNs;
+export type Result<TError, TValue> = ResultNs.Result<TError, TValue>;
+```
+
+I think it is somehow related to [declaration merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) in typescript :-).
+
+Please note that this only work for modules that export a single type. If two types are exported it is not possible to use this shortcut because the exported `const` will not contain any types.
+
 ## How to develop
 
 Node version >=12.6.0 is needed for development.
