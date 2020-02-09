@@ -1,4 +1,5 @@
-import { Sub, Cmd } from "./effect-manager";
+import { Cmd } from "./cmd";
+import { Sub } from "./sub";
 import { Dispatch } from "./dispatch";
 
 /**

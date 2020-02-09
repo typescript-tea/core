@@ -2,13 +2,13 @@ import { Program } from "./program";
 import { Dispatch } from "./dispatch";
 import {
   EffectManager,
-  Cmd,
   ManagersByHome,
   managersByHome,
   GatheredEffects,
   gatherEffects,
   getEffectManager
 } from "./effect-manager";
+import { Cmd } from "./cmd";
 
 export type EndProgram = () => void;
 
