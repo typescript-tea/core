@@ -14,7 +14,7 @@ This is an implementation of The Elm Architecture (TEA) for typescript.
 
 Note: TEA has managed effects, meaning that things like HTTP requests or writing to disk are all treated as data in TEA. When this data is given to an Effect Manager, it can do some "query optimization" before actually performing the effect. Your application should consist of pure functions only and all effects should be handled in Effect Managers outside your application.
 
-TEA has two kinds of managed effects: commands and subscriptions..
+TEA has two kinds of managed effects: commands and subscriptions.
 
 ## How to use
 
