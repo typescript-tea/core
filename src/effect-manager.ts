@@ -48,10 +48,12 @@ export function managersByHome(
 }
 
 /** @ignore */
-export function getEffectManager(home: string, managers: ManagersByHome): EffectManager<unknown> {
-  const managerModule = managers[home];
-  if (!managerModule) {
-    throw new Error(`Could not find effect manager '${home}'. Make sure it was passed to the runtime.`);
-  }
-  return managerModule;
+export function createGetEffectManager(managers: ManagersByHome) {
+  return function getEffectManager(home: string): EffectManager<unknown> {
+    const managerModule = managers[home];
+    if (!managerModule) {
+      throw new Error(`Could not find effect manager '${home}'. Make sure it was passed to the runtime.`);
+    }
+    return managerModule;
+  };
 }

@@ -1,6 +1,6 @@
 import { Program } from "./program";
 import { Dispatch } from "./dispatch";
-import { EffectManager, ManagersByHome, managersByHome, getEffectManager } from "./effect-manager";
+import { EffectManager, managersByHome, createGetEffectManager } from "./effect-manager";
 import { Cmd } from "./cmd";
 import { GatheredEffects, gatherEffects } from "./effect";
 
@@ -15,7 +15,7 @@ export function runtime<S, A, V>(
   program: Program<S, A, V>,
   effectManagers: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
 ): EndProgram {
-  const managers: ManagersByHome = managersByHome(effectManagers);
+  const getEffectManager = createGetEffectManager(managersByHome(effectManagers));
   const { update, view, subscriptions } = program;
   let state: S;
   const managerStates: { [home: string]: unknown } = {};
@@ -40,7 +40,7 @@ export function runtime<S, A, V>(
 
   const dispatchManager = (home: string) => (action: A): void => {
     if (isRunning) {
-      const manager = getEffectManager(home, managers);
+      const manager = getEffectManager(home);
       const enqueueSelfAction = enqueueManagerAction(home);
       managerStates[home] = manager.onSelfAction(enqueueAppAction, enqueueSelfAction, action, managerStates[home]);
     }
@@ -72,11 +72,11 @@ export function runtime<S, A, V>(
     const cmd = change[1];
     const sub = subscriptions && subscriptions(state);
     const gatheredEffects: GatheredEffects<A> = {};
-    cmd && gatherEffects(getEffectManager, managers, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
-    sub && gatherEffects(getEffectManager, managers, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
+    cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
+    sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
     for (const home of Object.keys(gatheredEffects)) {
       const { cmds, subs } = gatheredEffects[home];
-      const manager = getEffectManager(home, managers);
+      const manager = getEffectManager(home);
       managerStates[home] = manager.onEffects(
         enqueueAppAction,
         enqueueManagerAction(home),

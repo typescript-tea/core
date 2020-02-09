@@ -80,8 +80,7 @@ export type EffectMappersByHome = {
  * and the mutable input params.
  */
 export function gatherEffects<A>(
-  getEffectMapper: (home: string, mappers: EffectMappersByHome) => EffectMapper<unknown, unknown>,
-  managers: EffectMappersByHome,
+  getEffectMapper: (home: string) => EffectMapper<unknown, unknown>,
   gatheredEffects: GatheredEffects<A>,
   isCmd: boolean,
   effect: Effect<unknown>,
@@ -91,15 +90,12 @@ export function gatherEffects<A>(
     const internalEffect = effect as BatchedEffect<unknown> | MappedEffect<unknown, unknown>;
     switch (internalEffect.type) {
       case "Batched": {
-        internalEffect.list.flatMap((c) =>
-          gatherEffects(getEffectMapper, managers, gatheredEffects, isCmd, c, actionMapper)
-        );
+        internalEffect.list.flatMap((c) => gatherEffects(getEffectMapper, gatheredEffects, isCmd, c, actionMapper));
         return;
       }
       case "Mapped":
         gatherEffects(
           getEffectMapper,
-          managers,
           gatheredEffects,
           isCmd,
           internalEffect.original,
@@ -110,7 +106,7 @@ export function gatherEffects<A>(
         exhaustiveCheck(internalEffect, true);
     }
   } else {
-    const manager = getEffectMapper(effect.home, managers);
+    const manager = getEffectMapper(effect.home);
     if (!gatheredEffects[effect.home]) {
       gatheredEffects[effect.home] = { cmds: [], subs: [] };
     }
