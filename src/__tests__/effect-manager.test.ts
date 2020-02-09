@@ -1,5 +1,5 @@
-import { managersByHome, EffectManager, gatherEffects, GatheredEffects } from "../effect-manager";
-import { Effect, InternalHome, MappedEffect } from "../effect";
+import { managersByHome, EffectManager, getEffectManager } from "../effect-manager";
+import { Effect, InternalHome, MappedEffect, gatherEffects, GatheredEffects } from "../effect";
 import { ActionMapper } from "../dispatch";
 
 const manager1: EffectManager = {
@@ -23,7 +23,7 @@ test("gather effects - single command", () => {
   const managersByHome = { manager1 };
   const gatheredEffects: GatheredEffects<unknown> = {};
   const effect: Effect<unknown> = { home: "manager1", type: "cmd1" };
-  gatherEffects(managersByHome, gatheredEffects, true, effect);
+  gatherEffects(getEffectManager, managersByHome, gatheredEffects, true, effect);
   expect(gatheredEffects).toEqual({
     manager1: { cmds: [{ home: "manager1", type: "cmd1" }], subs: [] },
   });
@@ -67,7 +67,7 @@ test("gather effects - mapped command", () => {
     original: myCmdUnmapped,
     actionMapper,
   };
-  gatherEffects(managersByHome, gatheredEffects, true, mappedEffect);
+  gatherEffects(getEffectManager, managersByHome, gatheredEffects, true, mappedEffect);
   expect(gatheredEffects).toEqual({
     MyManager: { cmds: [{ home: "MyManager", type: "MyCmd", gotResult: expect.any(Function) }], subs: [] },
   });

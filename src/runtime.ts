@@ -1,14 +1,8 @@
 import { Program } from "./program";
 import { Dispatch } from "./dispatch";
-import {
-  EffectManager,
-  ManagersByHome,
-  managersByHome,
-  GatheredEffects,
-  gatherEffects,
-  getEffectManager
-} from "./effect-manager";
+import { EffectManager, ManagersByHome, managersByHome, getEffectManager } from "./effect-manager";
 import { Cmd } from "./cmd";
+import { GatheredEffects, gatherEffects } from "./effect";
 
 export type EndProgram = () => void;
 
@@ -48,12 +42,7 @@ export function runtime<S, A, V>(
     if (isRunning) {
       const manager = getEffectManager(home, managers);
       const enqueueSelfAction = enqueueManagerAction(home);
-      managerStates[home] = manager.onSelfAction(
-        enqueueAppAction,
-        enqueueSelfAction,
-        action,
-        managerStates[home]
-      );
+      managerStates[home] = manager.onSelfAction(enqueueAppAction, enqueueSelfAction, action, managerStates[home]);
     }
   };
 
@@ -83,8 +72,8 @@ export function runtime<S, A, V>(
     const cmd = change[1];
     const sub = subscriptions && subscriptions(state);
     const gatheredEffects: GatheredEffects<A> = {};
-    cmd && gatherEffects(managers, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
-    sub && gatherEffects(managers, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
+    cmd && gatherEffects(getEffectManager, managers, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
+    sub && gatherEffects(getEffectManager, managers, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
     for (const home of Object.keys(gatheredEffects)) {
       const { cmds, subs } = gatheredEffects[home];
       const manager = getEffectManager(home, managers);
@@ -102,8 +91,7 @@ export function runtime<S, A, V>(
   function setup(): void {
     window.addEventListener("popstate", key);
     // eslint-disable-next-line no-unused-expressions
-    window.navigator.userAgent.indexOf("Trident") < 0 ||
-      window.addEventListener("hashchange", key);
+    window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
   }
 
   function teardown(): void {

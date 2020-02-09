@@ -1,6 +1,5 @@
-import { exhaustiveCheck } from "ts-exhaustive-check";
-import { Dispatch, ActionMapper } from "./dispatch";
-import { LeafEffect, LeafEffectMapper, InternalHome, Effect, BatchedEffect, MappedEffect } from "./effect";
+import { Dispatch } from "./dispatch";
+import { LeafEffect, LeafEffectMapper } from "./effect";
 
 /**
  * A function that will be called by the runtime with the effects (commands and subscriptions)
@@ -55,58 +54,4 @@ export function getEffectManager(home: string, managers: ManagersByHome): Effect
     throw new Error(`Could not find effect manager '${home}'. Make sure it was passed to the runtime.`);
   }
   return managerModule;
-}
-
-/** @ignore */
-export type GatheredEffects<A> = {
-  // This type is mutable for efficency
-  // eslint-disable-next-line functional/prefer-readonly-type
-  [home: string]: {
-    // eslint-disable-next-line functional/prefer-readonly-type
-    readonly cmds: Array<LeafEffect<A>>;
-    // eslint-disable-next-line functional/prefer-readonly-type
-    readonly subs: Array<LeafEffect<A>>;
-  };
-};
-
-/**
- * This function is optimized for high performance and we don't wan to use
- * callbacks etc since they are slower. Hence the ugly boolean
- * and the mutable input params.
- */
-export function gatherEffects<A>(
-  managers: ManagersByHome,
-  gatheredEffects: GatheredEffects<A>,
-  isCmd: boolean,
-  effect: Effect<unknown>,
-  actionMapper: ActionMapper<unknown, unknown> | undefined = undefined
-): void {
-  if (effect.home === InternalHome) {
-    const internalEffect = effect as BatchedEffect<unknown> | MappedEffect<unknown, unknown>;
-    switch (internalEffect.type) {
-      case "Batched": {
-        internalEffect.list.flatMap((c) => gatherEffects(managers, gatheredEffects, isCmd, c, actionMapper));
-        return;
-      }
-      case "Mapped":
-        gatherEffects(
-          managers,
-          gatheredEffects,
-          isCmd,
-          internalEffect.original,
-          actionMapper ? (a) => actionMapper(internalEffect.actionMapper(a)) : internalEffect.actionMapper
-        );
-        return;
-      default:
-        exhaustiveCheck(internalEffect, true);
-    }
-  } else {
-    const manager = getEffectManager(effect.home, managers);
-    if (!gatheredEffects[effect.home]) {
-      gatheredEffects[effect.home] = { cmds: [], subs: [] };
-    }
-    const list = isCmd ? gatheredEffects[effect.home].cmds : gatheredEffects[effect.home].subs;
-    const mapper = isCmd ? manager.mapCmd : manager.mapSub;
-    list.push(actionMapper ? mapper(actionMapper, effect) : effect);
-  }
 }
