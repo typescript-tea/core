@@ -70,10 +70,6 @@ export type EffectMapper<A1, A2> = {
   readonly mapSub: LeafEffectMapper<A1, A2>;
 };
 
-export type EffectMappersByHome = {
-  readonly [home: string]: EffectMapper<unknown, unknown>;
-};
-
 /**
  * This function is optimized for high performance and we don't wan to use
  * callbacks etc since they are slower. Hence the ugly boolean
