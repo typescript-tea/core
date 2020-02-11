@@ -64,7 +64,8 @@ export type GatheredEffects<A> = {
   };
 };
 
-export type EffectMapper<A1, A2> = {
+export type EffectMapper<A1 = unknown, A2 = unknown, THome = unknown> = {
+  readonly home: THome;
   readonly mapCmd: LeafEffectMapper<A1, A2>;
   readonly mapSub: LeafEffectMapper<A1, A2>;
 };
@@ -75,7 +76,7 @@ export type EffectMapper<A1, A2> = {
  * and the mutable input params.
  */
 export function gatherEffects<A>(
-  getEffectMapper: (home: string) => EffectMapper<unknown, unknown>,
+  getEffectMapper: (home: string) => EffectMapper,
   gatheredEffects: GatheredEffects<A>,
   isCmd: boolean,
   effect: Effect<unknown>,
