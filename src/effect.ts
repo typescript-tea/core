@@ -71,9 +71,8 @@ export type EffectMapper<A1 = unknown, A2 = unknown, THome = unknown> = {
 };
 
 /**
- * This function is optimized for high performance and we don't wan to use
- * callbacks etc since they are slower. Hence the ugly boolean
- * and the mutable input params.
+ * This function is optimized for performance. Hence the ugly boolean
+ * and the mutable input param.
  */
 export function gatherEffects<A>(
   getEffectMapper: (home: string) => EffectMapper,
