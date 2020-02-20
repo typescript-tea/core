@@ -35,7 +35,7 @@ The program consists of only three functions: `init()`, `update()`, and `view()`
 
 If you are using React for rendering then the `View` type is simply JSX.
 
-The `State` type is an object that holds any data your program need to keep track of. If you are building a simple counter program, the state can be a `number`. If you are building a complex program it can be a large objects, with lots of keys and sub-keys.
+The `State` type is an object that holds any data your program need to keep track of. If you are building a simple counter program, the state can be a `number`. If you are building a complex program it can be a large object, with lots of keys and sub-keys.
 
 The `Action` type is used to describe actions that the user can make in the program, or things that happens outside the program that the program is interested in. For example an action can be that the users clicks a button, or that some data arrives from the server. Usually the action type is defined as an object with a `type` field and some payload data that depends on which type of action it is.
 
