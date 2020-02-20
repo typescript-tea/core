@@ -19,7 +19,7 @@ To start a program in typescript-tea you call the `run()` function which is part
 function run(program: Program, effectManagers: EffectManager[]): () => void;
 ```
 
-As you can see the `run()` function returns a function which accepts no arguments and returns nothing. You can call this function if you want to terminate the program. You see, once you call `run()` the runtime starts a loop that will go on forever (well, at least until you call the terminate function it returns). But don't worry, this loop is not CPU intensive as the most time in the loop is spent waiting for user input.
+As you can see the `run()` function returns a function which accepts no arguments and returns nothing. You can call this function if you want to terminate the program. You see, once you call `run()` the runtime starts a loop that will go on forever (well, at least until you call the terminate function it returns). But don't worry, this loop is not CPU intensive as most of the time in the loop is spent idle waiting for user input.
 
 We will walk through all the steps in the runtime loop, but before we do that let's see how `Program` is defined (we omit some optional parts here for clarity):
 
