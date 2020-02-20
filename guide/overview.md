@@ -11,12 +11,12 @@ The archtiecture consists of these main pieces:
 5. The rendered View (in the browser)
 6. Actions.
 
-> NOTE: You may also have heard the term "fractal" mentioned in The Elm Archtiecture. This is an optional way to organize your application code (2). Please not that organizing your program in a fractal way is optional and not part of the archtiture. We will cover fractal code organization later as it is an optional piece and not actually part of the archtiture. (Did I mention it is optional?)
+> NOTE: You may also have heard the term "fractal" mentioned in The Elm Archtiecture. This is an optional way to organize your application code (2). Please note that organizing your program in a fractal way is optional and not part of the archtiture. We will cover fractal code organization later as it is an optional piece and not actually part of the archtiture. (Did I mention it is optional?)
 
 To start a program in typescript-tea you call the `run()` function which is part of the runtime (1). The `run()` function is passed the application's `Program` (2) and an array of `EffectManagers` (3). The signature of the run function looks like this:
 
 ```ts
-function run(program: Program, effectManagers: ReadonlyArray<EffectManager>): () => void;
+function run(program: Program, effectManagers: EffectManager[]): () => void;
 ```
 
 As you can see the `run()` function returns a function which accepts no arguments and returns nothing. You can call this function if you want to terminate the program. You see, once you call `run()` the runtime starts a loop that will go on forever (well, at least until you call the terminate functcion it returns). But don't worry, this loop is not CPU intensive as the most time in the loop is spent waiting for user input.
