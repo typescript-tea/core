@@ -35,16 +35,14 @@ export type EffectManager<AppAction = unknown, SelfAction = unknown, State = unk
   readonly onSelfAction: OnSelfAction<AppAction, SelfAction, State>;
 };
 
-type ManagersByHome = {
-  readonly [home: string]: EffectManager<unknown, unknown, unknown>;
-};
-
-function managersByHome(effectManagers: ReadonlyArray<EffectManager>): ManagersByHome {
-  return Object.fromEntries(effectManagers.map((em) => [em.home, em]));
-}
-
 /** @ignore */
 export function createGetEffectManager(effectManagers: ReadonlyArray<EffectManager>): (home: string) => EffectManager {
+  type ManagersByHome = {
+    readonly [home: string]: EffectManager<unknown, unknown, unknown>;
+  };
+  function managersByHome(effectManagers: ReadonlyArray<EffectManager>): ManagersByHome {
+    return Object.fromEntries(effectManagers.map((em) => [em.home, em]));
+  }
   const managers = managersByHome(effectManagers);
   return function getEffectManager(home: string): EffectManager<unknown> {
     const managerModule = managers[home];

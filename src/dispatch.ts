@@ -1,6 +1,4 @@
-export type ActionMapper<ChildAction, ParentAction> = (
-  childAction: ChildAction
-) => ParentAction;
+export type ActionMapper<ChildAction, ParentAction> = (childAction: ChildAction) => ParentAction;
 
 export type Dispatch<A> = (action: A) => void;
 
@@ -18,7 +16,7 @@ const memoizedDispatch: DispatchMemoizationMap<unknown, unknown> = new Map();
  * The resulting function is memoized so it will be consistent
  * for future calls. This makes it possible to avoid re-render in
  * e.g. react becuase the dispach prop will not change like it
- * would if a lambda like (a) => diaptch(mapper(a)) was used.
+ * would if a lambda like (a) => dispatch(mapper(a)) was used.
  */
 export function mapDispatch<ChildAction, ParentAction>(
   actionMapper: ActionMapper<ChildAction, ParentAction>,
