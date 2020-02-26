@@ -75,6 +75,14 @@
 				<p>This is an implementation of The Elm Architecture (TEA) for typescript.</p>
 				<p>Note: TEA has managed effects, meaning that things like HTTP requests or writing to disk are all treated as data in TEA. When this data is given to an Effect Manager, it can do some &quot;query optimization&quot; before actually performing the effect. Your application should consist of pure functions only and all effects should be handled in Effect Managers outside your application.</p>
 				<p>TEA has two kinds of managed effects: commands and subscriptions.</p>
+				<a href="#how-to-use" id="how-to-use" style="color: inherit; text-decoration: none;">
+					<h2>How to use</h2>
+				</a>
+				<pre><code>yarn <span class="hljs-keyword">add</span><span class="bash"> @typescript-tea/core</span></code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Please see the <a href="https://typescript-tea.github.io/core">documentation site</a>.</p>
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>Example</h2>
 				</a>
@@ -107,13 +115,7 @@ function update(action: Action, state: State): readonly [State] {
 
 // -- VIEW
 
-const view = ({
-  dispatch,
-  state
-}: {
-  readonly dispatch: Dispatch&lt;Action&gt;;
-  readonly state: State;
-}) =&gt; (
+const view = ({ dispatch, state }: { readonly dispatch: Dispatch&lt;Action&gt;; readonly state: State }) =&gt; (
   &lt;div&gt;
     &lt;button onClick={() =&gt; dispatch({ type: "Decrement" })}&gt;-&lt;/button&gt;
     &lt;div&gt;{state}&lt;/div&gt;
@@ -126,7 +128,7 @@ const view = ({
 const program: Program&lt;State, Action, JSX.Element&gt; = {
   init,
   update,
-  view
+  view,
 };
 
 // -- RUNTIME
@@ -142,8 +144,55 @@ ReactDOM.render(&lt;Root /&gt;, app);</code></pre>
 					<li><code>Msg</code> was renamed to <code>Action</code></li>
 					<li><code>Model</code> was renamed to <code>State</code></li>
 				</ul>
-				<p>Elm is a pure language with strict guarantees and the Effect Managers are part of kernel in Elm and you cannot (for good reasons) write your own Effect Managers in Elm. Typescript is an impure lanauge without any guarantees so it (probably) does not make sense to have this restriction. Therefore in typescript-tea it is possible to write your own Effect Manager to do whatever you want.</p>
+				<p>Elm is a pure language with strict guarantees and the Effect Managers are part of kernel in Elm and you cannot (for good <a href="https://groups.google.com/forum/#!msg/elm-dev/1JW6wknkDIo/H9ZnS71BCAAJ">reasons</a>) write your own Effect Managers in Elm. Typescript is an impure lanauge without any guarantees so it (probably) does not make sense to have this restriction. Therefore in typescript-tea it is possible to write your own Effect Manager to do whatever you want.</p>
 				<p>It does not have a built-in view library, instead it is possible to integrate with existing view libraries like React.</p>
+				<a href="#how-to-import" id="how-to-import" style="color: inherit; text-decoration: none;">
+					<h2>How to import</h2>
+				</a>
+				<a href="#whole-module-from-the-root" id="whole-module-from-the-root" style="color: inherit; text-decoration: none;">
+					<h3>Whole module from the root</h3>
+				</a>
+				<p>This package (and others in <code>@typescript-tea</code> organization) exports only <code>function</code>s and <code>type</code>s grouped into modules. You can import a module from the root of the package in the following way:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { ModuleName1, ModuleName2 } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/package-name"</span>;</code></pre>
+				<p>For example:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+
+<span class="hljs-keyword">const</span> result = Result.Ok(<span class="hljs-string">"It is OK"</span>);</code></pre>
+				<a href="#unprefixed-named-imports-from-the-module-file" id="unprefixed-named-imports-from-the-module-file" style="color: inherit; text-decoration: none;">
+					<h3>Unprefixed named imports from the module file</h3>
+				</a>
+				<p>If you don&#39;t want to prefix with <code>ModuleName</code> you can also use named imports directly from the module file:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { function1, function2 } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/package-name/module-name"</span>;</code></pre>
+				<p>For example:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Ok } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core/result"</span>;
+
+<span class="hljs-keyword">const</span> result = Ok(<span class="hljs-string">"It is OK"</span>);</code></pre>
+				<a href="#modules-that-export-a-single-type" id="modules-that-export-a-single-type" style="color: inherit; text-decoration: none;">
+					<h3>Modules that export a single type</h3>
+				</a>
+				<p>A common pattern is to have a module that exports a single type with the same name as the module. For example the <code>Result</code> module does this, it exports the <code>Result</code> type, some constructor functions that create a <code>Result</code> type, and some utility funcitons that operate on or return a <code>Result</code> type. In these cases it can become annoying to prefix the type with the module name, like <code>Result.Result</code>. Consider the following example. Note that this is <strong>not</strong> how it is done for moudles with single type exports in typescript-tea, it is just to illustrate how it would be done normally:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itsOk</span>(<span class="hljs-params"></span>): <span class="hljs-title">Result</span>.<span class="hljs-title">Result</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
+  <span class="hljs-keyword">const</span> ok: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is OK"</span>);
+  <span class="hljs-keyword">const</span> err: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is not OK"</span>);
+  <span class="hljs-keyword">return</span> ok;
+}</code></pre>
+				<p>To avoid having to write <code>Result.Result</code> in these cases, the <code>Result</code> module uses a trick so that both the module name and the type can be named simply <code>Result</code>. So the code above will become this (notice use of <code>Result</code> for the type annotations instead of <code>Result.Result</code>):</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itsOk</span>(<span class="hljs-params"></span>): <span class="hljs-title">Result</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
+  <span class="hljs-keyword">const</span> ok: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is OK"</span>);
+  <span class="hljs-keyword">const</span> err: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is not OK"</span>);
+  <span class="hljs-keyword">return</span> ok;
+}</code></pre>
+				<p>How can this work? Well, the index file in the package does this to make it work:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ResultNs <span class="hljs-keyword">from</span> <span class="hljs-string">"./result"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Result = ResultNs;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Result&lt;TError, TValue&gt; = ResultNs.Result&lt;TError, TValue&gt;;</code></pre>
+				<p>I think it is somehow related to <a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html">declaration merging</a> in typescript :-).</p>
+				<p>Please note that this only work for modules that export a single type. If two types are exported it is not possible to use this shortcut because the exported <code>const</code> will not contain any types.</p>
 				<a href="#how-to-develop" id="how-to-develop" style="color: inherit; text-decoration: none;">
 					<h2>How to develop</h2>
 				</a>
@@ -164,7 +213,13 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/_cmd_.html">&quot;cmd&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/_dispatch_.html">&quot;dispatch&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_effect_.html">&quot;effect&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_effect_manager_.html">&quot;effect-<wbr>manager&quot;</a>
@@ -173,7 +228,13 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 						<a href="modules/_program_.html">&quot;program&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/_result_.html">&quot;result&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/_runtime_.html">&quot;runtime&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_sub_.html">&quot;sub&quot;</a>
 					</li>
 				</ul>
 			</nav>

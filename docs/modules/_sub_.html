@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;dispatch&quot; | @typescript-tea/core</title>
+	<title>&quot;sub&quot; | @typescript-tea/core</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_dispatch_.html">&quot;dispatch&quot;</a>
+					<a href="_sub_.html">&quot;sub&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;dispatch&quot;</h1>
+			<h1>Module &quot;sub&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -69,14 +69,14 @@
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="_dispatch_.html#actionmapper" class="tsd-kind-icon">Action<wbr>Mapper</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="_dispatch_.html#dispatch" class="tsd-kind-icon">Dispatch</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="_sub_.html#sub" class="tsd-kind-icon">Sub</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="_dispatch_.html#mapdispatch" class="tsd-kind-icon">map<wbr>Dispatch</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_sub_.html#batch" class="tsd-kind-icon">batch</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_sub_.html#map" class="tsd-kind-icon">map</a></li>
 							</ul>
 						</section>
 					</div>
@@ -85,128 +85,69 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="actionmapper" class="tsd-anchor"></a>
-					<h3>Action<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">Action<wbr>Mapper&lt;ChildAction, ParentAction&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>childAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">ParentAction</span></div>
+					<a name="sub" class="tsd-anchor"></a>
+					<h3>Sub</h3>
+					<div class="tsd-signature tsd-kind-icon">Sub&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/dispatch.ts#L1">dispatch.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/sub.ts#L16">sub.ts:16</a></li>
 						</ul>
 					</aside>
-					<h4 class="tsd-type-parameters-title">Type parameters</h4>
-					<ul class="tsd-type-parameters">
-						<li>
-							<h4>ChildAction</h4>
-						</li>
-						<li>
-							<h4>ParentAction</h4>
-						</li>
-					</ul>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>childAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ParentAction</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>childAction: <span class="tsd-signature-type">ChildAction</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ParentAction</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A subscription is a way of telling an EffectManager, &quot;Hey, let me know if anything
+								interesting happens over there!&quot; So if you want to listen for messages on a web
+								socket, you would tell an EffectManager to create a subscription. If you want to get clock
+								ticks, you would tell an EffectManager to subscribe to that. The cool thing here is that
+								this means an <em>EffectManager</em> manages all the details of subscriptions instead of <em>you</em>.
+								So if a web socket goes down, <em>you</em> do not need to manually reconnect with an
+								exponential backoff strategy, the <em>EffectManager</em> does this all for you behind the scenes!
+								Every <code>Sub</code> specifies (1) which effects you need access to and (2) the type of
+							messages that will come back into your application.</p>
+						</div>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="dispatch" class="tsd-anchor"></a>
-					<h3>Dispatch</h3>
-					<div class="tsd-signature tsd-kind-icon">Dispatch&lt;A&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/dispatch.ts#L5">dispatch.ts:5</a></li>
-						</ul>
-					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
 							<h4>A</h4>
 						</li>
 					</ul>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>action: <span class="tsd-signature-type">A</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-					<a name="mapdispatch" class="tsd-anchor"></a>
-					<h3>map<wbr>Dispatch</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">map<wbr>Dispatch&lt;ChildAction, ParentAction&gt;<span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ParentAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatch<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ParentAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/dispatch.ts#L23">dispatch.ts:23</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Maps a parent dispatch function to child dispatch function.
-										The resulting function is memoized so it will be consistent
-										for future calls. This makes it possible to avoid re-render in
-										e.g. react becuase the dispach prop will not change like it
-									would if a lambda like (a) =&gt; diaptch(mapper(a)) was used.</p>
-								</div>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>ChildAction</h4>
-								</li>
-								<li>
-									<h4>ParentAction</h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>actionMapper: <a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ParentAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-								<li>
-									<h5>dispatch: <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ParentAction</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ChildAction</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="batch" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> batch</h3>
+					<div class="tsd-signature tsd-kind-icon">batch<span class="tsd-signature-symbol">:</span> <a href="_effect_.html#batcheffects" class="tsd-signature-type">batchEffects</a><span class="tsd-signature-symbol"> = batchEffects</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/sub.ts#L22">sub.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When you need to subscribe to multiple things, you can create a <code>batch</code> of
+							subscriptions.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="map" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> map</h3>
+					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <a href="_effect_.html#mapeffect" class="tsd-signature-type">mapEffect</a><span class="tsd-signature-symbol"> = mapEffect</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/sub.ts#L29">sub.ts:29</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If you are using a fractal approach where a Sub can come from
+								a child&#39;s subscription function, you need to map the Sub in order for it
+							to produce an action that can be routed back to the child.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -219,7 +160,7 @@
 					<li class=" tsd-kind-module">
 						<a href="_cmd_.html">&quot;cmd&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="_dispatch_.html">&quot;dispatch&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -237,7 +178,7 @@
 					<li class=" tsd-kind-module">
 						<a href="_runtime_.html">&quot;runtime&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="_sub_.html">&quot;sub&quot;</a>
 					</li>
 				</ul>
@@ -245,13 +186,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_dispatch_.html#actionmapper" class="tsd-kind-icon">Action<wbr>Mapper</a>
+						<a href="_sub_.html#sub" class="tsd-kind-icon">Sub</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_dispatch_.html#dispatch" class="tsd-kind-icon">Dispatch</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="_sub_.html#batch" class="tsd-kind-icon">batch</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<a href="_dispatch_.html#mapdispatch" class="tsd-kind-icon">map<wbr>Dispatch</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="_sub_.html#map" class="tsd-kind-icon">map</a>
 					</li>
 				</ul>
 			</nav>
