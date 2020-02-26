@@ -28,7 +28,7 @@ Please see the [documentation site](https://typescript-tea.github.io/core).
 
 ## Example
 
-This is the usual counter app example using the react runtime. It is also available in [this repo](https://github.com/typescript-tea/simple-counter-example).
+This is the usual counter app example using the react as view library. It is also available in [this repo](https://github.com/typescript-tea/simple-counter-example).
 
 ```ts
 import React from "react";
