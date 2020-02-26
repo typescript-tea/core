@@ -1,5 +1,4 @@
-import * as Runtime from "../runtime";
-import { Program } from "../program";
+import { Program, run } from "../program";
 
 beforeAll(() => {
   globalThis.window = {
@@ -23,12 +22,18 @@ test("Run simple program", () => {
     update: () => ["Hello"],
     view: () => "Hello",
   };
-  const endProgram = Runtime.runtime(program, []);
+  const render = (): void => {
+    // Do nothing
+  };
+  const endProgram = run(program, render, []);
   expect(endProgram).toBeInstanceOf(Function);
   expect(globalThis.window.addEventListener).toBeCalled();
 });
 
 test("View can dispatch", (done) => {
+  const render = (): void => {
+    // Do nothing
+  };
   const program: Program<number, string, string> = {
     init: () => [0],
     update: () => [1],
@@ -42,5 +47,5 @@ test("View can dispatch", (done) => {
       return "view";
     },
   };
-  Runtime.runtime(program, []);
+  run(program, render, []);
 });

@@ -35,7 +35,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { exhaustiveCheck } from "ts-exhaustive-check";
 import { Dispatch, Program } from "@typescript-tea/core";
-import { reactRuntime } from "@typescript-tea/react-runtime";
 
 // -- STATE
 
@@ -75,11 +74,11 @@ const program: Program<State, Action, JSX.Element> = {
   view,
 };
 
-// -- RUNTIME
+// -- RUN
 
-const Root = reactRuntime(program, []);
 const app = document.getElementById("app");
-ReactDOM.render(<Root />, app);
+const render = (view: JSX.Element) => ReactDOM.render(view, app);
+Program.run(program, render);
 ```
 
 ## Differences from TEA in Elm
@@ -129,7 +128,7 @@ const result = Ok("It is OK");
 
 ### Modules that export a single type
 
-A common pattern is to have a module that exports a single type with the same name as the module. For example the `Result` module does this, it exports the `Result` type, some constructor functions that create a `Result` type, and some utility funcitons that operate on or return a `Result` type. In these cases it can become annoying to prefix the type with the module name, like `Result.Result`. Consider the following example. Note that this is **not** how it is done for moudles with single type exports in typescript-tea, it is just to illustrate how it would be done normally:
+A common pattern is to have a module that exports a single type with the same name as the module. For example the `Result` module does this, it exports the `Result` type, some constructor functions that create a `Result` type, and some utility funcitons that operate on or return a `Result` type. In these cases it can become annoying to prefix the type with the module name, like `Result.Result`. Consider the following example. Note that this is **not** how it is done for modules with single type exports in typescript-tea, it is just to illustrate how it would be done normally:
 
 ```ts
 import { Result } from "@typescript-tea/core";

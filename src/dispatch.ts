@@ -1,4 +1,4 @@
-export type ActionMapper<ChildAction, ParentAction> = (childAction: ChildAction) => ParentAction;
+// export type ActionMapper<ChildAction, ParentAction> = (childAction: ChildAction) => ParentAction;
 
 export type Dispatch<A> = (action: A) => void;
 
@@ -6,7 +6,7 @@ export type Dispatch<A> = (action: A) => void;
 type DispatchMemoizationMap<ChildAction, ParentAction> = Map<
   Dispatch<ParentAction>,
   // eslint-disable-next-line functional/prefer-readonly-type
-  Map<ActionMapper<ChildAction, ParentAction>, Dispatch<ChildAction>>
+  Map<(childAction: ChildAction) => ParentAction, Dispatch<ChildAction>>
 >;
 
 const memoizedDispatch: DispatchMemoizationMap<unknown, unknown> = new Map();
@@ -18,8 +18,8 @@ const memoizedDispatch: DispatchMemoizationMap<unknown, unknown> = new Map();
  * e.g. react becuase the dispach prop will not change like it
  * would if a lambda like (a) => dispatch(mapper(a)) was used.
  */
-export function mapDispatch<ChildAction, ParentAction>(
-  actionMapper: ActionMapper<ChildAction, ParentAction>,
+export function map<ChildAction, ParentAction>(
+  actionMapper: (childAction: ChildAction) => ParentAction,
   dispatch: Dispatch<ParentAction>
 ): Dispatch<ChildAction> {
   let dispatchMap = memoizedDispatch.get(dispatch);

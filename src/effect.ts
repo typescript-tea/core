@@ -1,5 +1,4 @@
 import { exhaustiveCheck } from "ts-exhaustive-check";
-import { ActionMapper } from "./dispatch";
 
 /**
  * Commands and Subscriptions are both effects and they can both be batched and mapped.
@@ -29,7 +28,7 @@ export type BatchedEffect<A> = {
 export type MappedEffect<A1, A2> = {
   readonly home: InternalHome;
   readonly type: "Mapped";
-  readonly actionMapper: ActionMapper<A1, A2>;
+  readonly actionMapper: (a1: A1) => A2;
   readonly original: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1>;
 };
 
@@ -42,14 +41,14 @@ export function batchEffects<A>(effects: ReadonlyArray<Effect<A> | undefined>): 
 }
 
 export function mapEffect<A1, A2>(
-  mapper: ActionMapper<A1, A2>,
+  actionMapper: (a1: A1) => A2,
   c: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1> | undefined
 ): MappedEffect<A1, A2> | undefined {
-  return c === undefined ? undefined : { home: InternalHome, type: "Mapped", actionMapper: mapper, original: c };
+  return c === undefined ? undefined : { home: InternalHome, type: "Mapped", actionMapper, original: c };
 }
 
 export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
-  actionMapper: ActionMapper<A1, A2>,
+  actionMapper: (a1: A1) => A2,
   effect: Effect<A1>
 ) => LeafEffect<A2>;
 
@@ -79,7 +78,7 @@ export function gatherEffects<A>(
   gatheredEffects: GatheredEffects<A>,
   isCmd: boolean,
   effect: Effect<unknown>,
-  actionMapper: ActionMapper<unknown, unknown> | undefined = undefined
+  actionMapper: ((a1: unknown) => unknown) | undefined = undefined
 ): void {
   if (effect.home === InternalHome) {
     const internalEffect = effect as BatchedEffect<unknown> | MappedEffect<unknown, unknown>;
