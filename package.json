@@ -13,9 +13,8 @@
     "access": "public"
   },
   "files": [
-    "/lib",
-    "/dist",
     "/src",
+    "/dist",
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
@@ -38,9 +37,7 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^25.0.0",
     "typedoc": "^0.17.0-3",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "typescript": "^3.7.5"
   },
   "scripts": {
     "build": "tsc -b",
@@ -48,8 +45,7 @@
     "test": "jest",
     "test-coverage": "jest --coverage",
     "lint": "eslint './src/**/*.ts{,x}' --ext .js,.ts,.tsx -f visualstudio",
-    "dist": "yarn build && rimraf dist && webpack --config webpack.dist.config",
-    "dist2": "microbundle src/index.ts",
+    "dist": "yarn build && rimraf dist && microbundle src/index.ts",
     "verify": "yarn lint && yarn test-coverage && yarn dist",
     "report-coverage": "codecov -f coverage/lcov.info",
     "docs": "typedoc && touch docs/.nojekyll",
