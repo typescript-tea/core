@@ -7,12 +7,12 @@ import { GatheredEffects, gatherEffects } from "./effect";
 /**
  * A program represents the root of an application.
  */
-export type Program<S, A, V> = {
-  readonly init: (url: string, key: () => void) => readonly [S, Cmd<A>?];
-  readonly update: (action: A, state: S) => readonly [S, Cmd<A>?];
-  readonly view: (props: { readonly state: S; readonly dispatch: Dispatch<A> }) => V;
-  readonly subscriptions?: (state: S) => Sub<A> | undefined;
-  readonly onUrlChange?: (url: string) => A;
+export type Program<State, Action, View> = {
+  readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
+  readonly update: (action: Action, state: State) => readonly [State, Cmd<Action>?];
+  readonly view: (props: { readonly state: State; readonly dispatch: Dispatch<Action> }) => View;
+  readonly subscriptions?: (state: State) => Sub<Action> | undefined;
+  readonly onUrlChange?: (url: string) => Action;
 };
 
 /**
