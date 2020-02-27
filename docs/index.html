@@ -86,12 +86,11 @@
 				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
 					<h2>Example</h2>
 				</a>
-				<p>This is the usual counter app example using the react runtime. It is also available in <a href="https://github.com/typescript-tea/simple-counter-example">this repo</a>.</p>
+				<p>This is the usual counter app example using the react as view library. It is also available in <a href="https://github.com/typescript-tea/simple-counter-example">this repo</a>.</p>
 				<pre><code class="language-ts">import React from "react";
 import ReactDOM from "react-dom";
 import { exhaustiveCheck } from "ts-exhaustive-check";
 import { Dispatch, Program } from "@typescript-tea/core";
-import { reactRuntime } from "@typescript-tea/react-runtime";
 
 // -- STATE
 
@@ -131,11 +130,11 @@ const program: Program&lt;State, Action, JSX.Element&gt; = {
   view,
 };
 
-// -- RUNTIME
+// -- RUN
 
-const Root = reactRuntime(program, []);
 const app = document.getElementById("app");
-ReactDOM.render(&lt;Root /&gt;, app);</code></pre>
+const render = (view: JSX.Element) =&gt; ReactDOM.render(view, app);
+Program.run(program, render);</code></pre>
 				<a href="#differences-from-tea-in-elm" id="differences-from-tea-in-elm" style="color: inherit; text-decoration: none;">
 					<h2>Differences from TEA in Elm</h2>
 				</a>
@@ -170,7 +169,7 @@ ReactDOM.render(&lt;Root /&gt;, app);</code></pre>
 				<a href="#modules-that-export-a-single-type" id="modules-that-export-a-single-type" style="color: inherit; text-decoration: none;">
 					<h3>Modules that export a single type</h3>
 				</a>
-				<p>A common pattern is to have a module that exports a single type with the same name as the module. For example the <code>Result</code> module does this, it exports the <code>Result</code> type, some constructor functions that create a <code>Result</code> type, and some utility funcitons that operate on or return a <code>Result</code> type. In these cases it can become annoying to prefix the type with the module name, like <code>Result.Result</code>. Consider the following example. Note that this is <strong>not</strong> how it is done for moudles with single type exports in typescript-tea, it is just to illustrate how it would be done normally:</p>
+				<p>A common pattern is to have a module that exports a single type with the same name as the module. For example the <code>Result</code> module does this, it exports the <code>Result</code> type, some constructor functions that create a <code>Result</code> type, and some utility funcitons that operate on or return a <code>Result</code> type. In these cases it can become annoying to prefix the type with the module name, like <code>Result.Result</code>. Consider the following example. Note that this is <strong>not</strong> how it is done for modules with single type exports in typescript-tea, it is just to illustrate how it would be done normally:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itsOk</span>(<span class="hljs-params"></span>): <span class="hljs-title">Result</span>.<span class="hljs-title">Result</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
@@ -229,9 +228,6 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_result_.html">&quot;result&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_runtime_.html">&quot;runtime&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_sub_.html">&quot;sub&quot;</a>

@@ -104,7 +104,7 @@
 					<div class="tsd-signature tsd-kind-icon">Batched<wbr>Effect&lt;A&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><a href="_effect_.html#internalhome" class="tsd-signature-type">InternalHome</a><span class="tsd-signature-symbol">; </span>list<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">"Batched"</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L23">effect.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L20">effect.ts:20</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -134,7 +134,7 @@
 					<div class="tsd-signature tsd-kind-icon">Effect&lt;A&gt;<span class="tsd-signature-symbol">:</span> <a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L13">effect.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L10">effect.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -158,10 +158,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="effectmapper" class="tsd-anchor"></a>
 					<h3>Effect<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>mapCmd<span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>mapSub<span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Mapper&lt;A1, A2, THome&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">THome</span><span class="tsd-signature-symbol">; </span>mapCmd<span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>mapSub<span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L67">effect.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L64">effect.ts:64</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -172,10 +172,16 @@
 						<li>
 							<h4>A2</h4>
 						</li>
+						<li>
+							<h4>THome</h4>
+						</li>
 					</ul>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">THome</span></h5>
+							</li>
 							<li class="tsd-parameter">
 								<h5>map<wbr>Cmd<span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffectmapper" class="tsd-signature-type">LeafEffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
@@ -191,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">Gathered<wbr>Effects&lt;A&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L56">effect.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L53">effect.ts:53</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -223,7 +229,7 @@
 					<div class="tsd-signature tsd-kind-icon">Internal<wbr>Home<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><a href="_effect_.html#internalhome-1" class="tsd-signature-type">InternalHome</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L16">effect.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L13">effect.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +239,7 @@
 					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect&lt;_A&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L18">effect.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L15">effect.ts:15</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -257,10 +263,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="leafeffectmapper" class="tsd-anchor"></a>
 					<h3>Leaf<wbr>Effect<wbr>Mapper</h3>
-					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Leaf<wbr>Effect<wbr>Mapper&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L51">effect.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L48">effect.ts:48</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -277,14 +283,32 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>actionMapper: <a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+												<h5>actionMapper: <span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span></h5>
+												<ul class="tsd-parameters">
+													<li class="tsd-parameter-signature">
+														<ul class="tsd-signatures tsd-kind-type-literal">
+															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A2</span></li>
+														</ul>
+														<ul class="tsd-descriptions">
+															<li class="tsd-description">
+																<h4 class="tsd-parameters-title">Parameters</h4>
+																<ul class="tsd-parameters">
+																	<li>
+																		<h5>a1: <span class="tsd-signature-type">A1</span></h5>
+																	</li>
+																</ul>
+																<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A2</span></h4>
+															</li>
+														</ul>
+													</li>
+												</ul>
 											</li>
 											<li>
 												<h5>effect: <a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -300,10 +324,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="mappedeffect" class="tsd-anchor"></a>
 					<h3>Mapped<wbr>Effect</h3>
-					<div class="tsd-signature tsd-kind-icon">Mapped<wbr>Effect&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>actionMapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>home<span class="tsd-signature-symbol">: </span><a href="_effect_.html#internalhome" class="tsd-signature-type">InternalHome</a><span class="tsd-signature-symbol">; </span>original<span class="tsd-signature-symbol">: </span><a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">"Mapped"</span><span class="tsd-signature-symbol"> }</span></div>
+					<div class="tsd-signature tsd-kind-icon">Mapped<wbr>Effect&lt;A1, A2&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>actionMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">; </span>home<span class="tsd-signature-symbol">: </span><a href="_effect_.html#internalhome" class="tsd-signature-type">InternalHome</a><span class="tsd-signature-symbol">; </span>original<span class="tsd-signature-symbol">: </span><a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">"Mapped"</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L29">effect.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L26">effect.ts:26</a></li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -319,7 +343,25 @@
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
-								<h5>action<wbr>Mapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>action<wbr>Mapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-signature">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A2</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>a1: <span class="tsd-signature-type">A1</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A2</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
 							</li>
 							<li class="tsd-parameter">
 								<h5>home<span class="tsd-signature-symbol">: </span><a href="_effect_.html#internalhome" class="tsd-signature-type">InternalHome</a></h5>
@@ -342,7 +384,7 @@
 					<div class="tsd-signature tsd-kind-icon">Internal<wbr>Home<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"__internal"</span><span class="tsd-signature-symbol"> = &quot;__internal&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L15">effect.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L12">effect.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -359,7 +401,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L36">effect.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L33">effect.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -382,20 +424,19 @@
 					<a name="gathereffects" class="tsd-anchor"></a>
 					<h3>gather<wbr>Effects</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">gather<wbr>Effects&lt;A&gt;<span class="tsd-signature-symbol">(</span>getEffectMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span>, gatheredEffects<span class="tsd-signature-symbol">: </span><a href="_effect_.html#gatheredeffects" class="tsd-signature-type">GatheredEffects</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, isCmd<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span>, actionMapper<span class="tsd-signature-symbol">?: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">gather<wbr>Effects&lt;A&gt;<span class="tsd-signature-symbol">(</span>getEffectMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a>, gatheredEffects<span class="tsd-signature-symbol">: </span><a href="_effect_.html#gatheredeffects" class="tsd-signature-type">GatheredEffects</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, isCmd<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, effect<span class="tsd-signature-symbol">: </span><a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span>, actionMapper<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L77">effect.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L74">effect.ts:74</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This function is optimized for high performance and we don&#39;t wan to use
-										callbacks etc since they are slower. Hence the ugly boolean
-									and the mutable input params.</p>
+									<p>This function is optimized for performance. Hence the ugly boolean
+									and the mutable input param.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -407,11 +448,11 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>getEffectMapper: <span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>getEffectMapper: <span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
@@ -421,7 +462,7 @@
 															<h5>home: <span class="tsd-signature-type">string</span></h5>
 														</li>
 													</ul>
-													<h4 class="tsd-returns-title">Returns <a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+													<h4 class="tsd-returns-title">Returns <a href="_effect_.html#effectmapper" class="tsd-signature-type">EffectMapper</a></h4>
 												</li>
 											</ul>
 										</li>
@@ -437,7 +478,7 @@
 									<h5>effect: <a href="_effect_.html#effect" class="tsd-signature-type">Effect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> actionMapper: <a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> = undefined</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> actionMapper: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> = undefined</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -448,13 +489,13 @@
 					<a name="mapeffect" class="tsd-anchor"></a>
 					<h3>map<wbr>Effect</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">map<wbr>Effect&lt;A1, A2&gt;<span class="tsd-signature-symbol">(</span>mapper<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span>, c<span class="tsd-signature-symbol">: </span><a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+						<li class="tsd-signature tsd-kind-icon">map<wbr>Effect&lt;A1, A2&gt;<span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span>, c<span class="tsd-signature-symbol">: </span><a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/1ec0186/src/effect.ts#L44">effect.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9a46a89/src/effect.ts#L41">effect.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -469,7 +510,25 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>mapper: <a href="_dispatch_.html#actionmapper" class="tsd-signature-type">ActionMapper</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>actionMapper: <span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A2</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>a1: <span class="tsd-signature-type">A1</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A2</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 								<li>
 									<h5>c: <a href="_effect_.html#batchedeffect" class="tsd-signature-type">BatchedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#mappedeffect" class="tsd-signature-type">MappedEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_effect_.html#leafeffect" class="tsd-signature-type">LeafEffect</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
@@ -504,9 +563,6 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_result_.html">&quot;result&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_runtime_.html">&quot;runtime&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_sub_.html">&quot;sub&quot;</a>

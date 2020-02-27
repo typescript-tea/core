@@ -4,7 +4,7 @@
   "description": "The Elm Architecture for typescript",
   "main": "dist/core.js",
   "module": "dist/core.m.js",
-  "types": "dist/core.d.ts",
+  "types": "dist/index.d.ts",
   "author": "Jonas Kello <jonas.kello@gmail.com>",
   "license": "MIT",
   "repository": "github:typescript-tea/core",
