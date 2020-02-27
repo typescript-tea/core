@@ -42,9 +42,6 @@
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
-  "dependencies": {
-    "ts-exhaustive-check": "^1.0.0"
-  },
   "scripts": {
     "build": "tsc -b",
     "clean": "tsc -b --clean && rimraf lib && rimraf dist",

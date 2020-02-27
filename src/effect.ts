@@ -1,5 +1,3 @@
-import { exhaustiveCheck } from "ts-exhaustive-check";
-
 /**
  * Commands and Subscriptions are both effects and they can both be batched and mapped.
  * This module handles the batching and mapping of both commands and subscriptions
@@ -96,8 +94,10 @@ export function gatherEffects<A>(
           actionMapper ? (a) => actionMapper(internalEffect.actionMapper(a)) : internalEffect.actionMapper
         );
         return;
-      default:
-        exhaustiveCheck(internalEffect, true);
+      default: {
+        const exhaustive: never = internalEffect;
+        throw new Error(`Invalid result type ${exhaustive}`);
+      }
     }
   } else {
     const manager = getEffectMapper(effect.home);
