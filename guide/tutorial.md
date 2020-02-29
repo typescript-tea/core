@@ -98,14 +98,14 @@ type EffectManager<ProgramAction, SelfAction, State, Home> = {
   readonly mapCmd: (map: (a1: Action1) => Action2, cmd: Cmd<Action1>) => Cmd<Action2>;
   readonly mapSub: (map: (a1: Action1) => Action2, cmd: Sub<Action1>) => Sub<Action2>;
   readonly onEffects: (
-    dispatchApp: Dispatch<ProgramAction>,
+    dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
     cmds: ReadonlyArray<Cmd<ProgramAction>>,
     subs: ReadonlyArray<Sub<ProgramAction>>,
     state: State
   ) => State;
   readonly onSelfAction: (
-    dispatchApp: Dispatch<ProgramAction>,
+    dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
     action: SelfAction,
     state: State
