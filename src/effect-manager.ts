@@ -6,7 +6,7 @@ import { LeafEffect, LeafEffectMapper } from "./effect";
  * that was gathered for the effect manager.
  */
 export type OnEffects<ProgramAction, SelfAction, State> = (
-  dispatchApp: Dispatch<ProgramAction>,
+  dispatchProgram: Dispatch<ProgramAction>,
   dispatchSelf: Dispatch<SelfAction>,
   cmds: ReadonlyArray<LeafEffect<ProgramAction>>,
   subs: ReadonlyArray<LeafEffect<ProgramAction>>,
@@ -18,7 +18,7 @@ export type OnEffects<ProgramAction, SelfAction, State> = (
  * dispatches to itself.
  */
 export type OnSelfAction<ProgramAction, SelfAction, State> = (
-  dispatchApp: Dispatch<ProgramAction>,
+  dispatchProgram: Dispatch<ProgramAction>,
   dispatchSelf: Dispatch<SelfAction>,
   action: SelfAction,
   state: State
