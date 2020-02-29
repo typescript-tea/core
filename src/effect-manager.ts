@@ -5,11 +5,11 @@ import { LeafEffect, LeafEffectMapper } from "./effect";
  * A function that will be called by the runtime with the effects (commands and subscriptions)
  * that was gathered for the effect manager.
  */
-export type OnEffects<AppAction, SelfAction, State> = (
-  dispatchApp: Dispatch<AppAction>,
+export type OnEffects<ProgramAction, SelfAction, State> = (
+  dispatchApp: Dispatch<ProgramAction>,
   dispatchSelf: Dispatch<SelfAction>,
-  cmds: ReadonlyArray<LeafEffect<AppAction>>,
-  subs: ReadonlyArray<LeafEffect<AppAction>>,
+  cmds: ReadonlyArray<LeafEffect<ProgramAction>>,
+  subs: ReadonlyArray<LeafEffect<ProgramAction>>,
   state: State
 ) => State;
 
@@ -17,8 +17,8 @@ export type OnEffects<AppAction, SelfAction, State> = (
  * A function that will be called by the runtime with the actions that an effect manager
  * dispatches to itself.
  */
-export type OnSelfAction<AppAction, SelfAction, State> = (
-  dispatchApp: Dispatch<AppAction>,
+export type OnSelfAction<ProgramAction, SelfAction, State> = (
+  dispatchApp: Dispatch<ProgramAction>,
   dispatchSelf: Dispatch<SelfAction>,
   action: SelfAction,
   state: State
@@ -27,12 +27,12 @@ export type OnSelfAction<AppAction, SelfAction, State> = (
 /**
  * A type that describes an effect manager that can be used by the runtime.
  */
-export type EffectManager<AppAction = unknown, SelfAction = unknown, State = unknown, THome = unknown> = {
-  readonly home: THome;
+export type EffectManager<ProgramAction = unknown, SelfAction = unknown, State = unknown, Home = unknown> = {
+  readonly home: Home;
   readonly mapCmd: LeafEffectMapper;
   readonly mapSub: LeafEffectMapper;
-  readonly onEffects: OnEffects<AppAction, SelfAction, State>;
-  readonly onSelfAction: OnSelfAction<AppAction, SelfAction, State>;
+  readonly onEffects: OnEffects<ProgramAction, SelfAction, State>;
+  readonly onSelfAction: OnSelfAction<ProgramAction, SelfAction, State>;
 };
 
 /** @ignore */

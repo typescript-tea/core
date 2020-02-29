@@ -10,7 +10,7 @@ import { LeafEffect, batchEffects, mapEffect } from "./effect";
  * Every `Cmd` specifies (1) which effects you need access to and (2) the type of
  * messages that will come back into your application.
  */
-export type Cmd<A> = LeafEffect<A>;
+export type Cmd<Action> = LeafEffect<Action>;
 
 /**
  * When you need the runtime system to perform a couple commands, you

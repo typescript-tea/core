@@ -53,7 +53,7 @@ export function run<S, A, V>(
     if (isRunning) {
       const manager = getEffectManager(home);
       const enqueueSelfAction = enqueueManagerAction(home);
-      managerStates[home] = manager.onSelfAction(enqueueAppAction, enqueueSelfAction, action, managerStates[home]);
+      managerStates[home] = manager.onSelfAction(enqueueProgramAction, enqueueSelfAction, action, managerStates[home]);
     }
   };
 
@@ -67,7 +67,7 @@ export function run<S, A, V>(
     enqueueRaw(dispatchManager(home), action);
   };
 
-  const enqueueAppAction = (action: A): void => {
+  const enqueueProgramAction = (action: A): void => {
     enqueueRaw(dispatchApp, action);
   };
 
@@ -89,14 +89,14 @@ export function run<S, A, V>(
       const { cmds, subs } = gatheredEffects[home];
       const manager = getEffectManager(home);
       managerStates[home] = manager.onEffects(
-        enqueueAppAction,
+        enqueueProgramAction,
         enqueueManagerAction(home),
         cmds,
         subs,
         managerStates[home]
       );
     }
-    render(view({ state, dispatch: enqueueAppAction }));
+    render(view({ state, dispatch: enqueueProgramAction }));
   }
 
   function setup(): void {
@@ -111,7 +111,7 @@ export function run<S, A, V>(
 
   function key(): void {
     if (program.onUrlChange) {
-      enqueueAppAction(program.onUrlChange(getCurrentUrl()));
+      enqueueProgramAction(program.onUrlChange(getCurrentUrl()));
     }
   }
 
