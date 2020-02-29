@@ -2,6 +2,8 @@
 
 The main goal of The Elm Architecture (TEA) is to be able to write a program that consists of only [pure functions](https://en.wikipedia.org/wiki/Pure_function). Pure functions have no side effects (eg. server fetching, reading/writing local storage etc.), and they always return the same value for the same inputs. These properties makes them very predictable and easy to test. So if we have a program consisting only of pure functions the program becomes very predictable, easy to test, and easy to reason about.
 
+## Simplest possible program
+
 So let's begin with looking at the definition of the program type. It has three main functions which should all be pure:
 
 ```ts
@@ -12,7 +14,7 @@ type Program<State, Action, View> = {
 };
 ```
 
-The program type has generic parameters for `State`, `Action` and `View`, which means you can provide your own types for them. Let's write a simple program using React as view framework, a `number` as state, and a union type of `string` as action (you can play with this example [here](https://stackblitz.com/edit/react-ts-c4g6kq)):
+The program type has generic parameters for `State`, `Action` and `View`, which means you can provide your own types for them. Let's write a simple program using React as view framework, a `number` as state, and a union type of `string` as action (you can play with this example [here](https://stackblitz.com/edit/react-ts-c4g6kq?file=index.tsx)):
 
 ```ts
 import React from "react";
@@ -40,24 +42,38 @@ Program.run(program, render);
 
 This program will initialize the state to 0, show a view with the state and buttons to dispatch actions to increment or decrement. With each dispatch, the update() function will be called which will return a new state incremented or decremented by one depending on the action. After the state is updated the view will be re-rendered. The program will continue in this runtime-loop forever.
 
-The last section of the code above starts the program by calling `Program.run()` passing the program and a function that can handle rendering the return value of the `view()` function in the program.
+The last section of the code above starts the program by calling `Program.run()` passing the program and a function that can handle rendering the return value of the `view()` function in the program. This is sometimes refered to as the "runtime". The runtime lives outside your program and you start your program by giving it to the runtime, and then as your program runs it may communicate with the runtime in a few different way that we will explore later. The important part to know for now it that there are two main pieces to the archtiecture: your program which is 100% pure functions, and the runtime that can handle impure operations.
 
-You may notice that the return value from init() and update() is an array. Specifcially it is an array of exactly 2 items which is also known as a 2-tuple. The second item is optional so we can also return a 1-tuple which is what is done in the above program. The first item in the tuple is the state, and the second item is a `Cmd<Action>` which is used to tell the runtime that our program wants to do an effect, such as fetching data from a server. So lets make a little more interesting program where we fetch som data and display it:
+## Using effects
+
+You may notice that the return value from init() and update() is an array. Specifcially it is an array of exactly 2 items which is also known as a 2-tuple. The second item is optional so we can also return a 1-tuple which is what is done in the above program. The first item in the tuple is the state, and the second item is a `Cmd<Action>` which is used to tell the runtime that our program wants to do an effect, such as fetching data from a server. So lets make a little more interesting program where we fetch som data and display it (you can play with it [here](https://stackblitz.com/edit/react-ts-fp8roj)):
 
 ```ts
 import React from "react";
 import ReactDOM from "react-dom";
-import { Program } from "@typescript-tea/core";
+import { Program, Result } from "@typescript-tea/core";
+import * as Http from "@typescript-tea/http";
+
+// Define actions
+type Action = { type: "GotData"; result: Result<string, { data: { image_url: string } }> };
 
 // Define the program
-const program: Program<number, "increment" | "decrement", JSX.Element> = {
-  init: () => [0],
-  update: (action, state) => (action === "increment" ? [state + 1] : [state - 1]),
+const program: Program<string, Action, JSX.Element> = {
+  init: () => [
+    "Getting url...",
+    Http.get(
+      "https://api.giphy.com/v1/gifs/random?api_key=fynIjQH0KtzG1JeEkZZGT3cTie9KFm1T&tag=cat",
+      Http.expectJson(
+        (result) => ({ type: "GotData", result }),
+        (s) => Result.Ok(JSON.parse(s))
+      )
+    ),
+  ],
+  update: (action, state) =>
+    action.result.type === "Ok" ? [action.result.value.data.image_url] : ["Error getting url.."],
   view: ({ state, dispatch }) => (
     <div>
-      <button onClick={() => dispatch("decrement")}>-</button>
-      {state}
-      <button onClick={() => dispatch("increment")}>+</button>
+      <img src={state} />
     </div>
   ),
 };
@@ -65,7 +81,7 @@ const program: Program<number, "increment" | "decrement", JSX.Element> = {
 // Run the program
 const el = document.getElementById("root");
 const render = (view: JSX.Element) => ReactDOM.render(view, el);
-Program.run(program, render);
+Program.run(program, render, [Http.createEffectManager()]);
 ```
 
-The above program is very simple and it does not do any effects like fetching from the server or saving state into local storage. In order to do effects we must also use the `Cmd<Action>` parameter. The `Cmd<Action>` type consists of only data and a function to create an `Action`. The data describes what effect we want to do, for example if we want to fetch from the server, the data would be something like `{ type: "fetch", url: "http://whaterver.we.want.to.fetch }`. The fact that the `Cmd<Action>` type is only that is what makes it possible for the program to be 100% pure and still do side-effects. The program "commands" the "runtime" to do the effect for it.
+The above program uses the `Cmd<Action>` parameter. The `Cmd<Action>` type consists of only data and a function to create an `Action`. The data describes what effect we want to do, for example if we want to fetch from the server, the data would be something like `{ type: "fetch", url: "http://whaterver.we.want.to.fetch }`. The fact that the `Cmd<Action>` type is only that is what makes it possible for the program to be 100% pure and still do side-effects. The program "commands" the "runtime" to do the effect for it.
