@@ -4,23 +4,30 @@ import { LeafEffect, LeafEffectMapper } from "./effect";
 /**
  * A type that describes an effect manager that can be used by the runtime.
  */
-export type EffectManager<ProgramAction = unknown, SelfAction = unknown, State = unknown, Home = unknown> = {
+export type EffectManager<
+  Home = unknown,
+  ProgramAction = unknown,
+  SelfAction = unknown,
+  SelfState = unknown,
+  MyCmd extends LeafEffect<ProgramAction> = LeafEffect<ProgramAction>,
+  MySub extends LeafEffect<ProgramAction> = LeafEffect<ProgramAction>
+> = {
   readonly home: Home;
   readonly mapCmd: LeafEffectMapper;
   readonly mapSub: LeafEffectMapper;
   readonly onEffects: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
-    cmds: ReadonlyArray<LeafEffect<ProgramAction>>,
-    subs: ReadonlyArray<LeafEffect<ProgramAction>>,
-    state: State
-  ) => State;
+    cmds: ReadonlyArray<MyCmd>,
+    subs: ReadonlyArray<MySub>,
+    state: SelfState
+  ) => SelfState;
   readonly onSelfAction: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
     action: SelfAction,
-    state: State
-  ) => State;
+    state: SelfState
+  ) => SelfState;
 };
 
 /** @ignore */
