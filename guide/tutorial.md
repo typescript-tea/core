@@ -96,7 +96,7 @@ However in certain circumstances there might not be a ready-made effect manager 
 type EffectManager<ProgramAction, SelfAction, State, Home> = {
   readonly home: Home;
   readonly mapCmd: (map: (a1: Action1) => Action2, cmd: Cmd<Action1>) => Cmd<Action2>;
-  readonly mapSub: (map: (a1: Action1) => Action2, cmd: Sub<Action1>) => Sub<Action2>;
+  readonly mapSub: (map: (a1: Action1) => Action2, sub: Sub<Action1>) => Sub<Action2>;
   readonly onEffects: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
@@ -129,3 +129,58 @@ Let's discuss the fields of the `EffectManager` type:
 - `mapSub` - We can disregard this function for now, we'll discuss subscriptions later.
 - `onEffects` - Called by the runtime with the `Cmd` objects that was returned by `init()` and `update()`. This is were most of the work in an effect manager happens.
 - `onSelfAction` - Can be used by the effect manager to send actions to itself. Useful if the effect manager does async operations.
+
+For the simplest type of effect manager that only handles `Cmd`, has no internal state, and does not support fractal commands, we only need to use `home`, and `onEffects`. Lets make such an effect manager that has a single command for fetching data and use it to fetch an url. We will use it in the same type of program as demonstrated above (instead of the read-made http effect manager), you can play with it [here](https://stackblitz.com/edit/react-ts-vs4g5x):
+
+```ts
+import React from "react";
+import ReactDOM from "react-dom";
+import { Program, EffectManager, Cmd } from "@typescript-tea/core";
+
+// Define actions
+type Action = { type: "GotData"; result: { data: { image_url: string } } };
+
+// Define the program
+const program: Program<string, Action, JSX.Element> = {
+  init: () => [
+    "",
+    getUrl("https://api.giphy.com/v1/gifs/random?api_key=fynIjQH0KtzG1JeEkZZGT3cTie9KFm1T&tag=cat", (data) => ({
+      type: "GotData",
+      result: data,
+    })),
+  ],
+  update: (action, state) => (action.type === "GotData" ? [action.result.data.image_url] : ["Error getting url.."]),
+  view: ({ state, dispatch }) => (
+    <div>
+      <img src={state} />
+    </div>
+  ),
+};
+
+// Define the effect manager
+const myEffMgr: EffectManager<Action, never, {}, "MyEffMgr"> = {
+  home: "MyEffMgr",
+  mapCmd: (map, cmd) => cmd,
+  mapSub: (map, sub) => sub,
+  onEffects: (dispatchProgram, dispatchSelf, cmds: ReadonlyArray<GetUrl<Action>>, subs, state) => {
+    for (const c of cmds) {
+      fetch(c.url)
+        .then((res) => res.json())
+        .then((json) => dispatchProgram(c.gotUrl(json)));
+    }
+    return {};
+  },
+  onSelfAction: () => ({}),
+};
+
+// Define the effect manager's command
+type GetUrl<A> = { home: "MyEffMgr"; type: "GetUrl"; url: string; gotUrl: (data) => A };
+function getUrl<A>(url: string, gotUrl: (data) => A): GetUrl<A> {
+  return { home: "MyEffMgr", type: "GetUrl", url, gotUrl };
+}
+
+// Run the program
+const el = document.getElementById("root");
+const render = (view: JSX.Element) => ReactDOM.render(view, el);
+Program.run(program, render, [myEffMgr]);
+```
