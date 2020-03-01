@@ -265,6 +265,41 @@ export function init(): State {
 export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
   return (
     <div>
+      <span>This is the header</span>
+      <button onClick={() => dispatch({ type: "DecrementHeader" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "IncrementHeader" })}>+</button>
+    </div>
+  );
+}
+
+export type Action = { type: "DecrementHeader" } | { type: "IncrementHeader" };
+
+export function update(action: Action, state: State): State {
+  switch (action.type) {
+    case "DecrementHeader":
+      return { count: state.count - 1 };
+    case "IncrementHeader":
+      return { count: state.count + 1 };
+  }
+}
+```
+
+**content.tsx**
+
+```ts
+import React from "react";
+import { Dispatch } from "@typescript-tea/core";
+
+export type State = { count: number };
+
+export function init(): State {
+  return { count: 0 };
+}
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
       <span>This is the content</span>
       <button onClick={() => dispatch({ type: "DecrementContent" })}>-</button>
       {state.count}
@@ -285,7 +320,7 @@ export function update(action: Action, state: State): State {
 }
 ```
 
-**footer.ts**
+**footer.tsx**
 
 ```ts
 import React from "react";
