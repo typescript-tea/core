@@ -158,11 +158,11 @@ const program: Program<string, Action, JSX.Element> = {
 };
 
 // Define the effect manager
-const myEffMgr: EffectManager<Action, never, {}, "MyEffMgr"> = {
+const myEffMgr: EffectManager<"MyEffMgr", Action, never, {}, GetUrl<Action>> = {
   home: "MyEffMgr",
   mapCmd: (map, cmd) => cmd,
   mapSub: (map, sub) => sub,
-  onEffects: (dispatchProgram, dispatchSelf, cmds: ReadonlyArray<GetUrl<Action>>, subs, state) => {
+  onEffects: (dispatchProgram, dispatchSelf, cmds, subs, state) => {
     for (const c of cmds) {
       fetch(c.url)
         .then((res) => res.json())
@@ -184,3 +184,5 @@ const el = document.getElementById("root");
 const render = (view: JSX.Element) => ReactDOM.render(view, el);
 Program.run(program, render, [myEffMgr]);
 ```
+
+The runtime will collect all `Cmd` with our `Home` and call `onEffects()` with them. We will fetch the url for each `Cmd` and when we receive a response we will create and action with the response using the action creator function that was passed `Action` it to the program. This action gets dispacted to the program using the `dispatchProgram` function.
