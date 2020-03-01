@@ -186,3 +186,150 @@ Program.run(program, render, [myEffMgr]);
 ```
 
 The runtime will collect all `Cmd` with our `Home` and call `onEffects()` with them. We will fetch the url for each `Cmd` and when we receive a response we will create and action with the response using the action creator function that was passed `Action` it to the program. This action gets dispacted to the program using the `dispatchProgram` function.
+
+## How to organize larger programs
+
+### Split pattern
+
+We have only looked at some tiny programs here. Once your program grows you will want to divide it into multiple, `init()`, `update()`, and `view()` functions. I would strongly recommend the watching the lecture [Scaling Elm Apps](https://www.youtube.com/watch?v=DoA4Txr4GUs) by Richard Feldman. It uses the Elm language, however much of the advice in the lecture is valid for any implementation of TEA.
+
+Lets look at a simple example of how to divide your program into parts. It is actually very simple, since all we have to work with is pure functions, we just delegate to more functions. We also split the types and let each function handle part of the type. We join all the types up as a union type to form the main types of the program. You could imagine putting each of the different functions and types into their own files but here we show all of them at once (you can play with this example [here](https://stackblitz.com/edit/react-ts-dcmupt)):
+
+**index.tsx**
+
+```ts
+import React from "react";
+import ReactDOM from "react-dom";
+import { Program } from "@typescript-tea/core";
+import * as Header from "./header";
+import * as Content from "./content";
+import * as Footer from "./footer";
+
+type State = {
+  header: Header.State;
+  content: Content.State;
+  footer: Footer.State;
+};
+
+function init(): [State] {
+  return [{ header: Header.init(), content: Content.init(), footer: Footer.init() }];
+}
+
+type Action = Header.Action | Content.Action | Footer.Action;
+
+function update(action: Action, state: State): [State] {
+  switch (action.type) {
+    case "DecrementHeader":
+    case "IncrementHeader":
+      return [{ ...state, header: Header.update(action, state.header) }];
+    case "DecrementContent":
+    case "IncrementContent":
+      return [{ ...state, content: Content.update(action, state.content) }];
+    case "DecrementFooter":
+    case "IncrementFooter":
+      return [{ ...state, footer: Footer.update(action, state.footer) }];
+  }
+}
+
+// Define the program
+const program: Program<State, Action, JSX.Element> = {
+  init,
+  update,
+  view: ({ state, dispatch }) => (
+    <div>
+      <Header.View dispatch={dispatch} state={state.header} />
+      <Content.View dispatch={dispatch} state={state.content} />
+      <Footer.View dispatch={dispatch} state={state.footer} />
+    </div>
+  ),
+};
+
+// Run the program
+const el = document.getElementById("root");
+const render = (view: JSX.Element) => ReactDOM.render(view, el);
+Program.run(program, render);
+```
+
+**header.ts**
+
+```ts
+import React from "react";
+import { Dispatch } from "@typescript-tea/core";
+
+export type State = { count: number };
+
+export function init(): State {
+  return { count: 0 };
+}
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
+      <span>This is the content</span>
+      <button onClick={() => dispatch({ type: "DecrementContent" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "IncrementContent" })}>+</button>
+    </div>
+  );
+}
+
+export type Action = { type: "DecrementContent" } | { type: "IncrementContent" };
+
+export function update(action: Action, state: State): State {
+  switch (action.type) {
+    case "DecrementContent":
+      return { count: state.count - 1 };
+    case "IncrementContent":
+      return { count: state.count + 1 };
+  }
+}
+```
+
+**footer.ts**
+
+```ts
+import React from "react";
+import { Dispatch } from "@typescript-tea/core";
+
+export type State = { count: number };
+
+export function init(): State {
+  return { count: 0 };
+}
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
+      <span>This is the footer</span>
+      <button onClick={() => dispatch({ type: "DecrementFooter" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "IncrementFooter" })}>+</button>
+    </div>
+  );
+}
+
+export type Action = { type: "DecrementFooter" } | { type: "IncrementFooter" };
+
+export function update(action: Action, state: State): State {
+  switch (action.type) {
+    case "DecrementFooter":
+      return { count: state.count - 1 };
+    case "IncrementFooter":
+      return { count: state.count + 1 };
+  }
+}
+```
+
+### Fractal design
+
+For larger apps it might be useful to break out some parts that are re-usable thorughout the app, use multiple instances of a part, or simply isolate parts from each other. This can be done by using the fractal pattern. Note that this pattern is for organizing your program's code. TEA does not require you to organize your code in a fractal pattern and you should probably think twice before using it as it can be confusing to newcomers.
+
+TODO!
+
+## Subscriptions
+
+TODO!!
+
+## Routing
+
+TODO!!
