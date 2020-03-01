@@ -355,7 +355,9 @@ export function update(action: Action, state: State): State {
 }
 ```
 
-### Fractal design
+Some things to notice about this pattern is that the main types that goes into the Program at the top-level joins up all the types from the other files. So there is still a single `Action` type, it's declaration is just split into several files. However since each file only accepts its own part of the top-level `Action` type we can reason about only those actions, so there is less to keep in our head when looking at each of the `update()` functions (compared to have a one big update function that handles all of the acitons).
+
+### Fractal pattern
 
 For larger apps it might be useful to break out some parts that are re-usable thorughout the app, use multiple instances of a part, or simply isolate parts from each other. This can be done by using the fractal pattern. Note that this pattern is for organizing your program's code. TEA does not require you to organize your code in a fractal pattern and you should probably think twice before using it as it can be confusing to newcomers.
 
