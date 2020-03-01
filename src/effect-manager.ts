@@ -9,8 +9,8 @@ export type EffectManager<
   ProgramAction = unknown,
   SelfAction = unknown,
   SelfState = unknown,
-  MyCmd extends LeafEffect<ProgramAction> = LeafEffect<ProgramAction>,
-  MySub extends LeafEffect<ProgramAction> = LeafEffect<ProgramAction>
+  MyCmd extends LeafEffect<ProgramAction, Home> = LeafEffect<ProgramAction, Home>,
+  MySub extends LeafEffect<ProgramAction, Home> = LeafEffect<ProgramAction, Home>
 > = {
   readonly home: Home;
   readonly mapCmd: LeafEffectMapper;

@@ -12,8 +12,8 @@ export type Effect<A> = BatchedEffect<A> | MappedEffect<A, unknown> | LeafEffect
 export const InternalHome = "__internal";
 export type InternalHome = typeof InternalHome;
 
-export type LeafEffect<_A> = {
-  readonly home: string;
+export type LeafEffect<_A, Home = string> = {
+  readonly home: Home;
   readonly type: string;
 };
 
