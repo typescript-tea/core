@@ -459,7 +459,21 @@ export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: S
 }
 ```
 
-What is interesting about the above example is that we are using the same module `Counter` several times. The root view has
+What is interesting about the above example is that we are using the same module `Counter` several times. The root view has state for 3 counters and it wraps the actions dispatched by each counter in its own action called `DispatchCounter1`, `DispatchCounter2`, and `DispatchCounter3`. This wrapping is accomplished by giving each of the counters a differnt dispatch function. Lets look at one of them:
+
+```ts
+<Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter1", action })} state={state.counter1} />
+```
+
+Looking closer att the dispatch prop, we can see that we pass in a function that takes an `action` parameter and it will then use this parameter to create an object `{ type: "DispatchCounter1", action }` which will look like this once the function is called with the counter's Increment action:
+
+```ts
+{
+  type: "DispatchCounter1", action: { type: "Increment" };
+}
+```
+
+So the Counter moudle's `Increment` action is not wrapped inside the root module's `DispatchCounter1` action and it is that object that will be dispatched to the runtime (since the root module's dispatch function is the one the program got from the runtime). This runtime will call the root module's update function with this action and the `case` statement that will handle it will in turn call the Counter module's `update()` with the inner action which is `{ type: "Increment" }`.
 
 ## Subscriptions
 
