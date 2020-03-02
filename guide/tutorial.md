@@ -482,7 +482,7 @@ Looking closer att the dispatch prop, we can see that we pass in a function that
 }
 ```
 
-So the Counter moudle's `Increment` action is not wrapped inside the root module's `DispatchCounter1` action and it is that object that will be dispatched to the runtime (since the root module's dispatch function is the one the program got from the runtime). This runtime will call the root module's update function with this action and the `case` statement that will handle it will in turn call the Counter module's `update()` with the inner action which is `{ type: "Increment" }`.
+So the Counter module's `Increment` action is now wrapped inside the root module's `DispatchCounter1` action and it is that object that will be dispatched to the runtime (since the root module's dispatch function is the one the program got from the runtime). This runtime will call the root module's update function with this action and the `case` statement that will handle it will in turn call the Counter module's `update()` with the inner action which is `{ type: "Increment" }`.
 
 ## Subscriptions
 
