@@ -255,6 +255,7 @@ Program.run(program, render);
 ```ts
 import React from "react";
 import { Dispatch } from "@typescript-tea/core";
+import { exhaustiveCheck } from "ts-exhaustive-check";
 
 export type State = { count: number };
 
@@ -270,6 +271,8 @@ export function update(action: Action, state: State): State {
       return { count: state.count - 1 };
     case "IncrementHeader":
       return { count: state.count + 1 };
+    default:
+      return exhaustiveCheck(action, true);
   }
 }
 
@@ -290,6 +293,7 @@ export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: S
 ```ts
 import React from "react";
 import { Dispatch } from "@typescript-tea/core";
+import { exhaustiveCheck } from "ts-exhaustive-check";
 
 export type State = { count: number };
 
@@ -305,6 +309,8 @@ export function update(action: Action, state: State): State {
       return { count: state.count - 1 };
     case "IncrementContent":
       return { count: state.count + 1 };
+    default:
+      return exhaustiveCheck(action, true);
   }
 }
 
@@ -325,6 +331,7 @@ export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: S
 ```ts
 import React from "react";
 import { Dispatch } from "@typescript-tea/core";
+import { exhaustiveCheck } from "ts-exhaustive-check";
 
 export type State = { count: number };
 
@@ -340,6 +347,8 @@ export function update(action: Action, state: State): State {
       return { count: state.count - 1 };
     case "IncrementFooter":
       return { count: state.count + 1 };
+    default:
+      return exhaustiveCheck(action, true);
   }
 }
 
