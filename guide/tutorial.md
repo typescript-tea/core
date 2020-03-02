@@ -262,17 +262,6 @@ export function init(): State {
   return { count: 0 };
 }
 
-export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
-  return (
-    <div>
-      <span>This is the header</span>
-      <button onClick={() => dispatch({ type: "DecrementHeader" })}>-</button>
-      {state.count}
-      <button onClick={() => dispatch({ type: "IncrementHeader" })}>+</button>
-    </div>
-  );
-}
-
 export type Action = { type: "DecrementHeader" } | { type: "IncrementHeader" };
 
 export function update(action: Action, state: State): State {
@@ -282,6 +271,17 @@ export function update(action: Action, state: State): State {
     case "IncrementHeader":
       return { count: state.count + 1 };
   }
+}
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
+      <span>This is the header</span>
+      <button onClick={() => dispatch({ type: "DecrementHeader" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "IncrementHeader" })}>+</button>
+    </div>
+  );
 }
 ```
 
@@ -297,17 +297,6 @@ export function init(): State {
   return { count: 0 };
 }
 
-export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
-  return (
-    <div>
-      <span>This is the content</span>
-      <button onClick={() => dispatch({ type: "DecrementContent" })}>-</button>
-      {state.count}
-      <button onClick={() => dispatch({ type: "IncrementContent" })}>+</button>
-    </div>
-  );
-}
-
 export type Action = { type: "DecrementContent" } | { type: "IncrementContent" };
 
 export function update(action: Action, state: State): State {
@@ -317,6 +306,17 @@ export function update(action: Action, state: State): State {
     case "IncrementContent":
       return { count: state.count + 1 };
   }
+}
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
+      <span>This is the content</span>
+      <button onClick={() => dispatch({ type: "DecrementContent" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "IncrementContent" })}>+</button>
+    </div>
+  );
 }
 ```
 
@@ -332,6 +332,17 @@ export function init(): State {
   return { count: 0 };
 }
 
+export type Action = { type: "DecrementFooter" } | { type: "IncrementFooter" };
+
+export function update(action: Action, state: State): State {
+  switch (action.type) {
+    case "DecrementFooter":
+      return { count: state.count - 1 };
+    case "IncrementFooter":
+      return { count: state.count + 1 };
+  }
+}
+
 export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
   return (
     <div>
@@ -341,6 +352,88 @@ export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: S
       <button onClick={() => dispatch({ type: "IncrementFooter" })}>+</button>
     </div>
   );
+}
+```
+
+Some things to notice about this pattern is that the main types that goes into the Program at the top-level joins up all the types from the other files. So there is still a single `Action` type, it's declaration is just split into several files. However since each file only accepts its own part of the top-level `Action` type we can reason about only those actions, so there is less to keep in our head when looking at each of the `update()` functions (compared to have a one big update function that handles all of the acitons).
+
+### Fractal pattern
+
+For larger apps it might be useful to break out some parts that are re-usable thorughout the app, use multiple instances of a part, or simply isolate parts from each other. This can be done by using the fractal pattern. Note that this pattern is for organizing your program's code. TEA does not require you to organize your code in a fractal pattern and you should probably think twice before using it as it can be confusing to newcomers.
+
+In a fractal pattern you have a parent that contains a child which has the same strucutre as the parent. That child can in turn contain another child that has the same structure and so on forever. The strucure in our case is a triplet of `init()`, `update()`, and `view()` functions. So the root would have these tree functions, and all its children has these three functions, and all of their children have these theree funcitons and so on. As we saw earlier when we split the `Action` type up into several files, we needed to have unique Action names and also delegate the actions down to the correct `update()` function. This limits us in some ways, for example we cannot use multiple instances of the same module since that would mean having the same `Action` names several times. The fractal pattern solves this problem by introducing a separate action in the parent that wraps the child's action. Let's look at a simple fractal example (you can play with this example [here](https://stackblitz.com/edit/react-ts-ampadd)):
+
+**index.tsx**
+
+```ts
+import React from "react";
+import ReactDOM from "react-dom";
+import { Program } from "@typescript-tea/core";
+import * as Counter from "./counter";
+import { exhaustiveCheck } from "ts-exhaustive-check";
+
+type State = {
+  doItMessage: string;
+  counter1: Counter.State;
+  counter2: Counter.State;
+  counter3: Counter.State;
+};
+
+function init(): [State] {
+  return [{ doItMessage: "Do it", counter1: Counter.init(), counter2: Counter.init(), counter3: Counter.init() }];
+}
+
+type Action =
+  | { type: "DoIt" }
+  | { type: "DispatchCounter1"; action: Counter.Action }
+  | { type: "DispatchCounter2"; action: Counter.Action }
+  | { type: "DispatchCounter3"; action: Counter.Action };
+
+function update(action: Action, state: State): [State] {
+  switch (action.type) {
+    case "DoIt":
+      return [{ ...state, doItMessage: "It is done" }];
+    case "DispatchCounter1":
+      return [{ ...state, counter1: Counter.update(action.action, state.counter1) }];
+    case "DispatchCounter2":
+      return [{ ...state, counter2: Counter.update(action.action, state.counter2) }];
+    case "DispatchCounter3":
+      return [{ ...state, counter3: Counter.update(action.action, state.counter3) }];
+    default:
+      return exhaustiveCheck(action, true);
+  }
+}
+
+// Define the program
+const program: Program<State, Action, JSX.Element> = {
+  init,
+  update,
+  view: ({ state, dispatch }) => (
+    <div>
+      <button onClick={() => dispatch({ type: "DoIt" })}>{state.doItMessage}</button>
+      <Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter1", action })} state={state.counter1} />
+      <Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter2", action })} state={state.counter2} />
+      <Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter3", action })} state={state.counter3} />
+    </div>
+  ),
+};
+
+// Run the program
+const el = document.getElementById("root");
+const render = (view: JSX.Element) => ReactDOM.render(view, el);
+Program.run(program, render);
+```
+
+**counter.tsx**
+
+```ts
+import React from "react";
+import { Dispatch } from "@typescript-tea/core";
+
+export type State = { count: number };
+
+export function init(): State {
+  return { count: 0 };
 }
 
 export type Action = { type: "DecrementFooter" } | { type: "IncrementFooter" };
@@ -353,15 +446,20 @@ export function update(action: Action, state: State): State {
       return { count: state.count + 1 };
   }
 }
+
+export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: State }) {
+  return (
+    <div>
+      <span>This is the footer</span>
+      <button onClick={() => dispatch({ type: "Decrement" })}>-</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: "Increment" })}>+</button>
+    </div>
+  );
+}
 ```
 
-Some things to notice about this pattern is that the main types that goes into the Program at the top-level joins up all the types from the other files. So there is still a single `Action` type, it's declaration is just split into several files. However since each file only accepts its own part of the top-level `Action` type we can reason about only those actions, so there is less to keep in our head when looking at each of the `update()` functions (compared to have a one big update function that handles all of the acitons).
-
-### Fractal pattern
-
-For larger apps it might be useful to break out some parts that are re-usable thorughout the app, use multiple instances of a part, or simply isolate parts from each other. This can be done by using the fractal pattern. Note that this pattern is for organizing your program's code. TEA does not require you to organize your code in a fractal pattern and you should probably think twice before using it as it can be confusing to newcomers.
-
-TODO!
+What is interesting about the above example is that we are using the same module `Counter` several times. The root view has
 
 ## Subscriptions
 
