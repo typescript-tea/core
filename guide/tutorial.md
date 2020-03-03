@@ -470,7 +470,7 @@ export function View({ dispatch, state }: { dispatch: Dispatch<Action>; state: S
 }
 ```
 
-What is interesting about the above example is that we are using the same module `Counter` several times. The root view has state for 3 counters and it wraps the actions dispatched by each counter in its own action called `DispatchCounter1`, `DispatchCounter2`, and `DispatchCounter3`. This wrapping is accomplished by giving each of the counters a differnt dispatch function. Lets look at one of them:
+What is interesting about the above example is that we are using the same module `Counter` several times. The root view has state for 3 counters and it wraps the actions dispatched by each counter in its own actions called `DispatchCounter1`, `DispatchCounter2`, and `DispatchCounter3`. This wrapping is accomplished by giving each of the counters a different dispatch function. Lets look at one of them:
 
 ```ts
 <Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter1", action })} state={state.counter1} />
@@ -486,9 +486,22 @@ Looking closer att the dispatch prop, we can see that we pass in a function that
 
 So the Counter module's `Increment` action is now wrapped inside the root module's `DispatchCounter1` action and it is that object that will be dispatched to the runtime (since the root module's dispatch function is the one the program got from the runtime). This runtime will call the root module's update function with this action and the `case` statement that will handle it will in turn call the Counter module's `update()` with the inner action which is `{ type: "Increment" }`.
 
+So the fractal pattern is about a parent holding state for a child and calling the child's update function. Note that the parent does not know what is inside the child's state or what kind of actions the child has. The child is like a blac-box for the parent. This is a kind of encapsulation of state and logic.
+
 ## Subscriptions
 
-TODO!!
+There are two types of effects in TEA, commands and subscriptions. We examined commands earlier and saw that the program could send a command to an effect manager to get some task done. So commands are a way for the program to tell an effect manager that it wants some work done in the world outside the program. Subscriptions on the other hand is a way for an effect manager to tell the program that something happened in the world outside the program. However in order for the effect manager to know that the program is interested in some outside event, the program first needs to tell the effect manager what it is interested in. Let's look a the program type again, there is an optional `subscriptions()` funtion that we omitted earlier. This function is used to tell effect managers what types of outside events the program is interested in:
+
+```ts
+type Program<State, Action, View> = {
+  init: (url: string, key: () => void) => [State, Cmd<Action>?];
+  update: (action: Action, state: State) => [State, Cmd<Action>?];
+  view: (props: { state: State; dispatch: Dispatch<Action> }) => View;
+  subscriptions?: (state: State) => Sub<Action> | undefined;
+};
+```
+
+We can see that the `subscriptions()` function returns a `Sub<Action>`. A `Sub` specifies some data to describe what to subsribe to and an action creator function with the action we want the effect manager to send us each time the event occurs. A `Sub` is very much like a `Cmd` but the action can happen multiple times in a `Sub`
 
 ## Routing
 
