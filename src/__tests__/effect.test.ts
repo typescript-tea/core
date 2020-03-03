@@ -1,5 +1,4 @@
 import { Effect, InternalHome, MappedEffect, gatherEffects, GatheredEffects, EffectMapper } from "../effect";
-import { ActionMapper } from "../dispatch";
 
 test("gather effects - single command", () => {
   const manager1: EffectMapper = {
@@ -33,7 +32,10 @@ test("gather effects - mapped command", () => {
   };
   const mapper: EffectMapper<unknown, unknown, "MyManager"> = {
     home: "MyManager",
-    mapCmd: (actionMapper: ActionMapper<ChildAction, ParentAction>, cmd: MyCmd<ChildAction>): MyCmd<ParentAction> => {
+    mapCmd: (
+      actionMapper: (childAction: ChildAction) => ParentAction,
+      cmd: MyCmd<ChildAction>
+    ): MyCmd<ParentAction> => {
       return { ...cmd, gotResult: (result) => actionMapper(cmd.gotResult(result)) };
     },
     mapSub: (_actionMapper, effect) => effect,

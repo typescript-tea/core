@@ -1,7 +1,6 @@
 /**
  * @module Result
  */
-import { exhaustiveCheck } from "ts-exhaustive-check";
 
 // -- RESULT (from elm core)
 
@@ -32,16 +31,15 @@ export function Err<TError>(error: TError): Result<TError, never> {
  *     mapError .message (parseInt "123") == Ok 123
  *     mapError .message (parseInt "abc") == Err "char 'a' is not a number"
  */
-export function mapError<x, y, a>(
-  f: (x: x) => y,
-  result: Result<x, a>
-): Result<y, a> {
+export function mapError<x, y, a>(f: (x: x) => y, result: Result<x, a>): Result<y, a> {
   switch (result.type) {
     case "Ok":
       return Ok(result.value);
     case "Err":
       return Err(f(result.error));
-    default:
-      return exhaustiveCheck(result, true);
+    default: {
+      const exhaustive: never = result;
+      throw new Error(`Invalid result type ${exhaustive}`);
+    }
   }
 }

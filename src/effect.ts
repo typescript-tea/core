@@ -1,6 +1,3 @@
-import { exhaustiveCheck } from "ts-exhaustive-check";
-import { ActionMapper } from "./dispatch";
-
 /**
  * Commands and Subscriptions are both effects and they can both be batched and mapped.
  * This module handles the batching and mapping of both commands and subscriptions
@@ -15,8 +12,8 @@ export type Effect<A> = BatchedEffect<A> | MappedEffect<A, unknown> | LeafEffect
 export const InternalHome = "__internal";
 export type InternalHome = typeof InternalHome;
 
-export type LeafEffect<_A> = {
-  readonly home: string;
+export type LeafEffect<_A, Home = string> = {
+  readonly home: Home;
   readonly type: string;
 };
 
@@ -29,7 +26,7 @@ export type BatchedEffect<A> = {
 export type MappedEffect<A1, A2> = {
   readonly home: InternalHome;
   readonly type: "Mapped";
-  readonly actionMapper: ActionMapper<A1, A2>;
+  readonly actionMapper: (a1: A1) => A2;
   readonly original: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1>;
 };
 
@@ -42,14 +39,14 @@ export function batchEffects<A>(effects: ReadonlyArray<Effect<A> | undefined>): 
 }
 
 export function mapEffect<A1, A2>(
-  mapper: ActionMapper<A1, A2>,
+  actionMapper: (a1: A1) => A2,
   c: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1> | undefined
 ): MappedEffect<A1, A2> | undefined {
-  return c === undefined ? undefined : { home: InternalHome, type: "Mapped", actionMapper: mapper, original: c };
+  return c === undefined ? undefined : { home: InternalHome, type: "Mapped", actionMapper, original: c };
 }
 
 export type LeafEffectMapper<A1 = unknown, A2 = unknown> = (
-  actionMapper: ActionMapper<A1, A2>,
+  actionMapper: (a1: A1) => A2,
   effect: Effect<A1>
 ) => LeafEffect<A2>;
 
@@ -79,7 +76,7 @@ export function gatherEffects<A>(
   gatheredEffects: GatheredEffects<A>,
   isCmd: boolean,
   effect: Effect<unknown>,
-  actionMapper: ActionMapper<unknown, unknown> | undefined = undefined
+  actionMapper: ((a1: unknown) => unknown) | undefined = undefined
 ): void {
   if (effect.home === InternalHome) {
     const internalEffect = effect as BatchedEffect<unknown> | MappedEffect<unknown, unknown>;
@@ -97,8 +94,10 @@ export function gatherEffects<A>(
           actionMapper ? (a) => actionMapper(internalEffect.actionMapper(a)) : internalEffect.actionMapper
         );
         return;
-      default:
-        exhaustiveCheck(internalEffect, true);
+      default: {
+        const exhaustive: never = internalEffect;
+        throw new Error(`Invalid result type ${exhaustive}`);
+      }
     }
   } else {
     const manager = getEffectMapper(effect.home);

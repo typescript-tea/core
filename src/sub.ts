@@ -13,7 +13,7 @@ import { LeafEffect, batchEffects, mapEffect } from "./effect";
  * Every `Sub` specifies (1) which effects you need access to and (2) the type of
  * messages that will come back into your application.
  */
-export type Sub<A> = LeafEffect<A>;
+export type Sub<Action> = LeafEffect<Action>;
 
 /**
  * When you need to subscribe to multiple things, you can create a `batch` of
