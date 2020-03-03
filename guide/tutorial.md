@@ -486,7 +486,24 @@ Looking closer att the dispatch prop, we can see that we pass in a function that
 
 So the Counter module's `Increment` action is now wrapped inside the root module's `DispatchCounter1` action and it is that object that will be dispatched to the runtime (since the root module's dispatch function is the one the program got from the runtime). This runtime will call the root module's update function with this action and the `case` statement that will handle it will in turn call the Counter module's `update()` with the inner action which is `{ type: "Increment" }`.
 
-So the fractal pattern is about a parent holding state for a child and calling the child's update function. Note that the parent does not know what is inside the child's state or what kind of actions the child has. The child is like a blac-box for the parent. This is a kind of encapsulation of state and logic.
+Note that the function that the parent pass down to the child's dispatch prop is a lamda:
+
+```ts
+<Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter1", action })} state={state.counter1} />
+```
+
+This can become a problem if you are using React as a rendering library because a new lamda function will be created for each render so the dispatch prop will always get a new value which will cause the child to re-render even if the stat prop has not changed. To avoid this, typescript-tea provides the function `Dispatch.map()` which will do exacctly what is done above but it will also memoize the resulting function and re-use the same if possible in order to now cause re-renders:
+
+export function map<ChildAction, ParentAction>(
+actionMapper: (childAction: ChildAction) => ParentAction,
+dispatch: Dispatch<ParentAction>
+): Dispatch<ChildAction> {
+
+```ts
+<Counter.View dispatch={Dispatch.map((action) => ({ type: "DispatchCounter1", action }), dispatch} state={state.counter1} />
+```
+
+So to summarize the fractal pattern is about a parent holding state for a child and calling the child's update function. Note that the parent does not know what is inside the child's state or what kind of actions the child has. The child is like a black-box for the parent. This is a kind of encapsulation of state and logic.
 
 ## Subscriptions
 
