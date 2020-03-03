@@ -27,7 +27,7 @@ We will walk through all the steps in the runtime loop, but before we do that le
 type Program<S, A, V> = {
   init: () => [S, Cmd<A>?];
   update: (action: A, state: S) => [S, Cmd<A>?];
-  view: (props: { state: S; dispatch: Dispatch<A> }) => V;
+  view: (props: { state: S; dispatch: (action: A) => void }) => V;
 };
 ```
 
@@ -44,3 +44,19 @@ An interesting aspect of the three functions in the program is that they must (o
 When I first encountered pure functions, I thought that programs that consists of only pure functions cannot be useful at all unless your whole program is only doing math operations. I mean not calling the server? Not writing to a database? How can I ever get some real work done without that? But then again, if it was possible to have useful programs with only pure functions, that would be really interesting. As you could imagine, pure functions are extremely pretictable and easy to test. So if you can have a program that consists of only pure functions, your program becomes extremely predictable and easy to test. It also becomes easier to reason about the program and usually such programs have fewer bugs than programs that consists of impure functions. In fact, with only pure functions, you have to debug stuff less often as you can already predict the outcome of every function.
 
 But then again, a program of only pure functions that does meaningful enterprise application work cannot really be possible? It must be a pipe dream? Well, it turns out that having the program consist of only pure functions is the whole key to the Elm Archticture (TEA). It is actually the whole reasons TEA exists at all. Having your program consist of only pure functions is the "raison d'etre" of TEA. So how does TEA pull this incredible feat off? Well, to discover that we need to look closer at the return values of the three functions in the program.
+
+Let's start with the `init()` function. here it is again:
+
+```ts
+init: () => [S, Cmd<A>?];
+```
+
+After starting the runtime by calling `run()` the first of the programs functions to get called is `init()`. This function don't have to accept any input parameters but it does have to produce a result which can be the 2-tuple `[S, Cmd<A>?]` (an array with exactly 2 elements). The first index in the tuple, `S`, is the programs initial state. The runtime will take this state and store it for the application. The second index in the tuple is optional and can be a `Cmd<A>`. So what is this `Cmd<A>` stuff? It is a "Command" which can be used to tell the runtime to do something that has an effect on the outside world, for example fetch data from a server. The command itself is a pure data structure, it does not do anything. This is the key to how TEA can keep all the application's function pure but still perform effects. The pure functions return a pure data structure which describes what it wants to be done. The command can also include a pure function that takes a value and produces an `Action`. This is used when the command has a result. For example if the program returns a command that describes that it wants to fetch data from a HTTP server (the payload data to the command is he URL), it can also include a function that produces an action with the result of the data fetched from the server. That `Action` is then sent to the applications `update()` function (more abot this function shortly).
+
+After `init()` has returned the inital state and any command it wants done, the next of the application's functions that gets called is `view()`. Here it is again:
+
+```ts
+view: (props: { state: S; dispatch: (action: A) => void }) => V;
+```
+
+The `view()` function, being part of the application code, is of course also a pure function. The runtime calls this function with the applications current state and a function that can be used to dispatch an action to the runtime. The dispatch function takes an action of type `A` (which can be any type your application wants), and returns nothing. This function is used to tell the runtime that an action was performed. For example we can use the dispatch function in the `onclick` handler of a button and when the button is clicked the action will be sent. So the `view()` function uses the state it gets to produce a data structure that describes how the screen should look. When using React this data structure is JSX. It also binds the dispatch function it get passed to `onclick` and similar handles in the JSX.
