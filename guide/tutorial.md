@@ -503,7 +503,7 @@ dispatch: Dispatch<ParentAction>
 <Counter.View dispatch={Dispatch.map((action) => ({ type: "DispatchCounter1", action }), dispatch} state={state.counter1} />
 ```
 
-If you are returning a `Cmd<Action>` from the child's update function, this must also be mapped so the action creator function inside that `Cmd` will create a wrapped function. To do this use the `Cmd.map` function.
+If you are returning a `Cmd<Action>` from the child's update function, this must also be mapped so the action creator function inside that `Cmd` will create a wrapped action. To do this use the `Cmd.map` function.
 
 So to summarize the fractal pattern is about a parent holding state for a child and calling the child's update function. Note that the parent does not know what is inside the child's state or what kind of actions the child has. The child is like a black-box for the parent. This is a kind of encapsulation of state and logic.
 
