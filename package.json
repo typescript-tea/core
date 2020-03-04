@@ -1,6 +1,6 @@
 {
   "name": "@typescript-tea/core",
-  "version": "0.3.0-0",
+  "version": "0.3.0",
   "description": "The Elm Architecture for typescript",
   "main": "dist/core.js",
   "module": "dist/core.m.js",
