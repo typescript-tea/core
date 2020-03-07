@@ -95,23 +95,23 @@ The purpose of effect managers is to handle effects outside of the program. This
 However in certain circumstances there might not be a ready-made effect manager available to accomplish what you want to do, so you will have to write your own. Fortunately this is pretty straightforward to do. So in order to understand effect managers a litle bit better, let's write our own simple effect manager. First lets look at the `EffectManager` type:
 
 ```ts
-type EffectManager<ProgramAction, SelfAction, State, Home> = {
+export type EffectManager<Home, ProgramAction, SelfAction, SelfState, MyCmd, MySub> = {
   readonly home: Home;
   readonly mapCmd: (map: (a1: Action1) => Action2, cmd: Cmd<Action1>) => Cmd<Action2>;
   readonly mapSub: (map: (a1: Action1) => Action2, sub: Sub<Action1>) => Sub<Action2>;
   readonly onEffects: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
-    cmds: ReadonlyArray<Cmd<ProgramAction>>,
-    subs: ReadonlyArray<Sub<ProgramAction>>,
-    state: State
-  ) => State;
+    cmds: ReadonlyArray<MyCmd>,
+    subs: ReadonlyArray<MySub>,
+    state: SelfState
+  ) => SelfState;
   readonly onSelfAction: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
     action: SelfAction,
-    state: State
-  ) => State;
+    state: SelfState
+  ) => SelfState;
 };
 ```
 
@@ -120,7 +120,9 @@ The EffectManager type has the following generic parameters:
 - `Home` - This is a string that identifies this effect manager.
 - `ProgramAction` - This is the same action type as the program is using.
 - `SelfAction` - Actions defined for internal use in the effect manager.
-- `State` - This is state used internally in the effect manager.
+- `SelfState` - This is state used internally in the effect manager.
+- `MyCmd` - The type of command that this effect manager handles, usually a union type.
+- `MySub` - The type of subscription that this effect manager handles, usually a union type.
 
 The `Home` string is just used by the runtime to know where to send the `Cmd<Acion>` objects returned by `init()` and `update()`. All `Cmd<Action>` objects have a `home` field that is set to this string. It is up to each effect manager to produce objects with its own home string. Note that `State` is not the program's state but an internal state that the effect manager may use if it needs to keep state.
 
@@ -494,11 +496,6 @@ Note that the function that the parent pass down to the child's dispatch prop is
 
 This can become a problem if you are using React as a rendering library because a new lamda function will be created for each render so the dispatch prop will always get a new value which will cause the child to re-render even if the stat prop has not changed. To avoid this, typescript-tea provides the function `Dispatch.map()` which will do exacctly what is done above but it will also memoize the resulting function and re-use the same if possible in order to now cause re-renders:
 
-export function map<ChildAction, ParentAction>(
-actionMapper: (childAction: ChildAction) => ParentAction,
-dispatch: Dispatch<ParentAction>
-): Dispatch<ChildAction> {
-
 ```ts
 <Counter.View dispatch={Dispatch.map((action) => ({ type: "DispatchCounter1", action }), dispatch} state={state.counter1} />
 ```
@@ -520,7 +517,7 @@ type Program<State, Action, View> = {
 };
 ```
 
-We can see that the `subscriptions()` function returns a `Sub<Action>`. A `Sub` specifies some data to describe what to subsribe to and an action creator function with the action we want the effect manager to send us each time the event occurs. A `Sub` is very much like a `Cmd` but the action can happen multiple times in a `Sub`
+We can see that the `subscriptions()` function returns a `Sub<Action>`. A `Sub` specifies some data to describe what to subsribe to and an action creator function with the action we want the effect manager to send us each time the event occurs. A `Sub` is very much like a `Cmd` but the action can happen multiple times in a `Sub`.
 
 ## Routing
 
