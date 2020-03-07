@@ -494,7 +494,7 @@ Note that the function that the parent pass down to the child's dispatch prop is
 <Counter.View dispatch={(action) => dispatch({ type: "DispatchCounter1", action })} state={state.counter1} />
 ```
 
-This can become a problem if you are using React as a rendering library because a new lamda function will be created for each render so the dispatch prop will always get a new value which will cause the child to re-render even if the stat prop has not changed. To avoid this, typescript-tea provides the function `Dispatch.map()` which will do exacctly what is done above but it will also memoize the resulting function and re-use the same if possible in order to now cause re-renders:
+This can become a problem if you are using React as a rendering library because a new lamda function will be created for each render so the dispatch prop will always get a new value which will cause the child to re-render even if the state prop has not changed. To avoid this, typescript-tea provides the function `Dispatch.map()` which will do exacctly what is done above but it will also memoize the resulting function and re-use the same if possible in order to now cause re-renders:
 
 ```ts
 <Counter.View dispatch={Dispatch.map((action) => ({ type: "DispatchCounter1", action }), dispatch} state={state.counter1} />
