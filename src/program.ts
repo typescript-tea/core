@@ -7,9 +7,9 @@ import { GatheredEffects, gatherEffects } from "./effect";
 /**
  * A program represents the root of an application.
  */
-export type Program<State, Action, View> = {
+export type Program<Init, State, Action, View> = {
   // readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
-  readonly init: (url: string) => readonly [State, Cmd<Action>?];
+  readonly init: (init: Init) => readonly [State, Cmd<Action>?];
   readonly update: (action: Action, state: State) => readonly [State, Cmd<Action>?];
   readonly view: (props: { readonly state: State; readonly dispatch: Dispatch<Action> }) => View;
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
@@ -22,14 +22,15 @@ export type Program<State, Action, View> = {
  * and progress the state each time the program calls update().
  * You can use the returned function to terminate the program.
  */
-export function run<S, A, V>(
-  program: Program<S, A, V>,
-  render: (view: V) => void,
+export function run<Init, State, Action, View>(
+  program: Program<Init, State, Action, View>,
+  init: Init,
+  render: (view: View) => void,
   effectManagers: ReadonlyArray<EffectManager<string, unknown, unknown>> = []
 ): () => void {
   const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
-  let state: S;
+  let state: State;
   const managerStates: { [home: string]: unknown } = {};
   const managerTeardowns: Array<() => void> = [];
   let isRunning = false;
@@ -51,7 +52,7 @@ export function run<S, A, V>(
     isProcessing = false;
   }
 
-  const dispatchManager = (home: string) => (action: A): void => {
+  const dispatchManager = (home: string) => (action: Action): void => {
     if (isRunning) {
       const manager = getEffectManager(home);
       const enqueueSelfAction = enqueueManagerAction(home);
@@ -59,7 +60,7 @@ export function run<S, A, V>(
     }
   };
 
-  function dispatchApp(action: A): void {
+  function dispatchApp(action: Action): void {
     if (isRunning) {
       change(update(action, state));
     }
@@ -69,22 +70,22 @@ export function run<S, A, V>(
     enqueueRaw(dispatchManager(home), action);
   };
 
-  const enqueueProgramAction = (action: A): void => {
+  const enqueueProgramAction = (action: Action): void => {
     enqueueRaw(dispatchApp, action);
   };
 
-  function enqueueRaw(dispatch: Dispatch<A>, action: unknown): void {
+  function enqueueRaw(dispatch: Dispatch<Action>, action: unknown): void {
     if (isRunning) {
       actionQueue.push({ dispatch, action });
       processActions();
     }
   }
 
-  function change(change: readonly [S, Cmd<A>?]): void {
+  function change(change: readonly [State, Cmd<Action>?]): void {
     state = change[0];
     const cmd = change[1];
     const sub = subscriptions && subscriptions(state);
-    const gatheredEffects: GatheredEffects<A> = {};
+    const gatheredEffects: GatheredEffects<Action> = {};
     cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
     sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
     for (const home of Object.keys(gatheredEffects)) {
@@ -129,7 +130,7 @@ export function run<S, A, V>(
 
   isRunning = true;
 
-  change(program.init(getCurrentUrl()));
+  change(program.init(init));
 
   processActions();
 
@@ -141,7 +142,7 @@ export function run<S, A, V>(
   };
 }
 
-function getCurrentUrl(): string {
-  // return window.location.href;
-  return window.location.pathname;
-}
+// function getCurrentUrl(): string {
+//   // return window.location.href;
+//   return window.location.pathname;
+// }
