@@ -8,7 +8,8 @@ import { GatheredEffects, gatherEffects } from "./effect";
  * A program represents the root of an application.
  */
 export type Program<State, Action, View> = {
-  readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
+  // readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
+  readonly init: (url: string) => readonly [State, Cmd<Action>?];
   readonly update: (action: Action, state: State) => readonly [State, Cmd<Action>?];
   readonly view: (props: { readonly state: State; readonly dispatch: Dispatch<Action> }) => View;
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
@@ -24,13 +25,14 @@ export type Program<State, Action, View> = {
 export function run<S, A, V>(
   program: Program<S, A, V>,
   render: (view: V) => void,
-  effectManagers?: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
+  effectManagers: ReadonlyArray<EffectManager<string, unknown, unknown>> = []
 ): () => void {
-  const getEffectManager = createGetEffectManager(effectManagers || []);
+  const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
   let state: S;
   const managerStates: { [home: string]: unknown } = {};
-  let isRunning = true;
+  const managerTeardowns: Array<() => void> = [];
+  let isRunning = false;
   let isProcessing = false;
   const actionQueue: Array<{
     dispatch: Dispatch<unknown>;
@@ -100,24 +102,36 @@ export function run<S, A, V>(
   }
 
   function setup(): void {
-    window.addEventListener("popstate", key);
-    // eslint-disable-next-line no-unused-expressions
-    window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
+    for (const em of effectManagers) {
+      managerTeardowns.push(em.setup(enqueueProgramAction, enqueueManagerAction(em.home)));
+    }
+
+    // window.addEventListener("popstate", key);
+    // // eslint-disable-next-line no-unused-expressions
+    // window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
   }
 
   function teardown(): void {
-    window.removeEventListener("popstate", key);
+    for (const mtd of managerTeardowns) {
+      mtd();
+    }
+
+    // window.removeEventListener("popstate", key);
   }
 
-  function key(): void {
-    if (program.onUrlChange) {
-      enqueueProgramAction(program.onUrlChange(getCurrentUrl()));
-    }
-  }
+  // function key(): void {
+  //   if (program.onUrlChange) {
+  //     enqueueProgramAction(program.onUrlChange(getCurrentUrl()));
+  //   }
+  // }
 
   setup();
 
-  change(program.init(getCurrentUrl(), key));
+  isRunning = true;
+
+  change(program.init(getCurrentUrl()));
+
+  processActions();
 
   return function end(): void {
     if (isRunning) {
