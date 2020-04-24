@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/typescript-tea/core/compare/v0.3.0...master)
 
+- Add `setup()` to `EffectManger`. This makes it possible for setup code to exist outside of core. For example code for setting up listening to popstate for navigation.
+- Add generic `Init` type to `init()` function and `Program.run()` instead of passing current url. This makes it possible to pass any type of data from the outside into the init() function of the program (a litle similar to Elm's flags). Since you can pass anything, tt is still possible to pass current url.
+- Remove `onUrlChange` from `Program`. This can instead be passed as creation parameter to a navigation effect manager.
+
 ## [0.3.0](https://github.com/typescript-tea/core/compare/v0.2.0...v0.3.0) - 2020-03-04
 
 ### Changed

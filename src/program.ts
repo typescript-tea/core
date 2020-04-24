@@ -7,12 +7,11 @@ import { GatheredEffects, gatherEffects } from "./effect";
 /**
  * A program represents the root of an application.
  */
-export type Program<State, Action, View> = {
-  readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
+export type Program<Init, State, Action, View> = {
+  readonly init: (init: Init) => readonly [State, Cmd<Action>?];
   readonly update: (action: Action, state: State) => readonly [State, Cmd<Action>?];
   readonly view: (props: { readonly state: State; readonly dispatch: Dispatch<Action> }) => View;
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
-  readonly onUrlChange?: (url: string) => Action;
 };
 
 /**
@@ -21,16 +20,18 @@ export type Program<State, Action, View> = {
  * and progress the state each time the program calls update().
  * You can use the returned function to terminate the program.
  */
-export function run<S, A, V>(
-  program: Program<S, A, V>,
-  render: (view: V) => void,
-  effectManagers?: ReadonlyArray<EffectManager<unknown, unknown, unknown>>
+export function run<Init, State, Action, View>(
+  program: Program<Init, State, Action, View>,
+  init: Init,
+  render: (view: View) => void,
+  effectManagers: ReadonlyArray<EffectManager<string, unknown, unknown>> = []
 ): () => void {
-  const getEffectManager = createGetEffectManager(effectManagers || []);
+  const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
-  let state: S;
+  let state: State;
   const managerStates: { [home: string]: unknown } = {};
-  let isRunning = true;
+  const managerTeardowns: Array<() => void> = [];
+  let isRunning = false;
   let isProcessing = false;
   const actionQueue: Array<{
     dispatch: Dispatch<unknown>;
@@ -49,7 +50,7 @@ export function run<S, A, V>(
     isProcessing = false;
   }
 
-  const dispatchManager = (home: string) => (action: A): void => {
+  const dispatchManager = (home: string) => (action: Action): void => {
     if (isRunning) {
       const manager = getEffectManager(home);
       const enqueueSelfAction = enqueueManagerAction(home);
@@ -57,7 +58,7 @@ export function run<S, A, V>(
     }
   };
 
-  function dispatchApp(action: A): void {
+  function dispatchApp(action: Action): void {
     if (isRunning) {
       change(update(action, state));
     }
@@ -67,22 +68,22 @@ export function run<S, A, V>(
     enqueueRaw(dispatchManager(home), action);
   };
 
-  const enqueueProgramAction = (action: A): void => {
+  const enqueueProgramAction = (action: Action): void => {
     enqueueRaw(dispatchApp, action);
   };
 
-  function enqueueRaw(dispatch: Dispatch<A>, action: unknown): void {
+  function enqueueRaw(dispatch: Dispatch<Action>, action: unknown): void {
     if (isRunning) {
       actionQueue.push({ dispatch, action });
       processActions();
     }
   }
 
-  function change(change: readonly [S, Cmd<A>?]): void {
+  function change(change: readonly [State, Cmd<Action>?]): void {
     state = change[0];
     const cmd = change[1];
     const sub = subscriptions && subscriptions(state);
-    const gatheredEffects: GatheredEffects<A> = {};
+    const gatheredEffects: GatheredEffects<Action> = {};
     cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
     sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
     for (const home of Object.keys(gatheredEffects)) {
@@ -100,24 +101,24 @@ export function run<S, A, V>(
   }
 
   function setup(): void {
-    window.addEventListener("popstate", key);
-    // eslint-disable-next-line no-unused-expressions
-    window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
+    for (const em of effectManagers) {
+      managerTeardowns.push(em.setup(enqueueProgramAction, enqueueManagerAction(em.home)));
+    }
   }
 
   function teardown(): void {
-    window.removeEventListener("popstate", key);
-  }
-
-  function key(): void {
-    if (program.onUrlChange) {
-      enqueueProgramAction(program.onUrlChange(getCurrentUrl()));
+    for (const mtd of managerTeardowns) {
+      mtd();
     }
   }
 
   setup();
 
-  change(program.init(getCurrentUrl(), key));
+  isRunning = true;
+
+  change(program.init(init));
+
+  processActions();
 
   return function end(): void {
     if (isRunning) {
@@ -125,9 +126,4 @@ export function run<S, A, V>(
       teardown();
     }
   };
-}
-
-function getCurrentUrl(): string {
-  // return window.location.href;
-  return window.location.pathname;
 }

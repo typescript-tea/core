@@ -3,7 +3,7 @@
 // Program
 import * as ProgramNs from "./program";
 export const Program = ProgramNs;
-export type Program<S, A, V> = ProgramNs.Program<S, A, V>;
+export type Program<Init, State, Action, View> = ProgramNs.Program<Init, State, Action, View>;
 
 // Dispatch
 import * as DispatchNs from "./dispatch";
