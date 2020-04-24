@@ -8,12 +8,10 @@ import { GatheredEffects, gatherEffects } from "./effect";
  * A program represents the root of an application.
  */
 export type Program<Init, State, Action, View> = {
-  // readonly init: (url: string, key: () => void) => readonly [State, Cmd<Action>?];
   readonly init: (init: Init) => readonly [State, Cmd<Action>?];
   readonly update: (action: Action, state: State) => readonly [State, Cmd<Action>?];
   readonly view: (props: { readonly state: State; readonly dispatch: Dispatch<Action> }) => View;
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
-  readonly onUrlChange?: (url: string) => Action;
 };
 
 /**
@@ -106,25 +104,13 @@ export function run<Init, State, Action, View>(
     for (const em of effectManagers) {
       managerTeardowns.push(em.setup(enqueueProgramAction, enqueueManagerAction(em.home)));
     }
-
-    // window.addEventListener("popstate", key);
-    // // eslint-disable-next-line no-unused-expressions
-    // window.navigator.userAgent.indexOf("Trident") < 0 || window.addEventListener("hashchange", key);
   }
 
   function teardown(): void {
     for (const mtd of managerTeardowns) {
       mtd();
     }
-
-    // window.removeEventListener("popstate", key);
   }
-
-  // function key(): void {
-  //   if (program.onUrlChange) {
-  //     enqueueProgramAction(program.onUrlChange(getCurrentUrl()));
-  //   }
-  // }
 
   setup();
 
@@ -141,8 +127,3 @@ export function run<Init, State, Action, View>(
     }
   };
 }
-
-// function getCurrentUrl(): string {
-//   // return window.location.href;
-//   return window.location.pathname;
-// }
