@@ -1,3 +1,5 @@
+/** @ignore */ /** */
+
 /**
  * Commands and Subscriptions are both effects and they can both be batched and mapped.
  * This module handles the batching and mapping of both commands and subscriptions

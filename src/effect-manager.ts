@@ -3,6 +3,7 @@ import { LeafEffect, LeafEffectMapper } from "./effect";
 
 /**
  * A type that describes an effect manager that can be used by the runtime.
+ * @category Effect Manager
  */
 export type EffectManager<
   Home = string,

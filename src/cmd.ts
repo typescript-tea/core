@@ -1,3 +1,15 @@
+/**
+ * **Note:** Elm has **managed effects**, meaning that things like HTTP
+ * requests or writing to disk are all treated as *data* in Elm. When this
+ * data is given to the Elm runtime system, it can do some “query optimization”
+ * before actually performing the effect. Perhaps unexpectedly, this managed
+ * effects idea is the heart of why Elm is so nice for testing, reuse,
+ * reproducibility, etc.
+ *
+ * Elm has two kinds of managed effects: commands and subscriptions.
+ * @packageDocumentation
+ */
+
 import { LeafEffect, batchEffects, mapEffect } from "./effect";
 
 // -- COMMANDS
@@ -9,6 +21,7 @@ import { LeafEffect, batchEffects, mapEffect } from "./effect";
  * get it.
  * Every `Cmd` specifies (1) which effects you need access to and (2) the type of
  * messages that will come back into your application.
+ * @category Commands
  */
 export type Cmd<Action> = LeafEffect<Action>;
 
@@ -17,6 +30,7 @@ export type Cmd<Action> = LeafEffect<Action>;
  * can batch them together. Each is handed to the runtime at the same time,
  * and since each can perform arbitrary operations in the world, there are
  * no ordering guarantees about the results.
+ * @category Commands
  */
 export const batch = batchEffects;
 
@@ -24,5 +38,6 @@ export const batch = batchEffects;
  * If you are using a fractal approach where a Cmd can come from
  * a child's update function, you need to map the command in order for it
  * to produce an action that can be routed back to the child.
+ * @category Fancy Stuff
  */
 export const map = mapEffect;

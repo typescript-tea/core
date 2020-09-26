@@ -1,5 +1,9 @@
 // export type ActionMapper<ChildAction, ParentAction> = (childAction: ChildAction) => ParentAction;
 
+/**
+ * The dispatch function.
+ * @category Dispatch
+ */
 export type Dispatch<A> = (action: A) => void;
 
 // eslint-disable-next-line functional/prefer-readonly-type
@@ -17,6 +21,7 @@ const memoizedDispatch: DispatchMemoizationMap<unknown, unknown> = new Map();
  * for future calls. This makes it possible to avoid re-render in
  * e.g. react becuase the dispach prop will not change like it
  * would if a lambda like (a) => dispatch(mapper(a)) was used.
+ * @category Fancy Stuff
  */
 export function map<ChildAction, ParentAction>(
   actionMapper: (childAction: ChildAction) => ParentAction,

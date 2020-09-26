@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>@typescript-tea/core</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for @typescript-tea/core">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -87,53 +87,53 @@
 					<h2>Example</h2>
 				</a>
 				<p>This is the usual counter app example using the react as view library. It is also available in <a href="https://github.com/typescript-tea/simple-counter-example">this repo</a>.</p>
-				<pre><code class="language-ts">import React from "react";
-import ReactDOM from "react-dom";
-import { exhaustiveCheck } from "ts-exhaustive-check";
-import { Dispatch, Program } from "@typescript-tea/core";
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-dom&quot;</span>;
+<span class="hljs-keyword">import</span> { exhaustiveCheck } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;ts-exhaustive-check&quot;</span>;
+<span class="hljs-keyword">import</span> { Dispatch, Program } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/core&quot;</span>;
 
-// -- STATE
+<span class="hljs-comment">// -- STATE</span>
 
-type State = number;
-const init = (): readonly [State] =&gt; [0];
+<span class="hljs-keyword">type</span> State = <span class="hljs-built_in">number</span>;
+<span class="hljs-keyword">const</span> init = (): <span class="hljs-keyword">readonly</span> [State] =&gt; [<span class="hljs-number">0</span>];
 
-// -- UPDATE
+<span class="hljs-comment">// -- UPDATE</span>
 
-type Action = { type: "Increment" } | { type: "Decrement" };
+<span class="hljs-keyword">type</span> Action = { <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;Increment&quot;</span> } | { <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;Decrement&quot;</span> };
 
-function update(action: Action, state: State): readonly [State] {
-  switch (action.type) {
-    case "Increment":
-      return [state + 1];
-    case "Decrement":
-      return [state - 1];
-    default:
-      return exhaustiveCheck(action, true);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span>(<span class="hljs-params">action: Action, state: State</span>): <span class="hljs-title">readonly</span> [<span class="hljs-title">State</span>] </span>{
+  <span class="hljs-keyword">switch</span> (action.type) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Increment&quot;</span>:
+      <span class="hljs-keyword">return</span> [state + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Decrement&quot;</span>:
+      <span class="hljs-keyword">return</span> [state - <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span> exhaustiveCheck(action, <span class="hljs-literal">true</span>);
   }
 }
 
-// -- VIEW
+<span class="hljs-comment">// -- VIEW</span>
 
-const view = ({ dispatch, state }: { readonly dispatch: Dispatch&lt;Action&gt;; readonly state: State }) =&gt; (
+<span class="hljs-keyword">const</span> view = <span class="hljs-function">(<span class="hljs-params">{ dispatch, state }: { <span class="hljs-keyword">readonly</span> dispatch: Dispatch&lt;Action&gt;; <span class="hljs-keyword">readonly</span> state: State }</span>) =&gt;</span> (
   &lt;div&gt;
-    &lt;button onClick={() =&gt; dispatch({ type: "Decrement" })}&gt;-&lt;/button&gt;
+    &lt;button onClick={<span class="hljs-function">() =&gt;</span> dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;Decrement&quot;</span> })}&gt;-&lt;/button&gt;
     &lt;div&gt;{state}&lt;/div&gt;
-    &lt;button onClick={() =&gt; dispatch({ type: "Increment" })}&gt;+&lt;/button&gt;
+    &lt;button onClick={<span class="hljs-function">() =&gt;</span> dispatch({ <span class="hljs-keyword">type</span>: <span class="hljs-string">&quot;Increment&quot;</span> })}&gt;+&lt;/button&gt;
   &lt;/div&gt;
 );
 
-// -- PROGRAM
+<span class="hljs-comment">// -- PROGRAM</span>
 
-const program: Program&lt;State, Action, JSX.Element&gt; = {
+<span class="hljs-keyword">const</span> program: Program&lt;State, Action, JSX.Element&gt; = {
   init,
   update,
   view,
 };
 
-// -- RUN
+<span class="hljs-comment">// -- RUN</span>
 
-const app = document.getElementById("app");
-const render = (view: JSX.Element) =&gt; ReactDOM.render(view, app);
+<span class="hljs-keyword">const</span> app = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;app&quot;</span>);
+<span class="hljs-keyword">const</span> render = <span class="hljs-function">(<span class="hljs-params">view: JSX.Element</span>) =&gt;</span> ReactDOM.render(view, app);
 Program.run(program, render);</code></pre>
 				<a href="#differences-from-tea-in-elm" id="differences-from-tea-in-elm" style="color: inherit; text-decoration: none;">
 					<h2>Differences from TEA in Elm</h2>
@@ -152,41 +152,41 @@ Program.run(program, render);</code></pre>
 					<h3>Whole module from the root</h3>
 				</a>
 				<p>This package (and others in <code>@typescript-tea</code> organization) exports only <code>function</code>s and <code>type</code>s grouped into modules. You can import a module from the root of the package in the following way:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { ModuleName1, ModuleName2 } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/package-name"</span>;</code></pre>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { ModuleName1, ModuleName2 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/package-name&quot;</span>;</code></pre>
 				<p>For example:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/core&quot;</span>;
 
-<span class="hljs-keyword">const</span> result = Result.Ok(<span class="hljs-string">"It is OK"</span>);</code></pre>
+<span class="hljs-keyword">const</span> result = Result.Ok(<span class="hljs-string">&quot;It is OK&quot;</span>);</code></pre>
 				<a href="#unprefixed-named-imports-from-the-module-file" id="unprefixed-named-imports-from-the-module-file" style="color: inherit; text-decoration: none;">
 					<h3>Unprefixed named imports from the module file</h3>
 				</a>
 				<p>If you don&#39;t want to prefix with <code>ModuleName</code> you can also use named imports directly from the module file:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { function1, function2 } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/package-name/module-name"</span>;</code></pre>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { function1, function2 } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/package-name/module-name&quot;</span>;</code></pre>
 				<p>For example:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Ok } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core/result"</span>;
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Ok } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/core/result&quot;</span>;
 
-<span class="hljs-keyword">const</span> result = Ok(<span class="hljs-string">"It is OK"</span>);</code></pre>
+<span class="hljs-keyword">const</span> result = Ok(<span class="hljs-string">&quot;It is OK&quot;</span>);</code></pre>
 				<a href="#modules-that-export-a-single-type" id="modules-that-export-a-single-type" style="color: inherit; text-decoration: none;">
 					<h3>Modules that export a single type</h3>
 				</a>
 				<p>A common pattern is to have a module that exports a single type with the same name as the module. For example the <code>Result</code> module does this, it exports the <code>Result</code> type, some constructor functions that create a <code>Result</code> type, and some utility funcitons that operate on or return a <code>Result</code> type. In these cases it can become annoying to prefix the type with the module name, like <code>Result.Result</code>. Consider the following example. Note that this is <strong>not</strong> how it is done for modules with single type exports in typescript-tea, it is just to illustrate how it would be done normally:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/core&quot;</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itsOk</span>(<span class="hljs-params"></span>): <span class="hljs-title">Result</span>.<span class="hljs-title">Result</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
-  <span class="hljs-keyword">const</span> ok: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is OK"</span>);
-  <span class="hljs-keyword">const</span> err: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is not OK"</span>);
+  <span class="hljs-keyword">const</span> ok: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">&quot;It is OK&quot;</span>);
+  <span class="hljs-keyword">const</span> err: Result.Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">&quot;It is not OK&quot;</span>);
   <span class="hljs-keyword">return</span> ok;
 }</code></pre>
 				<p>To avoid having to write <code>Result.Result</code> in these cases, the <code>Result</code> module uses a trick so that both the module name and the type can be named simply <code>Result</code>. So the code above will become this (notice use of <code>Result</code> for the type annotations instead of <code>Result.Result</code>):</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">"@typescript-tea/core"</span>;
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@typescript-tea/core&quot;</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">itsOk</span>(<span class="hljs-params"></span>): <span class="hljs-title">Result</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
-  <span class="hljs-keyword">const</span> ok: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is OK"</span>);
-  <span class="hljs-keyword">const</span> err: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">"It is not OK"</span>);
+  <span class="hljs-keyword">const</span> ok: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">&quot;It is OK&quot;</span>);
+  <span class="hljs-keyword">const</span> err: Result&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; = Result.Ok(<span class="hljs-string">&quot;It is not OK&quot;</span>);
   <span class="hljs-keyword">return</span> ok;
 }</code></pre>
 				<p>How can this work? Well, the index file in the package does this to make it work:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ResultNs <span class="hljs-keyword">from</span> <span class="hljs-string">"./result"</span>;
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ResultNs <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./result&quot;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Result = ResultNs;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Result&lt;TError, TValue&gt; = ResultNs.Result&lt;TError, TValue&gt;;</code></pre>
@@ -218,9 +218,6 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 						<a href="modules/_dispatch_.html">&quot;dispatch&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_effect_.html">&quot;effect&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="modules/_effect_manager_.html">&quot;effect-<wbr>manager&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -246,57 +243,9 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -306,6 +255,5 @@ yarn <span class="hljs-built_in">version</span> <span class="hljs-comment">--maj
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
