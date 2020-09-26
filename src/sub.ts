@@ -9,7 +9,7 @@
  * Elm has two kinds of managed effects: commands and subscriptions.
  * @packageDocumentation
  */
-import { LeafEffect, batchEffects, mapEffect } from "./effect";
+import { batchEffects, mapEffect } from "./effect";
 
 // -- SUBSCRIPTIONS
 
@@ -25,14 +25,20 @@ import { LeafEffect, batchEffects, mapEffect } from "./effect";
  * messages that will come back into your application.
  * @category Subscriptions
  */
-export type Sub<Action> = LeafEffect<Action>;
+export type Sub<_Action, Home = string> = {
+  readonly home: Home;
+  readonly type: string;
+};
 
 /**
  * When you need to subscribe to multiple things, you can create a `batch` of
  * subscriptions.
  * @category Subscriptions
  */
-export const batch = batchEffects;
+export function batch<A>(cmds: ReadonlyArray<Sub<A> | undefined>): Sub<A> {
+  return batchEffects(cmds);
+}
+// export const batch = batchEffects;
 
 /**
  * If you are using a fractal approach where a Sub can come from
@@ -40,4 +46,7 @@ export const batch = batchEffects;
  * to produce an action that can be routed back to the child.
  * @category Fancy Stuff
  */
-export const map = mapEffect;
+export function map<A1, A2>(actionMapper: (a1: A1) => A2, cmd: Sub<A1> | undefined): Sub<A2> | undefined {
+  return mapEffect(actionMapper, cmd);
+}
+// export const map = mapEffect;

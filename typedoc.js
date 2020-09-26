@@ -6,5 +6,5 @@ module.exports = {
   excludeNotExported: true,
   externalPattern: ["**/__tests__/**", "**/__examples__/**", "**/index.ts"],
   categorizeByGroup: false,
-  categoryOrder: ["Subscriptions", "Dispatch", "Fancy Stuff", "*"],
+  categoryOrder: ["Commands", "Subscriptions", "Dispatch", "Fancy Stuff", "*"],
 };

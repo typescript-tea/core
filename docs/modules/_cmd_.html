@@ -80,38 +80,18 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section">
-							<h3>Fancy Stuff</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_cmd_.html#map" class="tsd-kind-icon">map</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section">
 							<h3>Commands</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="_cmd_.html#cmd" class="tsd-kind-icon">Cmd</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_cmd_.html#batch" class="tsd-kind-icon">batch</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="_cmd_.html#batch" class="tsd-kind-icon">batch</a></li>
 							</ul>
 						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Fancy Stuff</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="map" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> map</h3>
-					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">mapEffect</span><span class="tsd-signature-symbol"> = mapEffect</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/140357c/src/cmd.ts#L43">cmd.ts:43</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>If you are using a fractal approach where a Cmd can come from
-								a child&#39;s update function, you need to map the command in order for it
-							to produce an action that can be routed back to the child.</p>
-						</div>
+						<section class="tsd-index-section">
+							<h3>Fancy Stuff</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter"><a href="_cmd_.html#map" class="tsd-kind-icon">map</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -120,10 +100,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="cmd" class="tsd-anchor"></a>
 					<h3>Cmd</h3>
-					<div class="tsd-signature tsd-kind-icon">Cmd&lt;Action&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LeafEffect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Action</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">Cmd&lt;_Action, Home&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/140357c/src/cmd.ts#L26">cmd.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9e9e9f8/src/cmd.ts#L26">cmd.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -139,27 +119,123 @@
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>Action</h4>
+							<h4>_Action</h4>
+						</li>
+						<li>
+							<h4>Home = <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Home</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="batch" class="tsd-anchor"></a>
+					<h3>batch</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">batch&lt;A&gt;<span class="tsd-signature-symbol">(</span>cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9e9e9f8/src/cmd.ts#L39">cmd.ts:39</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>When you need the runtime system to perform a couple commands, you
+										can batch them together. Each is handed to the runtime at the same time,
+										and since each can perform arbitrary operations in the world, there are
+									no ordering guarantees about the results.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>A</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>cmds: <span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="batch" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> batch</h3>
-					<div class="tsd-signature tsd-kind-icon">batch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">batchEffects</span><span class="tsd-signature-symbol"> = batchEffects</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/140357c/src/cmd.ts#L35">cmd.ts:35</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>When you need the runtime system to perform a couple commands, you
-								can batch them together. Each is handed to the runtime at the same time,
-								and since each can perform arbitrary operations in the world, there are
-							no ordering guarantees about the results.</p>
-						</div>
-					</div>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Fancy Stuff</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+					<a name="map" class="tsd-anchor"></a>
+					<h3>map</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">map&lt;A1, A2&gt;<span class="tsd-signature-symbol">(</span>actionMapper<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span>, cmd<span class="tsd-signature-symbol">: </span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/typescript-tea/core/blob/9e9e9f8/src/cmd.ts#L49">cmd.ts:49</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>If you are using a fractal approach where a Cmd can come from
+										a child&#39;s update function, you need to map the command in order for it
+									to produce an action that can be routed back to the child.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>A1</h4>
+								</li>
+								<li>
+									<h4>A2</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>actionMapper: <span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">A2</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>a1<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">A2</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>a1: <span class="tsd-signature-type">A1</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">A2</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5>cmd: <a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -194,10 +270,10 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_cmd_.html#cmd" class="tsd-kind-icon">Cmd</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_cmd_.html#batch" class="tsd-kind-icon">batch</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_cmd_.html#map" class="tsd-kind-icon">map</a>
 					</li>
 				</ul>
@@ -210,7 +286,6 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>

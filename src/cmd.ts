@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import { LeafEffect, batchEffects, mapEffect } from "./effect";
+import { batchEffects, mapEffect } from "./effect";
 
 // -- COMMANDS
 
@@ -23,7 +23,11 @@ import { LeafEffect, batchEffects, mapEffect } from "./effect";
  * messages that will come back into your application.
  * @category Commands
  */
-export type Cmd<Action> = LeafEffect<Action>;
+export type Cmd<_Action, Home = string> = {
+  readonly home: Home;
+  readonly type: string;
+};
+// export type Cmd<Action> = LeafEffect<Action>;
 
 /**
  * When you need the runtime system to perform a couple commands, you
@@ -32,7 +36,9 @@ export type Cmd<Action> = LeafEffect<Action>;
  * no ordering guarantees about the results.
  * @category Commands
  */
-export const batch = batchEffects;
+export function batch<A>(cmds: ReadonlyArray<Cmd<A> | undefined>): Cmd<A> {
+  return batchEffects(cmds);
+}
 
 /**
  * If you are using a fractal approach where a Cmd can come from
@@ -40,4 +46,7 @@ export const batch = batchEffects;
  * to produce an action that can be routed back to the child.
  * @category Fancy Stuff
  */
-export const map = mapEffect;
+export function map<A1, A2>(actionMapper: (a1: A1) => A2, cmd: Cmd<A1> | undefined): Cmd<A2> | undefined {
+  return mapEffect(actionMapper, cmd);
+}
+// export const map = mapEffect;
