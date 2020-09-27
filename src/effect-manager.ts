@@ -35,7 +35,7 @@ export type EffectManager<
    */
   readonly setup: (dispatchProgram: Dispatch<ProgramAction>, dispatchSelf: Dispatch<SelfAction>) => () => void;
   /**
-   * This function will be called with effects emitted from the Program matching this managers home.
+   * This function will be called with effects emitted from the Program matching this manager's home.
    */
   readonly onEffects: (
     dispatchProgram: Dispatch<ProgramAction>,
