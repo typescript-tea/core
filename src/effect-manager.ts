@@ -1,5 +1,4 @@
 import { Dispatch } from "./dispatch";
-import { LeafEffectMapper } from "./effect";
 import { Cmd } from "./cmd";
 import { Sub } from "./sub";
 
@@ -25,11 +24,11 @@ export type EffectManager<
   /**
    * This function is used when calling {@link "cmd".map}.
    */
-  readonly mapCmd: LeafEffectMapper;
+  readonly mapCmd: <A1, A2>(actionMapper: (a1: A1) => A2, cmd: Cmd<A1>) => Cmd<A2>;
   /**
    * This function is used when calling {@link "sub".map}.
    */
-  readonly mapSub: LeafEffectMapper;
+  readonly mapSub: <A1, A2>(actionMapper: (a1: A1) => A2, sub: Sub<A1>) => Sub<A2>;
   /**
    * This function will be called when initializing the effect manager.
    */
