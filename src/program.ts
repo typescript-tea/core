@@ -20,6 +20,8 @@ export type Program<Init, State, Action, View> = {
  * Given a Program and an array of EffectManagers it will start the program
  * and progress the state each time the program calls update().
  * You can use the returned function to terminate the program.
+ * @param program This is the program to run.
+ * @typeParam Init This is the type of the initial value passed to the program's init function.
  * @category Program
  */
 export function run<Init, State, Action, View>(

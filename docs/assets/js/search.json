@@ -75,104 +75,9 @@
       "classes": "tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter",
       "parent": "\"dispatch\""
     },
-    {
-      "id": 11,
-      "kind": 1,
-      "name": "\"effect-manager\"",
-      "url": "modules/_effect_manager_.html",
-      "classes": "tsd-kind-module"
-    },
+    { "id": 11, "kind": 1, "name": "\"sub\"", "url": "modules/_sub_.html", "classes": "tsd-kind-module" },
     {
       "id": 12,
-      "kind": 4194304,
-      "name": "EffectManager",
-      "url": "modules/_effect_manager_.html#effectmanager",
-      "classes": "tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter",
-      "parent": "\"effect-manager\""
-    },
-    {
-      "id": 13,
-      "kind": 65536,
-      "name": "__type",
-      "url": "modules/_effect_manager_.html#effectmanager.__type",
-      "classes": "tsd-kind-type-literal tsd-parent-kind-type-alias",
-      "parent": "\"effect-manager\".EffectManager"
-    },
-    {
-      "id": 14,
-      "kind": 32,
-      "name": "home",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.home",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 15,
-      "kind": 32,
-      "name": "mapCmd",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.mapcmd",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 16,
-      "kind": 32,
-      "name": "mapSub",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.mapsub",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 17,
-      "kind": 32,
-      "name": "setup",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.setup",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 18,
-      "kind": 65536,
-      "name": "__type",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.setup.__type-3",
-      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
-      "parent": "\"effect-manager\".EffectManager.__type.setup"
-    },
-    {
-      "id": 19,
-      "kind": 32,
-      "name": "onEffects",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.oneffects",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 20,
-      "kind": 65536,
-      "name": "__type",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.oneffects.__type-1",
-      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
-      "parent": "\"effect-manager\".EffectManager.__type.onEffects"
-    },
-    {
-      "id": 21,
-      "kind": 32,
-      "name": "onSelfAction",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.onselfaction",
-      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
-      "parent": "\"effect-manager\".EffectManager.__type"
-    },
-    {
-      "id": 22,
-      "kind": 65536,
-      "name": "__type",
-      "url": "modules/_effect_manager_.html#effectmanager.__type.onselfaction.__type-2",
-      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
-      "parent": "\"effect-manager\".EffectManager.__type.onSelfAction"
-    },
-    { "id": 23, "kind": 1, "name": "\"sub\"", "url": "modules/_sub_.html", "classes": "tsd-kind-module" },
-    {
-      "id": 24,
       "kind": 4194304,
       "name": "Sub",
       "url": "modules/_sub_.html#sub",
@@ -180,7 +85,7 @@
       "parent": "\"sub\""
     },
     {
-      "id": 25,
+      "id": 13,
       "kind": 65536,
       "name": "__type",
       "url": "modules/_sub_.html#sub.__type",
@@ -188,7 +93,7 @@
       "parent": "\"sub\".Sub"
     },
     {
-      "id": 26,
+      "id": 14,
       "kind": 32,
       "name": "home",
       "url": "modules/_sub_.html#sub.__type.home",
@@ -196,7 +101,7 @@
       "parent": "\"sub\".Sub.__type"
     },
     {
-      "id": 27,
+      "id": 15,
       "kind": 32,
       "name": "type",
       "url": "modules/_sub_.html#sub.__type.type",
@@ -204,7 +109,7 @@
       "parent": "\"sub\".Sub.__type"
     },
     {
-      "id": 28,
+      "id": 16,
       "kind": 64,
       "name": "batch",
       "url": "modules/_sub_.html#batch",
@@ -212,12 +117,107 @@
       "parent": "\"sub\""
     },
     {
-      "id": 29,
+      "id": 17,
       "kind": 64,
       "name": "map",
       "url": "modules/_sub_.html#map",
       "classes": "tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter",
       "parent": "\"sub\""
+    },
+    {
+      "id": 18,
+      "kind": 1,
+      "name": "\"effect-manager\"",
+      "url": "modules/_effect_manager_.html",
+      "classes": "tsd-kind-module"
+    },
+    {
+      "id": 19,
+      "kind": 4194304,
+      "name": "EffectManager",
+      "url": "modules/_effect_manager_.html#effectmanager",
+      "classes": "tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter",
+      "parent": "\"effect-manager\""
+    },
+    {
+      "id": 20,
+      "kind": 65536,
+      "name": "__type",
+      "url": "modules/_effect_manager_.html#effectmanager.__type",
+      "classes": "tsd-kind-type-literal tsd-parent-kind-type-alias",
+      "parent": "\"effect-manager\".EffectManager"
+    },
+    {
+      "id": 21,
+      "kind": 32,
+      "name": "home",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.home",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 22,
+      "kind": 32,
+      "name": "mapCmd",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.mapcmd",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 23,
+      "kind": 32,
+      "name": "mapSub",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.mapsub",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 24,
+      "kind": 32,
+      "name": "setup",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.setup",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 25,
+      "kind": 65536,
+      "name": "__type",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.setup.__type-3",
+      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
+      "parent": "\"effect-manager\".EffectManager.__type.setup"
+    },
+    {
+      "id": 26,
+      "kind": 32,
+      "name": "onEffects",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.oneffects",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 27,
+      "kind": 65536,
+      "name": "__type",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.oneffects.__type-1",
+      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
+      "parent": "\"effect-manager\".EffectManager.__type.onEffects"
+    },
+    {
+      "id": 28,
+      "kind": 32,
+      "name": "onSelfAction",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.onselfaction",
+      "classes": "tsd-kind-variable tsd-parent-kind-type-literal",
+      "parent": "\"effect-manager\".EffectManager.__type"
+    },
+    {
+      "id": 29,
+      "kind": 65536,
+      "name": "__type",
+      "url": "modules/_effect_manager_.html#effectmanager.__type.onselfaction.__type-2",
+      "classes": "tsd-kind-type-literal tsd-parent-kind-variable",
+      "parent": "\"effect-manager\".EffectManager.__type.onSelfAction"
     },
     { "id": 30, "kind": 1, "name": "\"program\"", "url": "modules/_program_.html", "classes": "tsd-kind-module" },
     {
@@ -360,44 +360,44 @@
       ["parent/9", [9, 3.589]],
       ["name/10", [7, 26.202]],
       ["parent/10", [8, 2.444]],
-      ["name/11", [10, 9.517, 11, 21.081]],
+      ["name/11", [10, 21.642]],
       ["parent/11", []],
-      ["name/12", [12, 34.749]],
-      ["parent/12", [10, 0.997, 11, 2.208]],
+      ["name/12", [10, 21.642]],
+      ["parent/12", [10, 2.235]],
       ["name/13", [1, 14.202]],
-      ["parent/13", [10, 0.997, 13, 2.592]],
+      ["parent/13", [11, 3.589]],
       ["name/14", [3, 26.202]],
-      ["parent/14", [10, 0.997, 14, 1.489]],
-      ["name/15", [15, 34.749]],
-      ["parent/15", [10, 0.997, 14, 1.489]],
-      ["name/16", [16, 34.749]],
-      ["parent/16", [10, 0.997, 14, 1.489]],
-      ["name/17", [17, 34.749]],
-      ["parent/17", [10, 0.997, 14, 1.489]],
-      ["name/18", [1, 14.202]],
-      ["parent/18", [10, 0.997, 18, 2.592]],
-      ["name/19", [19, 34.749]],
-      ["parent/19", [10, 0.997, 14, 1.489]],
+      ["parent/14", [12, 3.056]],
+      ["name/15", [5, 29.596]],
+      ["parent/15", [12, 3.056]],
+      ["name/16", [6, 29.596]],
+      ["parent/16", [10, 2.235]],
+      ["name/17", [7, 26.202]],
+      ["parent/17", [10, 2.235]],
+      ["name/18", [13, 9.517, 14, 21.081]],
+      ["parent/18", []],
+      ["name/19", [15, 34.749]],
+      ["parent/19", [13, 0.997, 14, 2.208]],
       ["name/20", [1, 14.202]],
-      ["parent/20", [10, 0.997, 20, 2.592]],
-      ["name/21", [21, 34.749]],
-      ["parent/21", [10, 0.997, 14, 1.489]],
-      ["name/22", [1, 14.202]],
-      ["parent/22", [10, 0.997, 22, 2.592]],
-      ["name/23", [23, 21.642]],
-      ["parent/23", []],
-      ["name/24", [23, 21.642]],
-      ["parent/24", [23, 2.235]],
+      ["parent/20", [13, 0.997, 16, 2.592]],
+      ["name/21", [3, 26.202]],
+      ["parent/21", [13, 0.997, 17, 1.489]],
+      ["name/22", [18, 34.749]],
+      ["parent/22", [13, 0.997, 17, 1.489]],
+      ["name/23", [19, 34.749]],
+      ["parent/23", [13, 0.997, 17, 1.489]],
+      ["name/24", [20, 34.749]],
+      ["parent/24", [13, 0.997, 17, 1.489]],
       ["name/25", [1, 14.202]],
-      ["parent/25", [24, 3.589]],
-      ["name/26", [3, 26.202]],
-      ["parent/26", [25, 3.056]],
-      ["name/27", [5, 29.596]],
-      ["parent/27", [25, 3.056]],
-      ["name/28", [6, 29.596]],
-      ["parent/28", [23, 2.235]],
-      ["name/29", [7, 26.202]],
-      ["parent/29", [23, 2.235]],
+      ["parent/25", [13, 0.997, 21, 2.592]],
+      ["name/26", [22, 34.749]],
+      ["parent/26", [13, 0.997, 17, 1.489]],
+      ["name/27", [1, 14.202]],
+      ["parent/27", [13, 0.997, 23, 2.592]],
+      ["name/28", [24, 34.749]],
+      ["parent/28", [13, 0.997, 17, 1.489]],
+      ["name/29", [1, 14.202]],
+      ["parent/29", [13, 0.997, 25, 2.592]],
       ["name/30", [26, 23.667]],
       ["parent/30", []],
       ["name/31", [26, 23.667]],
@@ -440,10 +440,10 @@
             "2": {},
             "9": {},
             "13": {},
-            "18": {},
             "20": {},
-            "22": {},
             "25": {},
+            "27": {},
+            "29": {},
             "32": {},
             "34": {},
             "36": {},
@@ -452,7 +452,7 @@
           "parent": {}
         }
       ],
-      ["batch", { "_index": 6, "name": { "5": {}, "28": {} }, "parent": {} }],
+      ["batch", { "_index": 6, "name": { "5": {}, "16": {} }, "parent": {} }],
       ["cmd", { "_index": 0, "name": { "0": {}, "1": {} }, "parent": { "1": {}, "5": {}, "6": {} } }],
       ["cmd\".cmd", { "_index": 2, "name": {}, "parent": { "2": {} } }],
       ["cmd\".cmd.__type", { "_index": 4, "name": {}, "parent": { "3": {}, "4": {} } }],
@@ -461,43 +461,43 @@
       [
         "effect",
         {
-          "_index": 10,
-          "name": { "11": {} },
+          "_index": 13,
+          "name": { "18": {} },
           "parent": {
-            "12": {},
-            "13": {},
-            "14": {},
-            "15": {},
-            "16": {},
-            "17": {},
-            "18": {},
             "19": {},
             "20": {},
             "21": {},
-            "22": {}
+            "22": {},
+            "23": {},
+            "24": {},
+            "25": {},
+            "26": {},
+            "27": {},
+            "28": {},
+            "29": {}
           }
         }
       ],
-      ["effectmanager", { "_index": 12, "name": { "12": {} }, "parent": {} }],
+      ["effectmanager", { "_index": 15, "name": { "19": {} }, "parent": {} }],
       ["err", { "_index": 39, "name": { "44": {} }, "parent": {} }],
-      ["home", { "_index": 3, "name": { "3": {}, "14": {}, "26": {} }, "parent": {} }],
+      ["home", { "_index": 3, "name": { "3": {}, "14": {}, "21": {} }, "parent": {} }],
       ["init", { "_index": 28, "name": { "33": {} }, "parent": {} }],
-      ["manager", { "_index": 11, "name": { "11": {} }, "parent": { "12": {} } }],
-      ["manager\".effectmanager", { "_index": 13, "name": {}, "parent": { "13": {} } }],
+      ["manager", { "_index": 14, "name": { "18": {} }, "parent": { "19": {} } }],
+      ["manager\".effectmanager", { "_index": 16, "name": {}, "parent": { "20": {} } }],
       [
         "manager\".effectmanager.__type",
-        { "_index": 14, "name": {}, "parent": { "14": {}, "15": {}, "16": {}, "17": {}, "19": {}, "21": {} } }
+        { "_index": 17, "name": {}, "parent": { "21": {}, "22": {}, "23": {}, "24": {}, "26": {}, "28": {} } }
       ],
-      ["manager\".effectmanager.__type.oneffects", { "_index": 20, "name": {}, "parent": { "20": {} } }],
-      ["manager\".effectmanager.__type.onselfaction", { "_index": 22, "name": {}, "parent": { "22": {} } }],
-      ["manager\".effectmanager.__type.setup", { "_index": 18, "name": {}, "parent": { "18": {} } }],
-      ["map", { "_index": 7, "name": { "6": {}, "10": {}, "29": {} }, "parent": {} }],
-      ["mapcmd", { "_index": 15, "name": { "15": {} }, "parent": {} }],
+      ["manager\".effectmanager.__type.oneffects", { "_index": 23, "name": {}, "parent": { "27": {} } }],
+      ["manager\".effectmanager.__type.onselfaction", { "_index": 25, "name": {}, "parent": { "29": {} } }],
+      ["manager\".effectmanager.__type.setup", { "_index": 21, "name": {}, "parent": { "25": {} } }],
+      ["map", { "_index": 7, "name": { "6": {}, "10": {}, "17": {} }, "parent": {} }],
+      ["mapcmd", { "_index": 18, "name": { "22": {} }, "parent": {} }],
       ["maperror", { "_index": 40, "name": { "45": {} }, "parent": {} }],
-      ["mapsub", { "_index": 16, "name": { "16": {} }, "parent": {} }],
+      ["mapsub", { "_index": 19, "name": { "23": {} }, "parent": {} }],
       ["ok", { "_index": 38, "name": { "43": {} }, "parent": {} }],
-      ["oneffects", { "_index": 19, "name": { "19": {} }, "parent": {} }],
-      ["onselfaction", { "_index": 21, "name": { "21": {} }, "parent": {} }],
+      ["oneffects", { "_index": 22, "name": { "26": {} }, "parent": {} }],
+      ["onselfaction", { "_index": 24, "name": { "28": {} }, "parent": {} }],
       ["program", { "_index": 26, "name": { "30": {}, "31": {} }, "parent": { "31": {}, "40": {} } }],
       ["program\".program", { "_index": 27, "name": {}, "parent": { "32": {} } }],
       ["program\".program.__type", { "_index": 29, "name": {}, "parent": { "33": {}, "35": {}, "37": {}, "39": {} } }],
@@ -509,12 +509,12 @@
         { "_index": 37, "name": { "41": {}, "42": {} }, "parent": { "42": {}, "43": {}, "44": {}, "45": {} } }
       ],
       ["run", { "_index": 36, "name": { "40": {} }, "parent": {} }],
-      ["setup", { "_index": 17, "name": { "17": {} }, "parent": {} }],
-      ["sub", { "_index": 23, "name": { "23": {}, "24": {} }, "parent": { "24": {}, "28": {}, "29": {} } }],
-      ["sub\".sub", { "_index": 24, "name": {}, "parent": { "25": {} } }],
-      ["sub\".sub.__type", { "_index": 25, "name": {}, "parent": { "26": {}, "27": {} } }],
+      ["setup", { "_index": 20, "name": { "24": {} }, "parent": {} }],
+      ["sub", { "_index": 10, "name": { "11": {}, "12": {} }, "parent": { "12": {}, "16": {}, "17": {} } }],
+      ["sub\".sub", { "_index": 11, "name": {}, "parent": { "13": {} } }],
+      ["sub\".sub.__type", { "_index": 12, "name": {}, "parent": { "14": {}, "15": {} } }],
       ["subscriptions", { "_index": 35, "name": { "39": {} }, "parent": {} }],
-      ["type", { "_index": 5, "name": { "4": {}, "27": {} }, "parent": {} }],
+      ["type", { "_index": 5, "name": { "4": {}, "15": {} }, "parent": {} }],
       ["update", { "_index": 31, "name": { "35": {} }, "parent": {} }],
       ["view", { "_index": 33, "name": { "37": {} }, "parent": {} }]
     ],

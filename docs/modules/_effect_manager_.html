@@ -83,12 +83,12 @@
 					<div class="tsd-signature tsd-kind-icon">Effect<wbr>Manager&lt;Home, ProgramAction, SelfAction, SelfState, MyCmd, MySub&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">; </span>mapCmd<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffectMapper</span><span class="tsd-signature-symbol">; </span>mapSub<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffectMapper</span><span class="tsd-signature-symbol">; </span>onEffects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MyCmd</span><span class="tsd-signature-symbol">&gt;</span>, subs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MySub</span><span class="tsd-signature-symbol">&gt;</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">; </span>onSelfAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfAction</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">; </span>setup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/5d0c0d4/src/effect-manager.ts#L8">effect-manager.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/typescript-tea/core/blob/35cd8a2/src/effect-manager.ts#L11">effect-manager.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A type that describes an effect manager that can be used by the runtime.</p>
+							<p>A type that describes an effect manager that can be used by the <a href="_program_.html#run">&quot;program&quot;.run</a> function.</p>
 						</div>
 					</div>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -106,10 +106,10 @@
 							<h4>SelfState = <span class="tsd-signature-type">unknown</span></h4>
 						</li>
 						<li>
-							<h4>MyCmd<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">LeafEffect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4>MyCmd<span class="tsd-signature-symbol">: </span><a href="_cmd_.html#cmd" class="tsd-signature-type">Cmd</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">Cmd</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li>
-							<h4>MySub<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">LeafEffect</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4>MySub<span class="tsd-signature-symbol">: </span><a href="_sub_.html#sub" class="tsd-signature-type">Sub</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span> = <span class="tsd-signature-type">Sub</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Home</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 					<div class="tsd-type-declaration">
@@ -117,15 +117,37 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> home<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Home</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>All effect managers must have a unique <code>Home</code> string that is used to identify effects that should
+											be routed to each effect manager. This is simply a string with the only constraint that is must
+										be unique among all other effect managers that are used.</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> map<wbr>Cmd<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffectMapper</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>This function is used when calling <a href="_cmd_.html#map">&quot;cmd&quot;.map</a>.</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> map<wbr>Sub<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">LeafEffectMapper</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>This function is used when calling <a href="_sub_.html#map">&quot;sub&quot;.map</a>.</p>
+									</div>
+								</div>
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> on<wbr>Effects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, cmds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MyCmd</span><span class="tsd-signature-symbol">&gt;</span>, subs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ReadonlyArray</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MySub</span><span class="tsd-signature-symbol">&gt;</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">SelfState</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>This function will be called with effects emitted from the Program matching this managers home.</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
@@ -159,6 +181,11 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> on<wbr>Self<wbr>Action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span>, action<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfAction</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SelfState</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">SelfState</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>This function will be called when the manager issues an action to itself.</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
@@ -189,6 +216,11 @@
 							</li>
 							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> setup<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>dispatchProgram<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ProgramAction</span><span class="tsd-signature-symbol">&gt;</span>, dispatchSelf<span class="tsd-signature-symbol">: </span><a href="_dispatch_.html#dispatch" class="tsd-signature-type">Dispatch</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SelfAction</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>This function will be called when initializing the effect manager.</p>
+									</div>
+								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-signature">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable">
