@@ -1,12 +1,12 @@
 /**
- * **Note:** Elm has **managed effects**, meaning that things like HTTP
- * requests or writing to disk are all treated as *data* in Elm. When this
- * data is given to the Elm runtime system, it can do some “query optimization”
+ * **Note:** TEA has **managed effects**, meaning that things like HTTP
+ * requests or writing to disk are all treated as *data* in TEA. When this
+ * data is given to the TEA runtime system, it can do some “query optimization”
  * before actually performing the effect. Perhaps unexpectedly, this managed
- * effects idea is the heart of why Elm is so nice for testing, reuse,
+ * effects idea is the heart of why TEA is so nice for testing, reuse,
  * reproducibility, etc.
  *
- * Elm has two kinds of managed effects: commands and subscriptions.
+ * TEA has two kinds of managed effects: commands and subscriptions.
  * @packageDocumentation
  */
 import { batchEffects, mapEffect } from "./effect";
