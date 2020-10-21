@@ -27,7 +27,11 @@ export type Cmd<_Action, Home = string> = {
   readonly home: Home;
   readonly type: string;
 };
-// export type Cmd<Action> = LeafEffect<Action>;
+
+/**
+ * Tell the runtime that there are no commands.
+ */
+export const none = { home: "__$$none", type: "__$$none" };
 
 /**
  * When you need the runtime system to perform a couple commands, you
@@ -36,7 +40,7 @@ export type Cmd<_Action, Home = string> = {
  * no ordering guarantees about the results.
  * @category Commands
  */
-export function batch<A>(cmds: ReadonlyArray<Cmd<A> | undefined>): Cmd<A> {
+export function batch<A>(cmds: ReadonlyArray<Cmd<A>>): Cmd<A> {
   return batchEffects(cmds);
 }
 
@@ -49,4 +53,3 @@ export function batch<A>(cmds: ReadonlyArray<Cmd<A> | undefined>): Cmd<A> {
 export function map<A1, A2>(actionMapper: (a1: A1) => A2, cmd: Cmd<A1> | undefined): Cmd<A2> | undefined {
   return mapEffect(actionMapper, cmd);
 }
-// export const map = mapEffect;
