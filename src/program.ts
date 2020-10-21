@@ -88,8 +88,8 @@ export function run<Init, State, Action, View>(
     const cmd = change[1];
     const sub = subscriptions && subscriptions(state);
     const gatheredEffects: GatheredEffects<Action> = {};
-    cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line no-unused-expressions
-    sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line no-unused-expressions
+    cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line @typescript-eslint/no-unused-expressions
+    sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line @typescript-eslint/no-unused-expressions
     for (const home of Object.keys(gatheredEffects)) {
       const { cmds, subs } = gatheredEffects[home];
       const manager = getEffectManager(home);
