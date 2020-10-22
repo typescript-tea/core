@@ -13,14 +13,21 @@ test("Cmd.map is needed for child commans", () => {
     readonly type: "type";
     readonly onSuccess: (response: string) => A;
   };
-  // const childCmd: TheCmd<ChildAction> | undefined = { home: "home", type: "type", onSuccess: () => ({ type: "C1" }) };
+  type OtherCmd<_A> = {
+    readonly home: "home";
+    readonly type: "type";
+  };
 
-  // type MyCmd<A> = LeafEffect<A>;
+  let theCmd: TheCmd<ChildAction> = { home: "home", type: "type", onSuccess: () => ({ type: "C1" }) };
+  const theCmd2: TheCmd<ParentAction> = { home: "home", type: "type", onSuccess: () => ({ type: "P2" }) };
+  theCmd = theCmd2; // Compile error
 
-  const theCmd: TheCmd<ChildAction> = { home: "home", type: "type", onSuccess: () => ({ type: "C1" }) };
+  // eslint-disable-next-line prefer-const
+  let otherCmd: OtherCmd<ChildAction> = { home: "home", type: "type" };
+  const otherCmd2: OtherCmd<ParentAction> = { home: "home", type: "type" };
+  otherCmd = otherCmd2; // No error
 
-  const theCmd2: LeafEffect<ParentAction> = theCmd as LeafEffect<ChildAction>;
-  console.log(theCmd2);
+  console.log(theCmd2, otherCmd, otherCmd2);
 
   const returnValueFromChild: [number, Cmd.Cmd<ChildAction>?] = [0, theCmd];
   const [childState, childCmd] = returnValueFromChild;
