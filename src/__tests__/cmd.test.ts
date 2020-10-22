@@ -1,5 +1,4 @@
 import * as Cmd from "../cmd";
-import { LeafEffect } from "../effect";
 
 test("Cmd.map exists", () => {
   expect(Cmd.map).toBeInstanceOf(Function);
@@ -16,6 +15,7 @@ test("Cmd.map is needed for child commans", () => {
   type OtherCmd<_A> = {
     readonly home: "home";
     readonly type: "type";
+    readonly __$$dummy_action_tag_do_not_use?: _A;
   };
 
   let theCmd: TheCmd<ChildAction> = { home: "home", type: "type", onSuccess: () => ({ type: "C1" }) };
@@ -25,7 +25,7 @@ test("Cmd.map is needed for child commans", () => {
   // eslint-disable-next-line prefer-const
   let otherCmd: OtherCmd<ChildAction> = { home: "home", type: "type" };
   const otherCmd2: OtherCmd<ParentAction> = { home: "home", type: "type" };
-  otherCmd = otherCmd2; // No error
+  otherCmd = otherCmd2; // Also Compile error!!!
 
   console.log(theCmd2, otherCmd, otherCmd2);
 
