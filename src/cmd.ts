@@ -23,11 +23,14 @@ import { batchEffects, mapEffect } from "./effect";
  * messages that will come back into your application.
  * @category Commands
  */
-export type Cmd<_Action, Home = string> = {
+export type Cmd<Action, Home = string> = {
   readonly home: Home;
   readonly type: string;
+  /**
+   * This field is only needed in order to preserve the generic type paramter Action
+   */
+  readonly __$$dummy_tag?: Action;
 };
-// export type Cmd<Action> = LeafEffect<Action>;
 
 /**
  * When you need the runtime system to perform a couple commands, you
@@ -49,4 +52,3 @@ export function batch<A>(cmds: ReadonlyArray<Cmd<A> | undefined>): Cmd<A> {
 export function map<A1, A2>(actionMapper: (a1: A1) => A2, cmd: Cmd<A1> | undefined): Cmd<A2> | undefined {
   return mapEffect(actionMapper, cmd);
 }
-// export const map = mapEffect;

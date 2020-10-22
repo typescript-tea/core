@@ -25,9 +25,13 @@ import { batchEffects, mapEffect } from "./effect";
  * messages that will come back into your application.
  * @category Subscriptions
  */
-export type Sub<_Action, Home = string> = {
+export type Sub<Action, Home = string> = {
   readonly home: Home;
   readonly type: string;
+  /**
+   * This field is only needed in order to preserve the generic type paramter Action
+   */
+  readonly __$$dummy_tag?: Action;
 };
 
 /**
@@ -38,7 +42,6 @@ export type Sub<_Action, Home = string> = {
 export function batch<A>(cmds: ReadonlyArray<Sub<A> | undefined>): Sub<A> {
   return batchEffects(cmds);
 }
-// export const batch = batchEffects;
 
 /**
  * If you are using a fractal approach where a Sub can come from
@@ -49,4 +52,3 @@ export function batch<A>(cmds: ReadonlyArray<Sub<A> | undefined>): Sub<A> {
 export function map<A1, A2>(actionMapper: (a1: A1) => A2, cmd: Sub<A1> | undefined): Sub<A2> | undefined {
   return mapEffect(actionMapper, cmd);
 }
-// export const map = mapEffect;
