@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/typescript-tea/core/compare/v0.4.0...master)
+## [Unreleased](https://github.com/typescript-tea/core/compare/v0.5.0...master)
+
+## [0.5.0](https://github.com/typescript-tea/core/compare/v0.4.0...0.5.0) - 2020-10-22
+
+### Added
+
+- Add internal dummy field to preserve generic parameter of `Cmd<Action>` and `Sub<Action>`.
 
 ## [0.4.0](https://github.com/typescript-tea/core/compare/v0.3.0...0.4.0) - 2020-04-24
 
