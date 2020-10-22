@@ -28,6 +28,7 @@ export type Cmd<Action, Home = string> = {
   readonly type: string;
   /**
    * This field is only needed in order to preserve the generic type paramter Action
+   * @ignore
    */
   readonly __$$dummy_tag?: Action;
 };
