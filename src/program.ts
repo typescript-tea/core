@@ -99,9 +99,10 @@ export function run<Init, State, Action, View>(
     const gatheredEffects: GatheredEffects<Action> = {};
     cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line @typescript-eslint/no-unused-expressions,no-unused-expressions
     sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line @typescript-eslint/no-unused-expressions,no-unused-expressions
-    console.log("change called gatherEffects", gatheredEffects);
-    for (const home of Object.keys(gatheredEffects)) {
-      const { cmds, subs } = gatheredEffects[home];
+    // Always call all effect managers so they get updated subscriptions even if there are no subscriptions anymore
+    for (const em of effectManagers) {
+      const home = em.home;
+      const { cmds, subs } = gatheredEffects[home] ?? {};
       const manager = getEffectManager(home);
       managerStates[home] = manager.onEffects(
         enqueueProgramAction,

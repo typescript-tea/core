@@ -97,7 +97,7 @@ test("onEffects is called when subscriptions is not undefined", (done) => {
  * manager must know to clear those subscriptions when undefined
  * is returned from program.subscription().
  */
-test.only("onEffects is called when subscriptions is undefined", (done) => {
+test("onEffects is called when subscriptions is undefined", (done) => {
   // Create mocks
   const emHome = "mock1" as const;
   const me = createMockEffectManager(emHome);
