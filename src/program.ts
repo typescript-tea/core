@@ -54,13 +54,20 @@ export function run<Init, State, Action, View>(
     isProcessing = false;
   }
 
-  const dispatchManager = (home: string) => (action: Action): void => {
-    if (isRunning) {
-      const manager = getEffectManager(home);
-      const enqueueSelfAction = enqueueManagerAction(home);
-      managerStates[home] = manager.onSelfAction(enqueueProgramAction, enqueueSelfAction, action, managerStates[home]);
-    }
-  };
+  const dispatchManager =
+    (home: string) =>
+    (action: Action): void => {
+      if (isRunning) {
+        const manager = getEffectManager(home);
+        const enqueueSelfAction = enqueueManagerAction(home);
+        managerStates[home] = manager.onSelfAction(
+          enqueueProgramAction,
+          enqueueSelfAction,
+          action,
+          managerStates[home]
+        );
+      }
+    };
 
   function dispatchApp(action: Action): void {
     if (isRunning) {
@@ -68,9 +75,11 @@ export function run<Init, State, Action, View>(
     }
   }
 
-  const enqueueManagerAction = (home: string) => (action: unknown): void => {
-    enqueueRaw(dispatchManager(home), action);
-  };
+  const enqueueManagerAction =
+    (home: string) =>
+    (action: unknown): void => {
+      enqueueRaw(dispatchManager(home), action);
+    };
 
   const enqueueProgramAction = (action: Action): void => {
     enqueueRaw(dispatchApp, action);
@@ -90,8 +99,10 @@ export function run<Init, State, Action, View>(
     const gatheredEffects: GatheredEffects<Action> = {};
     cmd && gatherEffects(getEffectManager, gatheredEffects, true, cmd); // eslint-disable-line @typescript-eslint/no-unused-expressions,no-unused-expressions
     sub && gatherEffects(getEffectManager, gatheredEffects, false, sub); // eslint-disable-line @typescript-eslint/no-unused-expressions,no-unused-expressions
-    for (const home of Object.keys(gatheredEffects)) {
-      const { cmds, subs } = gatheredEffects[home];
+    // Always call all effect managers so they get updated subscriptions even if there are no subscriptions anymore
+    for (const em of effectManagers) {
+      const home = em.home;
+      const { cmds, subs } = gatheredEffects[home] ?? {};
       const manager = getEffectManager(home);
       managerStates[home] = manager.onEffects(
         enqueueProgramAction,

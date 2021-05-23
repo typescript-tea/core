@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/typescript-tea/core/compare/v0.5.0...master)
 
+### Fixed
+
+- Always call all effect managers so they get updated subscriptions even if there are no subscriptions anymore. See PR [#8](https://github.com/typescript-tea/core/pull/8).
+
 ## [0.5.0](https://github.com/typescript-tea/core/compare/v0.4.0...0.5.0) - 2020-10-22
 
 ### Added
