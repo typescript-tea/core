@@ -70,7 +70,7 @@ test("View can dispatch with mocks", (done) => {
   run(mp, undefined, mr, []);
 });
 
-test.only("onEffects is called when subscriptions is not undefined", (done) => {
+test("onEffects is called when subscriptions is not undefined", (done) => {
   // Create mocks
   const emHome = "mock1" as const;
   const me = createMockEffectManager(emHome);
@@ -78,12 +78,12 @@ test.only("onEffects is called when subscriptions is not undefined", (done) => {
   const mr = createMockRender();
   // Setup mocks
   mp.update.mockImplementationOnce(() => [1]);
-  mp.subscriptions.mockReturnValueOnce({ home: emHome, type: "nisse" });
+  mp.subscriptions.mockReturnValue({ home: emHome, type: "nisse" });
   mp.view
     .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
     .mockImplementationOnce(({ state }) => {
       expect(state).toEqual(1);
-      expect(me.onEffects.mock.calls.length).toBe(1);
+      expect(me.onEffects.mock.calls.length).toBe(2);
       done();
     });
   me.onEffects.mockReturnValueOnce(0);
@@ -97,7 +97,7 @@ test.only("onEffects is called when subscriptions is not undefined", (done) => {
  * manager must know to clear those subscriptions when undefined
  * is returned from program.subscription().
  */
-test("onEffects is called when subscriptions is undefined", (done) => {
+test.only("onEffects is called when subscriptions is undefined", (done) => {
   // Create mocks
   const emHome = "mock1" as const;
   const me = createMockEffectManager(emHome);
@@ -106,13 +106,11 @@ test("onEffects is called when subscriptions is undefined", (done) => {
   // Setup mocks
   mp.update.mockImplementationOnce(() => [1]);
   mp.subscriptions.mockReturnValueOnce(undefined);
-  mp.view
-    .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
-    .mockImplementationOnce(({ state }) => {
-      expect(state).toEqual(1);
-      expect(me.onEffects.mock.calls.length).toBe(1);
-      done();
-    });
+  mp.view.mockImplementationOnce(({ state }) => {
+    expect(state).toEqual(0);
+    expect(me.onEffects.mock.calls.length).toBe(1);
+    done();
+  });
   me.onEffects.mockReturnValueOnce(0);
   // Run
   run(mp, undefined, mr, [me]);
