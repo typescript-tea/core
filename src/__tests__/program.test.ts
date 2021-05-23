@@ -1,6 +1,8 @@
 /* eslint-disable functional/prefer-readonly-type */
 import { Program, run } from "../program";
-import { createMockEffectManager, createMockProgram, createMockRender } from "./helpers/create-mocks";
+import { createMockEffectManager } from "./helpers/mock-effect-manager";
+import { createMockProgram } from "./helpers/mock-program";
+import { createMockRender } from "./helpers/mock-render";
 
 beforeAll(() => {
   globalThis.window = {
@@ -70,12 +72,13 @@ test("View can dispatch with mocks", (done) => {
 
 test("onEffects is called when subscriptions is not undefined", (done) => {
   // Create mocks
-  const me = createMockEffectManager();
+  const emHome = "mock1" as const;
+  const me = createMockEffectManager(emHome);
   const mp = createMockProgram();
   const mr = createMockRender();
   // Setup mocks
   mp.update.mockImplementationOnce(() => [1]);
-  mp.subscriptions.mockReturnValueOnce({ home: "mock", type: "nisse" });
+  mp.subscriptions.mockReturnValueOnce({ home: emHome, type: "nisse" });
   mp.view
     .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
     .mockImplementationOnce(({ state }) => {
@@ -96,7 +99,8 @@ test("onEffects is called when subscriptions is not undefined", (done) => {
  */
 test("onEffects is called when subscriptions is undefined", (done) => {
   // Create mocks
-  const me = createMockEffectManager();
+  const emHome = "mock1" as const;
+  const me = createMockEffectManager(emHome);
   const mp = createMockProgram();
   const mr = createMockRender();
   // Setup mocks
