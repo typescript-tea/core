@@ -89,6 +89,10 @@ test("onEffects is called when subscriptions is undefined", (done) => {
   mp.view.mockImplementationOnce(({ state }) => {
     expect(state).toEqual(0);
     expect(me.onEffects.mock.calls.length).toBe(1);
+    // cmds passed to onEffects() should be an empty array
+    expect(me.onEffects.mock.calls[0][2]).toStrictEqual([]);
+    // subs passed to onEffects() should be an empty array
+    expect(me.onEffects.mock.calls[0][3]).toStrictEqual([]);
     done();
   });
   me.onEffects.mockReturnValueOnce(0);
