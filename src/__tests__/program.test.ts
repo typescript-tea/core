@@ -35,26 +35,6 @@ test("Run simple program", () => {
 });
 
 test("View can dispatch", (done) => {
-  const render = (): void => {
-    // Do nothing
-  };
-  const program: Program<undefined, number, string, string> = {
-    init: () => [0],
-    update: () => [1],
-    view: ({ dispatch, state }) => {
-      if (state === 0) {
-        dispatch("increment");
-      } else {
-        expect(state).toEqual(1);
-        done();
-      }
-      return "view";
-    },
-  };
-  run(program, undefined, render, []);
-});
-
-test("View can dispatch with mocks", (done) => {
   // Create mocks
   const mp = createMockProgram();
   const mr = createMockRender();
