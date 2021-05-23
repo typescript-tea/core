@@ -1,4 +1,6 @@
+/* eslint-disable functional/prefer-readonly-type */
 import { Program, run } from "../program";
+import { createMockEffectManager, createMockProgram, createMockRender } from "./helpers/create-mocks";
 
 beforeAll(() => {
   globalThis.window = {
@@ -48,4 +50,66 @@ test("View can dispatch", (done) => {
     },
   };
   run(program, undefined, render, []);
+});
+
+test("View can dispatch with mocks", (done) => {
+  // Create mocks
+  const mp = createMockProgram();
+  const mr = createMockRender();
+  // Setup mokcs
+  mp.update.mockImplementationOnce(() => [1]);
+  mp.view
+    .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
+    .mockImplementationOnce(({ state }) => {
+      expect(state).toEqual(1);
+      done();
+    });
+  // Run
+  run(mp, undefined, mr, []);
+});
+
+test("onEffects is called when subscriptions is not undefined", (done) => {
+  // Create mocks
+  const me = createMockEffectManager();
+  const mp = createMockProgram();
+  const mr = createMockRender();
+  // Setup mocks
+  mp.update.mockImplementationOnce(() => [1]);
+  mp.subscriptions.mockReturnValueOnce({ home: "mock", type: "nisse" });
+  mp.view
+    .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
+    .mockImplementationOnce(({ state }) => {
+      expect(state).toEqual(1);
+      expect(me.onEffects.mock.calls.length).toBe(1);
+      done();
+    });
+  me.onEffects.mockReturnValueOnce(0);
+  // Run
+  run(mp, undefined, mr, [me]);
+});
+
+/**
+ * onEffects must be called with undefined subscriptions becuase
+ * the previous call may have had subscriptions so teh effect
+ * manager must know to clear those subscriptions when undefined
+ * is returned from program.subscription().
+ */
+test("onEffects is called when subscriptions is undefined", (done) => {
+  // Create mocks
+  const me = createMockEffectManager();
+  const mp = createMockProgram();
+  const mr = createMockRender();
+  // Setup mocks
+  mp.update.mockImplementationOnce(() => [1]);
+  mp.subscriptions.mockReturnValueOnce(undefined);
+  mp.view
+    .mockImplementationOnce(({ dispatch }) => dispatch("increment"))
+    .mockImplementationOnce(({ state }) => {
+      expect(state).toEqual(1);
+      expect(me.onEffects.mock.calls.length).toBe(1);
+      done();
+    });
+  me.onEffects.mockReturnValueOnce(0);
+  // Run
+  run(mp, undefined, mr, [me]);
 });
