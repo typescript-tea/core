@@ -70,7 +70,7 @@ test("View can dispatch with mocks", (done) => {
   run(mp, undefined, mr, []);
 });
 
-test("onEffects is called when subscriptions is not undefined", (done) => {
+test.only("onEffects is called when subscriptions is not undefined", (done) => {
   // Create mocks
   const emHome = "mock1" as const;
   const me = createMockEffectManager(emHome);
