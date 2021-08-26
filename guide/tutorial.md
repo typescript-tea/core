@@ -7,7 +7,7 @@ The main goal of The Elm Architecture (TEA) is to be able to write a program tha
 So let's begin with looking at the definition of the program type. It has three main functions which should all be pure:
 
 ```ts
-type Program<State, Action, View> = {
+type Program<Init, State, Action, View> = {
   init: (url: string, key: () => void) => [State, Cmd<Action>?];
   update: (action: Action, state: State) => [State, Cmd<Action>?];
   view: (props: { state: State; dispatch: Dispatch<Action> }) => View;
@@ -22,7 +22,7 @@ import ReactDOM from "react-dom";
 import { Program } from "@typescript-tea/core";
 
 // Define the program
-const program: Program<number, "increment" | "decrement", JSX.Element> = {
+const program: Program<undefined, number, "increment" | "decrement", JSX.Element> = {
   init: () => [0],
   update: (action, state) => (action === "increment" ? [state + 1] : [state - 1]),
   view: ({ state, dispatch }) => (
@@ -37,12 +37,17 @@ const program: Program<number, "increment" | "decrement", JSX.Element> = {
 // Run the program
 const el = document.getElementById("root");
 const render = (view: JSX.Element) => ReactDOM.render(view, el);
-Program.run(program, render);
+Program.run(program, undefined, render);
 ```
 
 This program will initialize the state to 0, show a view with the state and buttons to dispatch actions to increment or decrement. With each dispatch, the update() function will be called which will return a new state incremented or decremented by one depending on the action. After the state is updated the view will be re-rendered. The program will continue in this runtime-loop forever.
 
+
 The last section of the code above starts the program by calling `Program.run()` passing the program and a function that can handle rendering the return value of the `view()` function in the program. This is sometimes refered to as the "runtime". The runtime lives outside your program and you start your program by giving it to the runtime, and then as your program runs it may communicate with the runtime in a few different way that we will explore later. The important part to know for now it that there are two main pieces to the archtiecture: your program which is 100% pure functions, and the runtime that can handle impure operations.
+
+Notice the "undefined" used as Init type for the program, and in the parameter for the run function. This is used if data or config outside the program is needed for its initialization. E.g.  `const program: Program<number, ...`  `init: (initCount: number) => [initCount],`  Then a corresponding external value can be passed to the programs run function. `Program.run(program, 5, render)` But leave this as undefined if it isn't used.
+
+
 
 ## Using commands
 
