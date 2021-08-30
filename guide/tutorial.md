@@ -100,10 +100,11 @@ The purpose of effect managers is to handle effects outside of the program. This
 However in certain circumstances there might not be a ready-made effect manager available to accomplish what you want to do, so you will have to write your own. Fortunately this is pretty straightforward to do. So in order to understand effect managers a litle bit better, let's write our own simple effect manager. First lets look at the `EffectManager` type:
 
 ```ts
-export type EffectManager<Home, ProgramAction, SelfAction, SelfState, MyCmd, MySub> = {
+export type EffectManager<  Home,  ProgramAction,  SelfAction,  SelfState,  MyCmd,  MySub> = {
   readonly home: Home;
-  readonly mapCmd: (map: (a1: Action1) => Action2, cmd: Cmd<Action1>) => Cmd<Action2>;
-  readonly mapSub: (map: (a1: Action1) => Action2, sub: Sub<Action1>) => Sub<Action2>;
+  readonly mapCmd: <A1, A2>(actionMapper: (a1: A1) => A2, cmd: Cmd<A1>) => Cmd<A2>;
+  readonly mapSub: <A1, A2>(actionMapper: (a1: A1) => A2, sub: Sub<A1>) => Sub<A2>;
+  readonly setup: (dispatchProgram: Dispatch<ProgramAction>, dispatchSelf: Dispatch<SelfAction>) => () => void;
   readonly onEffects: (
     dispatchProgram: Dispatch<ProgramAction>,
     dispatchSelf: Dispatch<SelfAction>,
@@ -134,6 +135,7 @@ The `Home` string is just used by the runtime to know where to send the `Cmd<Aci
 Let's discuss the fields of the `EffectManager` type:
 
 - `home` - A constant string to correlate that this effectmanager handles the `Cmd` objects that has the same `home` value.
+- `setup` - A function that is called by the runtime to allow the effectmanager to do any initialization needed (usually not used).
 - `mapCmd` - This function is called by the runtime when the program calls `Cmd.map`. It is only used for the fractal design pattern that will be discussed later.
 - `mapSub` - We can disregard this function for now, we'll discuss subscriptions later.
 - `onEffects` - Called by the runtime with the `Cmd` objects that was returned by `init()` and `update()`. This is were most of the work in an effect manager happens.
@@ -142,56 +144,78 @@ Let's discuss the fields of the `EffectManager` type:
 For the simplest type of effect manager that only handles `Cmd`, has no internal state, and does not support fractal commands, we only need to use `home`, and `onEffects`. Lets make such an effect manager that has a single command for fetching data and use it to fetch an url. We will use it in the same type of program as demonstrated above (instead of the read-made http effect manager), you can play with it [here](https://stackblitz.com/edit/react-ts-vs4g5x):
 
 ```ts
-import React from "react";
-import ReactDOM from "react-dom";
-import { Program, EffectManager, Cmd } from "@typescript-tea/core";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Program, EffectManager, Cmd } from '@typescript-tea/core';
 
 // Define actions
-type Action = { type: "GotData"; result: { data: { image_url: string } } };
+type Action = { type: 'GotData'; result: { data: { image_url: string } } };
 
 // Define the program
-const program: Program<string, Action, JSX.Element> = {
+const program: Program<undefined, string, Action, JSX.Element> = {
   init: () => [
-    "",
-    getUrl("https://api.giphy.com/v1/gifs/random?api_key=fynIjQH0KtzG1JeEkZZGT3cTie9KFm1T&tag=cat", (data) => ({
-      type: "GotData",
-      result: data,
-    })),
+    '',
+    getUrl(
+      'https://api.giphy.com/v1/gifs/random?api_key=fynIjQH0KtzG1JeEkZZGT3cTie9KFm1T&tag=cat',
+      data => ({
+        type: 'GotData',
+        result: data
+      })
+    )
   ],
-  update: (action, state) => (action.type === "GotData" ? [action.result.data.image_url] : ["Error getting url.."]),
+  update: (action, state) =>
+    action.type === 'GotData'
+      ? [action.result.data.image_url]
+      : ['Error getting url..'],
   view: ({ state, dispatch }) => (
     <div>
       <img src={state} />
     </div>
-  ),
+  )
 };
 
 // Define the effect manager
-const myEffMgr: EffectManager<"MyEffMgr", Action, never, {}, GetUrl<Action>> = {
-  home: "MyEffMgr",
-  mapCmd: (map, cmd) => cmd,
-  mapSub: (map, sub) => sub,
+const myEffMgr: EffectManager<'MyEffMgr', Action, never, {}, GetUrl<Action>> = {
+  home: 'MyEffMgr',
+  setup: () => () => {
+    // No setup
+  },
+  mapCmd: <A1, A2>(map: (a: A1) => A2, cmd: Cmd<A1>) => {
+    const myCmd = cmd as GetUrl<A1>;
+    return {
+      ...myCmd,
+      gotUrl: (data: unknown) => map(myCmd.gotUrl(data))
+    } as Cmd<A2>;
+  },
+  mapSub: (map, sub) => {
+    throw new Error('No subs');
+  },
   onEffects: (dispatchProgram, dispatchSelf, cmds, subs, state) => {
     for (const c of cmds) {
       fetch(c.url)
-        .then((res) => res.json())
-        .then((json) => dispatchProgram(c.gotUrl(json)));
+        .then(res => res.json())
+        .then(json => dispatchProgram(c.gotUrl(json)));
     }
     return {};
   },
-  onSelfAction: () => ({}),
+  onSelfAction: () => ({})
 };
 
 // Define the effect manager's command
-type GetUrl<A> = { home: "MyEffMgr"; type: "GetUrl"; url: string; gotUrl: (data) => A };
+type GetUrl<A> = {
+  home: 'MyEffMgr';
+  type: 'GetUrl';
+  url: string;
+  gotUrl: (data) => A;
+};
 function getUrl<A>(url: string, gotUrl: (data) => A): GetUrl<A> {
-  return { home: "MyEffMgr", type: "GetUrl", url, gotUrl };
+  return { home: 'MyEffMgr', type: 'GetUrl', url, gotUrl };
 }
 
 // Run the program
-const el = document.getElementById("root");
+const el = document.getElementById('root');
 const render = (view: JSX.Element) => ReactDOM.render(view, el);
-Program.run(program, render, [myEffMgr]);
+Program.run(program, undefined, render, [myEffMgr]);
 ```
 
 The runtime will collect all `Cmd` with our `Home` and call `onEffects()` with them. We will fetch the url for each `Cmd` and when we receive a response we will create and action with the response using the action creator function that was passed `Action` it to the program. This action gets dispacted to the program using the `dispatchProgram` function.
