@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/typescript-tea/core/compare/v0.5.1...master)
+## [Unreleased](https://github.com/typescript-tea/core/compare/v0.6.0...master)
+
+## [0.6.0](https://github.com/typescript-tea/core/compare/v0.5.1...0.6.0) - 2022-07-05
+
+### Added
+
+- Do not call view()/render() when state has not changed (#14)
 
 ## [0.5.1](https://github.com/typescript-tea/core/compare/v0.5.0...0.5.1) - 2021-05-23
 
