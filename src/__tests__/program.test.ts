@@ -117,7 +117,6 @@ test("Do not call view/render if state has not changed", () => {
   mp.update.mockImplementation(() => [1]);
   mp.view.mockImplementationOnce(({ state, dispatch }) => {
     expect(state).toEqual(1);
-    console.log("do the dispatch");
     dispatch(1);
   });
   // Run

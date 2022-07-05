@@ -41,6 +41,8 @@ export function run<Init, State, Action, View>(
     dispatch: Dispatch<unknown>;
     action: unknown;
   }> = [];
+  // Init to an object that the appliction has no reference to so intial change always runs
+  let prevState = {};
 
   function processActions(): void {
     if (!isRunning || isProcessing) {
@@ -112,7 +114,10 @@ export function run<Init, State, Action, View>(
         managerStates[home]
       );
     }
-    render(view({ state, dispatch: enqueueProgramAction }));
+    if (state !== prevState) {
+      prevState = state;
+      render(view({ state, dispatch: enqueueProgramAction }));
+    }
   }
 
   function setup(): void {
