@@ -73,7 +73,7 @@ test("onEffects is called when subscriptions is not undefined", (done) => {
 
 /**
  * onEffects must be called with undefined subscriptions becuase
- * the previous call may have had subscriptions so teh effect
+ * the previous call may have had subscriptions so the effect
  * manager must know to clear those subscriptions when undefined
  * is returned from program.subscription().
  */
@@ -98,4 +98,32 @@ test("onEffects is called when subscriptions is undefined", (done) => {
   me.onEffects.mockReturnValueOnce(0);
   // Run
   run(mp, undefined, mr, [me]);
+});
+
+/**
+ * If state has not changed then calling render is not useful.
+ * In some circumstances there are actions that happen that
+ * the application does not want to handle. In those cases the application
+ * returns the old state, however calling view() and render() in that case
+ * will case uncecessary overheadas it will be called with the same state as before
+ * and therefor return the same result as before sinc view must be a pure function.
+ */
+test("Do not call view/render if state has not changed", () => {
+  // Create mocks
+  const mp = createMockProgram();
+  const mr = createMockRender();
+  // Setup mocks
+  mp.init.mockImplementation(() => [1]);
+  mp.update.mockImplementation(() => [1]);
+  mp.view.mockImplementationOnce(({ state, dispatch }) => {
+    expect(state).toEqual(1);
+    console.log("do the dispatch");
+    dispatch(1);
+  });
+  // Run
+  run(mp, undefined, mr, []);
+  expect(mp.init).toBeCalledTimes(1);
+  expect(mp.update).toBeCalledTimes(1);
+  expect(mp.view).toBeCalledTimes(1);
+  expect(mr).toBeCalledTimes(1);
 });
