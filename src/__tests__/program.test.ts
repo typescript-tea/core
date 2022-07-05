@@ -117,7 +117,7 @@ test("Do not call view/render if state has not changed", () => {
   mp.update.mockImplementation(() => [1]);
   mp.view.mockImplementationOnce(({ state, dispatch }) => {
     expect(state).toEqual(1);
-    dispatch(1);
+    dispatch("action");
   });
   // Run
   run(mp, undefined, mr, []);
@@ -125,4 +125,26 @@ test("Do not call view/render if state has not changed", () => {
   expect(mp.update).toBeCalledTimes(1);
   expect(mp.view).toBeCalledTimes(1);
   expect(mr).toBeCalledTimes(1);
+});
+
+/**
+ * When the state changes, view()/render() should be called.
+ */
+test("Do call view/render if state has changed", () => {
+  // Create mocks
+  const mp = createMockProgram();
+  const mr = createMockRender();
+  // Setup mocks
+  mp.init.mockImplementation(() => [1]);
+  mp.update.mockImplementation(() => [2]);
+  mp.view.mockImplementationOnce(({ state, dispatch }) => {
+    expect(state).toEqual(1);
+    dispatch("action");
+  });
+  // Run
+  run(mp, undefined, mr, []);
+  expect(mp.init).toBeCalledTimes(1);
+  expect(mp.update).toBeCalledTimes(1);
+  expect(mp.view).toBeCalledTimes(2);
+  expect(mr).toBeCalledTimes(2);
 });
