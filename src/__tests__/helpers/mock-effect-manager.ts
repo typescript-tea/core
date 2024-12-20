@@ -11,10 +11,10 @@ export type MockCmd<_ignoredA> = never;
 export type MockSub<_ignoredA> = never;
 
 export type MockEffectManager<
-  Home = string,
-  ProgramAction = unknown,
-  SelfAction = unknown,
-  SelfState = unknown,
+  Home,
+  ProgramAction,
+  SelfAction,
+  SelfState,
   MyCmd extends Cmd<ProgramAction, Home> = Cmd<ProgramAction, Home>,
   MySub extends Sub<ProgramAction, Home> = Sub<ProgramAction, Home>
 > = {
@@ -42,7 +42,9 @@ export type MockEffectManager<
   >;
 };
 
-export function createMockEffectManager<THome extends string>(home: THome): MockEffectManager {
+export function createMockEffectManager<THome extends string>(
+  home: THome
+): MockEffectManager<THome, MockProgramAction, MockSelfAction, MockSelfState> {
   return {
     home,
     mapCmd: jest.fn(<A1, A2>(_actionMapper: (a: A1) => A2, cmd: MockCmd<A1>): MockCmd<A2> => cmd),
