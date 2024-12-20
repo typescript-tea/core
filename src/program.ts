@@ -71,7 +71,7 @@ export function run<Init, State, Action, View>(
       }
     };
 
-  function dispatchApp(action: Action): void {
+  function dispatchProgram(action: Action): void {
     if (isRunning) {
       change(update(action, state));
     }
@@ -84,7 +84,7 @@ export function run<Init, State, Action, View>(
     };
 
   const enqueueProgramAction = (action: Action): void => {
-    enqueueRaw(dispatchApp, action);
+    enqueueRaw(dispatchProgram, action);
   };
 
   function enqueueRaw(dispatch: Dispatch<Action>, action: unknown): void {
