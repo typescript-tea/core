@@ -42,7 +42,8 @@ export function run<Init, State, Action, View>(
     action: unknown;
   }> = [];
   // Init to an object that the appliction has no reference to so intial change always runs
-  let prevState = {};
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  let prevState: State | {} = {};
 
   function processActions(): void {
     if (!isRunning || isProcessing) {
