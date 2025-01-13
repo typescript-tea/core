@@ -15,6 +15,8 @@ export type Program<Init, State, Action, View> = {
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
 };
 
+type ManagerAction = unknown;
+
 /**
  * This is the runtime that provides the main loop to run a Program.
  * Given a Program and an array of EffectManagers it will start the program
@@ -38,8 +40,8 @@ export function run<Init, State, Action, View>(
   let isRunning = false;
   let isProcessing = false;
   const actionQueue: Array<{
-    dispatch: Dispatch<unknown>;
-    action: unknown;
+    dispatch: Dispatch<Action | ManagerAction>;
+    action: Action | ManagerAction;
   }> = [];
   // Init to a symbol that the appliction has no reference to so intial change always runs
   let prevState: State | symbol = Symbol("initial prevState");
@@ -58,7 +60,7 @@ export function run<Init, State, Action, View>(
 
   const dispatchManager =
     (home: string) =>
-    (action: Action): void => {
+    (action: ManagerAction): void => {
       if (isRunning) {
         const manager = getEffectManager(home);
         const enqueueSelfAction = enqueueManagerAction(home);
@@ -79,7 +81,7 @@ export function run<Init, State, Action, View>(
 
   const enqueueManagerAction =
     (home: string) =>
-    (action: unknown): void => {
+    (action: ManagerAction): void => {
       enqueueRaw(dispatchManager(home), action);
     };
 
@@ -87,7 +89,7 @@ export function run<Init, State, Action, View>(
     enqueueRaw(dispatchProgram, action);
   };
 
-  function enqueueRaw(dispatch: Dispatch<Action>, action: unknown): void {
+  function enqueueRaw(dispatch: Dispatch<Action | ManagerAction>, action: Action | ManagerAction): void {
     if (isRunning) {
       actionQueue.push({ dispatch, action });
       processActions();
