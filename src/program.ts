@@ -15,7 +15,10 @@ export type Program<Init, State, Action, View> = {
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
 };
 
-type ManagerAction = unknown;
+// The ManagerAction type only exists to ensure proper typing internally.
+const managerActionTag = Symbol("managerActionTag");
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type ManagerAction = { readonly [managerActionTag]: void };
 
 /**
  * This is the runtime that provides the main loop to run a Program.
