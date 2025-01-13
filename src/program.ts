@@ -28,7 +28,7 @@ export function run<Init, State, Action, View>(
   program: Program<Init, State, Action, View>,
   init: Init,
   render: (view: View) => void,
-  effectManagers: ReadonlyArray<EffectManager<string, unknown, unknown>> = []
+  effectManagers: ReadonlyArray<EffectManager<string, Action, unknown>> = []
 ): () => void {
   const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
