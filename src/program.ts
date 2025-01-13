@@ -15,6 +15,11 @@ export type Program<Init, State, Action, View> = {
   readonly subscriptions?: (state: State) => Sub<Action> | undefined;
 };
 
+// The ManagerAction type only exists to ensure proper typing internally.
+const managerActionTag = Symbol("managerActionTag");
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type ManagerAction = { readonly [managerActionTag]: void };
+
 /**
  * This is the runtime that provides the main loop to run a Program.
  * Given a Program and an array of EffectManagers it will start the program
@@ -28,7 +33,7 @@ export function run<Init, State, Action, View>(
   program: Program<Init, State, Action, View>,
   init: Init,
   render: (view: View) => void,
-  effectManagers: ReadonlyArray<EffectManager<string, unknown, unknown>> = []
+  effectManagers: ReadonlyArray<EffectManager<string, Action, unknown>> = []
 ): () => void {
   const getEffectManager = createGetEffectManager(effectManagers);
   const { update, view, subscriptions } = program;
@@ -38,11 +43,11 @@ export function run<Init, State, Action, View>(
   let isRunning = false;
   let isProcessing = false;
   const actionQueue: Array<{
-    dispatch: Dispatch<unknown>;
-    action: unknown;
+    dispatch: Dispatch<Action | ManagerAction>;
+    action: Action | ManagerAction;
   }> = [];
-  // Init to an object that the appliction has no reference to so intial change always runs
-  let prevState = {};
+  // Init to a symbol that the appliction has no reference to so intial change always runs
+  let prevState: State | symbol = Symbol("initial prevState");
 
   function processActions(): void {
     if (!isRunning || isProcessing) {
@@ -58,7 +63,7 @@ export function run<Init, State, Action, View>(
 
   const dispatchManager =
     (home: string) =>
-    (action: Action): void => {
+    (action: ManagerAction): void => {
       if (isRunning) {
         const manager = getEffectManager(home);
         const enqueueSelfAction = enqueueManagerAction(home);
@@ -71,7 +76,7 @@ export function run<Init, State, Action, View>(
       }
     };
 
-  function dispatchApp(action: Action): void {
+  function dispatchProgram(action: Action): void {
     if (isRunning) {
       change(update(action, state));
     }
@@ -79,15 +84,15 @@ export function run<Init, State, Action, View>(
 
   const enqueueManagerAction =
     (home: string) =>
-    (action: unknown): void => {
+    (action: ManagerAction): void => {
       enqueueRaw(dispatchManager(home), action);
     };
 
   const enqueueProgramAction = (action: Action): void => {
-    enqueueRaw(dispatchApp, action);
+    enqueueRaw(dispatchProgram, action);
   };
 
-  function enqueueRaw(dispatch: Dispatch<Action>, action: unknown): void {
+  function enqueueRaw(dispatch: Dispatch<Action | ManagerAction>, action: Action | ManagerAction): void {
     if (isRunning) {
       actionQueue.push({ dispatch, action });
       processActions();
