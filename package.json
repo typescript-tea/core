@@ -51,9 +51,8 @@
   "scripts": {
     "build": "tsc -b",
     "clean": "tsc -b --clean && rimraf lib && rimraf dist",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
-    "test:work": "jest src/__tests__/program.test.ts",
+    "test": "vitest",
+    "test-coverage": "vitest run --coverage",
     "lint": "eslint './src/**/*.ts{,x}' --ext .js,.ts,.tsx -f visualstudio",
     "dist": "yarn build && rimraf dist && microbundle src/index.ts",
     "verify": "yarn lint && yarn test-coverage && yarn dist",
