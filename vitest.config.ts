@@ -5,5 +5,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
   test: {
     include: ["src/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
+    coverage: {
+      include: ["src/**/*.[jt]s?(x)"],
+    },
   },
 });
