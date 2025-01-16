@@ -4,7 +4,7 @@
     "outDir": "lib",
     "target": "ES2015",
     "module": "ES2015",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
