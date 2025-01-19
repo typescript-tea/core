@@ -9,7 +9,8 @@
  * This is an internal module which is not intended for outside usage.
  * Please use only the Cmd and Sub modules externally.
  */
-export type Effect<A> = BatchedEffect<A> | MappedEffect<A, unknown> | LeafEffect<A>;
+
+export type Effect<A> = BatchedEffect<A> | MappedEffect<unknown, A> | LeafEffect<A>;
 
 export const InternalHome = "__internal";
 export type InternalHome = typeof InternalHome;
