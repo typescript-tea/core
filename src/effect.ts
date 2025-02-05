@@ -9,7 +9,8 @@
  * This is an internal module which is not intended for outside usage.
  * Please use only the Cmd and Sub modules externally.
  */
-export type Effect<A> = BatchedEffect<A> | MappedEffect<A, unknown> | LeafEffect<A>;
+
+export type Effect<A> = BatchedEffect<A> | MappedEffect<unknown, A> | LeafEffect<A>;
 
 export const InternalHome = "__internal";
 export type InternalHome = typeof InternalHome;
@@ -29,7 +30,7 @@ export type MappedEffect<A1, A2> = {
   readonly home: InternalHome;
   readonly type: "Mapped";
   readonly actionMapper: (a1: A1) => A2;
-  readonly original: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1>;
+  readonly original: BatchedEffect<A1> | MappedEffect<unknown, A1> | LeafEffect<A1>;
 };
 
 export function batchEffects<A>(effects: ReadonlyArray<Effect<A> | undefined>): BatchedEffect<A> {
@@ -42,7 +43,7 @@ export function batchEffects<A>(effects: ReadonlyArray<Effect<A> | undefined>): 
 
 export function mapEffect<A1, A2>(
   actionMapper: (a1: A1) => A2,
-  c: BatchedEffect<A1> | MappedEffect<A1, A2> | LeafEffect<A1> | undefined
+  c: BatchedEffect<A1> | MappedEffect<unknown, A1> | LeafEffect<A1> | undefined
 ): MappedEffect<A1, A2> | undefined {
   return c === undefined ? undefined : { home: InternalHome, type: "Mapped", actionMapper, original: c };
 }
