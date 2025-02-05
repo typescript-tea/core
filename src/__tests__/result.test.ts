@@ -1,3 +1,4 @@
+import { expect, test } from "vitest";
 import * as Result from "../result";
 
 test("Can create Ok", () => {

@@ -1,3 +1,4 @@
+import { expect, test } from "vitest";
 import * as Dispatch from "../dispatch";
 
 test("Function is memoized", () => {
